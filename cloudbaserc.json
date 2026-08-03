@@ -1,0 +1,11 @@
+{
+  "envId": "cloud1-d6gvwf6q09e5e6577",
+  "functionRoot": "cloudfunctions",
+  "functions": [
+    { "name": "upload" },
+    { "name": "getSnapshot" },
+    { "name": "drawTask" },
+    { "name": "getUploads" },
+    { "name": "correctSubject" }
+  ]
+}
