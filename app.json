@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/mastery/index/index",
+    "pages/mastery/detail/detail",
+    "pages/tasks/tasks",
+    "pages/upload/upload"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "伊菲学习管理系统",
+    "backgroundColor": "#f5f6fa",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#9aa0a6",
+    "selectedColor": "#4a90d9",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/mastery/index/index", "text": "掌握情况" },
+      { "pagePath": "pages/tasks/tasks", "text": "今日任务" },
+      { "pagePath": "pages/upload/upload", "text": "上传作业" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

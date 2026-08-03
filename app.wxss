@@ -1,0 +1,43 @@
+/* 伊菲学习管理系统 · 全局样式 */
+page {
+  background: #f5f6fa;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  color: #2c3038;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  margin: 20rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.muted {
+  color: #9aa0a6;
+  font-size: 24rpx;
+}
+
+.center {
+  text-align: center;
+}
+
+.btn-primary {
+  background: #4a90d9;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+}
+
+.btn-ghost {
+  background: #eef3fb;
+  color: #4a90d9;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin: 8rpx 0 12rpx;
+}

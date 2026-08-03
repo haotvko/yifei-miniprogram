@@ -1,0 +1,35 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="center muted" style="padding:60rpx;">加载中…</view>
+
+  <block wx:else>
+    <view class="card summary" wx:if="{{summary}}">
+      <view class="sum-row">
+        <view class="sum-item">
+          <view class="sum-num">{{summary.mastery_pct_text}}</view>
+          <view class="muted">语数英合计掌握度</view>
+        </view>
+        <view class="sum-item">
+          <view class="sum-num">{{summary.predicted_text}}</view>
+          <view class="muted">语数英合计预测分</view>
+        </view>
+      </view>
+      <view class="muted sum-note">{{summary.untested_300_note}}</view>
+    </view>
+
+    <view class="muted" style="margin:8rpx 24rpx;">{{updatedText}}</view>
+
+    <view class="subj-card card" wx:for="{{subjects}}" wx:key="key"
+          bindtap="goDetail" data-key="{{item.key}}">
+      <view class="subj-left">
+        <view class="subj-name">{{item.name}}</view>
+        <view class="muted" wx:if="{{item.status==='pending'}}">待评估 · 未上传</view>
+        <view class="muted" wx:else>{{item.weak_count}} 处待补 · {{item.key_hint}}</view>
+      </view>
+      <view class="subj-right">
+        <view class="ring ring-{{item.color}}">
+          <text class="ring-num">{{item.mastery_text}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

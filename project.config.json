@@ -1,0 +1,18 @@
+{
+  "miniprogramRoot": "./",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "projectname": "伊菲学习管理系统",
+  "appid": "wxYOUR_APPID_HERE",
+  "description": "伊菲学习管理系统 —— 家长/孩子手机端掌握情况·今日任务·上传作业",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest",
+  "condition": {}
+}

@@ -1,0 +1,9 @@
+{
+  "name": "drawTask",
+  "version": "1.0.0",
+  "description": "从任务池抽卡",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

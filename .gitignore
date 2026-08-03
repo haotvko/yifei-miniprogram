@@ -1,0 +1,28 @@
+# ===== secrets / local config =====
+.env
+*.local
+pipeline/config.json
+project.private.config.json
+
+# ===== node =====
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ===== python =====
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== WeChat private (devtools local) =====
+private/
+
+# ===== generated artifacts =====
+pipeline/snapshot.json
+pipeline/snapshot.push.json
+archive_inbox/

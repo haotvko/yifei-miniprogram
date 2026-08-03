@@ -1,0 +1,22 @@
+.page { padding-bottom: 40rpx; }
+
+.summary { background: linear-gradient(135deg, #eef3fb, #ffffff); }
+.sum-row { display: flex; justify-content: space-around; }
+.sum-item { text-align: center; }
+.sum-num { font-size: 52rpx; font-weight: 700; color: #2c3038; }
+.sum-note { margin-top: 12rpx; text-align: center; }
+
+.subj-card { display: flex; align-items: center; justify-content: space-between; }
+.subj-name { font-size: 34rpx; font-weight: 600; }
+.subj-left { flex: 1; }
+
+.ring {
+  width: 116rpx; height: 116rpx; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 8rpx solid #ccc;
+}
+.ring-num { font-size: 30rpx; font-weight: 700; }
+.ring-green { border-color: #34c759; color: #34c759; }
+.ring-blue  { border-color: #4a90d9; color: #4a90d9; }
+.ring-yellow{ border-color: #f5a623; color: #f5a623; }
+.ring-gray  { border-color: #c7ccd4; color: #9aa0a6; }

@@ -1,0 +1,7 @@
+{
+  "appid": "wxYOUR_APPID_HERE",
+  "secret": "YOUR_MP_APPSECRET_HERE",
+  "env": "your-cloud-env-id",
+  "dry_run": true,
+  "archive_dir": "F:/workbuddy/2026-07-31-14-27-31/yifei-miniprogram/archive_inbox"
+}

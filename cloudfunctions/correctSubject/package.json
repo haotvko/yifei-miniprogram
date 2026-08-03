@@ -1,0 +1,9 @@
+{
+  "name": "correctSubject",
+  "version": "1.0.0",
+  "description": "纠正学科误判",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,20 @@
+.page { padding-bottom: 40rpx; }
+
+.up-btn { margin-top: 16rpx; }
+
+.rec {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18rpx 0; border-bottom: 1rpx solid #f0f1f3;
+}
+.rec:last-child { border-bottom: none; }
+.rec-status {
+  display: inline-block; font-size: 24rpx; padding: 4rpx 16rpx; border-radius: 20rpx; margin-bottom: 6rpx;
+}
+.status-pending { background: #eef3fb; color: #4a90d9; }
+.status-done { background: #e7f7ec; color: #34c759; }
+.status-rejected_irrelevant { background: #f3f4f6; color: #9aa0a6; }
+
+.fix-btn {
+  font-size: 24rpx; color: #4a90d9; background: #eef3fb;
+  padding: 8rpx 20rpx; border-radius: 24rpx;
+}
