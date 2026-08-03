@@ -1,23 +1,20 @@
 .page { padding-bottom: 40rpx; }
 
-/* 渐变 hero */
-.hero { margin: 0 0 8rpx; padding: 40rpx 36rpx 44rpx; border-radius: 0 0 36rpx 36rpx; color: #fff; }
-.hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.hero-hi { font-size: 38rpx; font-weight: 800; }
-.hero-sub { font-size: 26rpx; opacity: 0.92; margin-top: 8rpx; }
-.hero-avatar {
-  width: 76rpx; height: 76rpx; border-radius: 50%;
-  background: rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center;
-  font-size: 40rpx;
+/* 渐变 hero（横向紧凑） */
+.hero {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 0 8rpx; padding: 28rpx 32rpx 30rpx;
+  border-radius: 0 0 28rpx 28rpx; color: #fff;
 }
-
-.hero-ring { display: flex; flex-direction: column; align-items: center; margin: 30rpx 0 10rpx; }
-.hero-ring-label { font-size: 24rpx; opacity: 0.95; margin-top: 18rpx; }
-
-.hero-foot { display: flex; justify-content: center; }
-.hero-stat { background: rgba(255,255,255,0.18); border-radius: 20rpx; padding: 16rpx 40rpx; text-align: center; }
-.hs-num { display: block; font-size: 40rpx; font-weight: 800; }
-.hs-label { display: block; font-size: 22rpx; opacity: 0.9; margin-top: 4rpx; }
+.hero-left { flex: 1; padding-right: 20rpx; }
+.hero-hi { font-size: 34rpx; font-weight: 800; }
+.hero-sub { font-size: 24rpx; opacity: 0.92; margin-top: 6rpx; }
+.hero-stat {
+  margin-top: 16rpx; background: rgba(255,255,255,0.18);
+  border-radius: 16rpx; padding: 10rpx 20rpx; display: inline-block;
+}
+.hs-num { font-size: 34rpx; font-weight: 800; }
+.hs-label { font-size: 20rpx; opacity: 0.9; margin-left: 10rpx; }
 
 .upd { margin: 16rpx 24rpx 0; text-align: center; }
 

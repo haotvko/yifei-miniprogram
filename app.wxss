@@ -45,11 +45,16 @@ page {
 
 .ring-lg { width: 220rpx; height: 220rpx; }
 .ring-mask-lg { top: 20rpx; left: 20rpx; right: 20rpx; bottom: 20rpx; }
-.ring-num-lg { font-size: 52rpx; font-weight: 800; color: #ffffff; }
+.ring-num-lg { font-size: 52rpx; font-weight: 800; color: #2b2f38; }
 
 .ring-xl { width: 240rpx; height: 240rpx; }
 .ring-mask-xl { top: 22rpx; left: 22rpx; right: 22rpx; bottom: 22rpx; }
-.ring-num-xl { font-size: 56rpx; font-weight: 800; color: #ffffff; }
+.ring-num-xl { font-size: 56rpx; font-weight: 800; color: #2b2f38; }
+
+/* 中号环：用于横向紧凑 hero */
+.ring-md { width: 150rpx; height: 150rpx; }
+.ring-mask-md { top: 14rpx; left: 14rpx; right: 14rpx; bottom: 14rpx; }
+.ring-num-md { font-size: 32rpx; font-weight: 800; color: #2b2f38; }
 
 /* 状态 pill（颜色编码：绿=好 蓝=中上 橙=中 红=弱 灰=未测） */
 .pill { display: inline-block; padding: 6rpx 18rpx; border-radius: 24rpx; font-size: 22rpx; font-weight: 600; }

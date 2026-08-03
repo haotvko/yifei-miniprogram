@@ -1,35 +1,41 @@
 <view class="page" wx:if="{{!loading && subject}}">
-  <!-- 渐变 hero：科目名 + 大进度环 -->
+  <!-- 渐变 hero（横向紧凑）：科目名 + 综合掌握度环 -->
   <view class="hero grad-primary">
-    <view class="hero-name">{{subject.name}}</view>
-    <view class="hero-ring">
-      <view class="ring ring-xl" style="background: conic-gradient({{subject.ringColor}} {{subject.ringPct}}%, rgba(255,255,255,0.22) 0);">
-        <view class="ring-mask ring-mask-xl">
-          <text class="ring-num-xl">{{subject.mastery_text}}</text>
-        </view>
-      </view>
-      <view class="hero-ring-label">综合掌握度</view>
+    <view class="hero-left">
+      <view class="hero-name">{{subject.name}}</view>
+      <view class="hero-hint">{{subject.key_hint}}</view>
     </view>
-    <view class="hero-hint">{{subject.key_hint}}</view>
+    <view class="ring ring-md" style="background: conic-gradient({{subject.ringColor}} {{subject.ringPct}}%, rgba(255,255,255,0.22) 0);">
+      <view class="ring-mask ring-mask-md">
+        <text class="ring-num-md">{{subject.mastery_text}}</text>
+      </view>
+    </view>
   </view>
 
-  <!-- 知识点掌握（薄弱优先） -->
-  <view class="card" wx:if="{{points.length}}">
-    <view class="section-title">📊 知识点掌握（薄弱优先）</view>
-    <view class="pt" wx:for="{{points}}" wx:key="point">
-      <view class="pt-head">
-        <text class="pt-name">{{item.point}}</text>
+  <!-- 核心问题（最该攻克的薄弱点，红/黄优先） -->
+  <view class="card" wx:if="{{core.length}}">
+    <view class="section-title">🚨 核心问题（优先攻克）</view>
+    <view class="core" wx:for="{{core}}" wx:key="point">
+      <view class="core-head">
+        <text class="core-emoji">{{item.emoji}}</text>
+        <text class="core-name">{{item.point}}</text>
         <text class="pill pill-{{item.status}}">{{item.pct_text}} · {{item.status_label}}</text>
       </view>
-      <view class="bar"><view class="bar-fill bar-{{item.status}}" style="width:{{item.barPct}}"></view></view>
-      <view class="muted pt-ev">{{item.evidence}}</view>
+      <view class="muted core-why">{{item.why}}</view>
     </view>
   </view>
 
-  <!-- 待测板块 -->
-  <view class="card" wx:if="{{subject.untested.length}}">
-    <view class="section-title">📝 待测板块</view>
-    <view class="muted">{{subject.untested.join('、')}} —— 可上传补充材料（录音 / 作文照片）</view>
+  <view class="card center" wx:elif="{{!mastered.length}}">
+    <view class="empty-emoji">🎉</view>
+    <view class="muted">暂无核心问题，继续保持！</view>
+  </view>
+
+  <!-- 已掌握（绿色点） -->
+  <view class="card" wx:if="{{mastered.length}}">
+    <view class="section-title">✅ 已掌握（{{mastered.length}}）</view>
+    <view class="mastered">
+      <text class="tag" wx:for="{{mastered}}" wx:key="point">{{item.point}}</text>
+    </view>
   </view>
 
   <view class="muted center foot">数据截至快照生成日 · 仅展示派生看板</view>

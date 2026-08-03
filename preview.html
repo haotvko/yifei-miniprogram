@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>伊菲学习管理系统 · 界面预览 v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #eef2fb 0%, #e7ecf8 100%);
+    color: #2b2f38; padding: 40px 20px 60px; min-height: 100vh;
+  }
+  h1 { text-align: center; font-size: 26px; font-weight: 800; color: #2b2f38; }
+  .sub { text-align: center; color: #6b7180; margin: 8px 0 36px; font-size: 15px; }
+  .wrap { display: flex; flex-wrap: wrap; gap: 28px; justify-content: center; align-items: flex-start; }
+
+  /* 手机外框 */
+  .phone {
+    width: 320px; background: #f4f6fb; border-radius: 38px; padding: 14px 12px 18px;
+    box-shadow: 0 24px 60px rgba(45,67,121,0.22), 0 0 0 10px #1c2030, 0 0 0 12px #2b2f38;
+    overflow: hidden;
+  }
+  .phone-title { text-align: center; font-size: 13px; color: #9aa1ad; margin: 4px 0 12px; font-weight: 600; }
+  .screen { background: #f4f6fb; border-radius: 26px; overflow: hidden; }
+
+  /* 渐变 hero（横向紧凑） */
+  .hero { background: linear-gradient(135deg, #5b8def, #7c6bff); color: #fff; padding: 18px 20px 20px; border-radius: 0 0 26px 26px; display:flex; align-items:center; justify-content:space-between; }
+  .hero-left { flex:1; padding-right:14px; }
+  .hero-hi { font-size: 19px; font-weight: 800; }
+  .hero-sub { font-size: 12px; opacity: .92; margin-top: 4px; }
+  .hero-stat { display:inline-block; background: rgba(255,255,255,.18); border-radius: 14px; padding: 8px 16px; margin-top:12px; }
+  .hs-num { font-size: 20px; font-weight: 800; }
+  .hs-label { font-size: 11px; opacity:.9; margin-left:8px; }
+
+  /* 进度环 */
+  .ring { width: 116px; height: 116px; border-radius: 50%; position: relative; background: conic-gradient(var(--c) calc(var(--p)*1%), rgba(255,255,255,.22) 0); }
+  .ring-mask { position:absolute; inset:11px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .ring-num { font-size: 24px; font-weight: 800; color:#2b2f38; }
+  .ring-md { width: 78px; height: 78px; }
+  .ring-md .ring-mask { inset:9px; }
+  .ring-md .ring-num { font-size: 16px; }
+
+  /* 卡片 */
+  .card { background:#fff; border-radius: 18px; padding: 16px; margin: 12px; box-shadow: 0 6px 18px rgba(45,67,121,.07); }
+  .muted { color:#9aa1ad; font-size:12px; }
+  .upd { text-align:center; color:#9aa1ad; font-size:12px; margin: 12px 0 4px; }
+  .foot { color:#9aa1ad; font-size:12px; text-align:center; margin: 4px 12px 14px; }
+
+  /* 科目行 */
+  .subj { display:flex; align-items:center; }
+  .subj-emoji { width:46px;height:46px;border-radius:13px;background:#eef2ff;display:flex;align-items:center;justify-content:center;font-size:24px;margin-right:12px; }
+  .subj-mid { flex:1; }
+  .subj-name { font-size:17px; font-weight:700; }
+  .subj-sub { margin-top:3px; }
+
+  /* 状态 pill */
+  .pill { display:inline-block; padding:3px 10px; border-radius:14px; font-size:11px; font-weight:700; }
+  .pill-green{background:#e7f7ec;color:#22a44e;} .pill-blue{background:#eaf0ff;color:#5b6ef0;}
+  .pill-orange{background:#fff3e0;color:#e08a1e;} .pill-red{background:#fdecec;color:#e04646;} .pill-gray{background:#f1f2f5;color:#9aa1ad;}
+
+  .section-title { font-size:15px; font-weight:800; margin: 4px 0 10px; }
+  /* 知识点条 */
+  .pt { padding:10px 0; border-bottom:1px solid #f0f1f5; }
+  .pt:last-child{border:none;}
+  .pt-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+  .pt-name{font-size:14px;font-weight:600;}
+  .bar{height:9px;background:#eef0f3;border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;}
+  .bar-red{background:linear-gradient(90deg,#ff8a8a,#e04646);} .bar-yellow{background:linear-gradient(90deg,#ffc56b,#ffa726);} .bar-green{background:linear-gradient(90deg,#6ee29a,#34c759);}
+
+  /* 核心问题 + 已掌握 */
+  .core { padding:10px 0; border-bottom:1px solid #f0f1f5; }
+  .core:last-child{border:none;}
+  .core-head{display:flex;align-items:center;margin-bottom:6px;}
+  .core-emoji{font-size:16px;margin-right:8px;}
+  .core-name{flex:1;font-size:14px;font-weight:600;}
+  .core-why{font-size:11px;line-height:1.5;color:#6b7180;}
+  .mastered{display:flex;flex-wrap:wrap;}
+  .tag{display:inline-block;background:#e7f7ec;color:#22a44e;font-size:12px;padding:5px 11px;border-radius:13px;margin:5px 7px 5px 0;}
+
+  /* 按钮 */
+  .btn { background:linear-gradient(135deg,#5b8def,#7c6bff); color:#fff; border-radius:24px; text-align:center; font-weight:700; font-size:15px; padding:13px; box-shadow:0 8px 20px rgba(91,141,239,.35); }
+  .btn-ghost { background:#eef2ff; color:#5b6ef0; }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .chip{padding:8px 14px;background:#f0f1f5;color:#6b7180;border-radius:18px;font-size:13px;font-weight:600;}
+  .chip-on{background:#eef2ff;color:#5b6ef0;border:1.5px solid #5b6ef0;}
+
+  .tc-badge{display:inline-block;font-size:12px;font-weight:700;color:#5b6ef0;background:#eef2ff;padding:4px 12px;border-radius:14px;margin-bottom:8px;}
+  .tc-title{font-size:18px;font-weight:800;margin:2px 0 12px;line-height:1.35;}
+  .tc-line{font-size:13px;margin:8px 0;line-height:1.5;color:#444b57;}
+  .tc-label{display:inline-block;min-width:42px;font-size:11px;font-weight:700;color:#6b7180;background:#f0f1f5;border-radius:6px;text-align:center;margin-right:8px;padding:2px 0;}
+  .tc-label.red{background:#fdecec;color:#e04646;} .tc-label.blue{background:#eaf0ff;color:#5b6ef0;}
+
+  .up-icon{width:60px;height:60px;border-radius:18px;margin:0 auto 12px;background:linear-gradient(135deg,#5b8def,#7c6bff);display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 8px 20px rgba(91,141,239,.35);}
+  .rec{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0f1f5;}
+  .rec:last-child{border:none;}
+  .rec-status{display:inline-block;font-size:12px;padding:4px 11px;border-radius:13px;font-weight:700;}
+  .fix-btn{font-size:12px;color:#5b6ef0;background:#eef2ff;padding:6px 13px;border-radius:14px;font-weight:600;}
+
+  .empty{display:flex;flex-direction:column;align-items:center;padding:50px 0;}
+  .empty-emoji{font-size:48px;margin-bottom:12px;}
+  .swatch{display:flex;gap:8px;justify-content:center;margin:30px 0 0;flex-wrap:wrap;}
+  .sw{width:54px;height:54px;border-radius:14px;display:flex;align-items:flex-end;justify-content:center;font-size:10px;color:#fff;font-weight:700;padding-bottom:6px;}
+</style>
+</head>
+<body>
+  <h1>伊菲学习管理系统 · 界面预览 v2</h1>
+  <div class="sub">温暖教育风 · 状态用颜色编码（绿=好 蓝=中上 橙=中 红=弱 灰=未测）· 真实进度环</div>
+
+  <div class="wrap">
+
+    <!-- 掌握情况首页 -->
+    <div class="phone">
+      <div class="phone-title">① 掌握情况（首页）</div>
+      <div class="screen">
+        <div class="hero">
+          <div class="hero-left">
+            <div class="hero-hi">伊菲的学习看板 👋</div>
+            <div class="hero-sub">语数英一起，稳步提分</div>
+            <div class="hero-stat"><span class="hs-num">297 / 450</span><span class="hs-label">预测分</span></div>
+          </div>
+          <div class="ring ring-md" style="--c:#5b8def;--p:68"><div class="ring-mask"><span class="ring-num">68%</span></div></div>
+        </div>
+        <div class="upd">数据截至 2026-08-03</div>
+        <div class="card subj">
+          <div class="subj-emoji">📘</div>
+          <div class="subj-mid"><div class="subj-name">英语</div><div class="muted subj-sub">2 处待补 · 词性转换</div></div>
+          <div class="ring" style="--c:#5b8def;--p:60"><div class="ring-mask"><span class="ring-num">60%</span></div></div>
+        </div>
+        <div class="card subj">
+          <div class="subj-emoji">📐</div>
+          <div class="subj-mid"><div class="subj-name">数学</div><div class="muted subj-sub">1 处待补 · 符号管理</div></div>
+          <div class="ring" style="--c:#34c759;--p:76"><div class="ring-mask"><span class="ring-num">76%</span></div></div>
+        </div>
+        <div class="card subj">
+          <div class="subj-emoji">📖</div>
+          <div class="subj-mid"><div class="subj-name">语文</div><div class="muted subj-sub">待评估 · 还没上传作业</div></div>
+          <div class="ring" style="--c:#c7ccd4;--p:0"><div class="ring-mask"><span class="ring-num">待测</span></div></div>
+        </div>
+        <div class="foot">点科目查看薄弱知识点 · 数据来自伊菲真实作业</div>
+      </div>
+    </div>
+
+    <!-- 科目详情 -->
+    <div class="phone">
+      <div class="phone-title">② 科目详情（英语）</div>
+      <div class="screen">
+        <div class="hero">
+          <div class="hero-left">
+            <div class="hero-hi" style="font-size:20px;font-weight:800;">英语</div>
+            <div class="hero-sub">词性转换高频失分</div>
+          </div>
+          <div class="ring ring-md" style="--c:#5b8def;--p:60"><div class="ring-mask"><span class="ring-num">60%</span></div></div>
+        </div>
+        <div class="card">
+          <div class="section-title">🚨 核心问题（优先攻克）</div>
+          <div class="core">
+            <div class="core-head"><span class="core-emoji">🔴</span><span class="core-name">名→形 词性转换</span><span class="pill pill-red">待补</span></div>
+            <div class="core-why">10 张作业 33 错，名→形失分最密，需优先补强</div>
+          </div>
+          <div class="core">
+            <div class="core-head"><span class="core-emoji">🟡</span><span class="core-name">基础语法 时态</span><span class="pill pill-yellow">薄弱 · 60%</span></div>
+            <div class="core-why">时态一致错误较多，建议专项练习</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title">✅ 已掌握（1）</div>
+          <div class="mastered"><span class="tag">阅读理解 主旨</span></div>
+        </div>
+        <div class="foot">数据截至快照生成日 · 仅展示派生看板</div>
+      </div>
+    </div>
+
+    <!-- 今日任务 -->
+    <div class="phone">
+      <div class="phone-title">③ 今日任务</div>
+      <div class="screen">
+        <div class="card">
+          <div class="section-title">🎯 今日任务 · 选科目生成</div>
+          <div class="muted">任务池更新于：2026-08-03</div>
+          <div class="chips">
+            <div class="chip chip-on">英语 · 2</div>
+            <div class="chip chip-on">数学 · 1</div>
+            <div class="chip">语文 · 0</div>
+          </div>
+          <div class="btn">生成今日任务</div>
+        </div>
+        <div class="card" style="border-left:5px solid #5b6ef0;">
+          <div class="tc-badge">英语</div>
+          <div class="tc-title">wonder → wonderful 名转形</div>
+          <div class="tc-line"><span class="tc-label">原词</span> wonder</div>
+          <div class="tc-line"><span class="tc-label">目标词</span> wonderful</div>
+          <div class="tc-line"><span class="tc-label red">规则</span> 名词+y→形容词，表"充满…的"</div>
+          <div class="tc-line"><span class="tc-label">怎么学</span> 造句 3 遍 + 默写</div>
+          <div class="tc-line"><span class="tc-label blue">为什么</span> 名→形是上海卷最高频失分点</div>
+          <div class="btn btn-ghost" style="margin-top:10px;">保存 / 打印图片</div>
+        </div>
+        <div class="empty"><div class="empty-emoji">🪄</div><div class="muted">勾选科目后点「生成今日任务」</div></div>
+      </div>
+    </div>
+
+    <!-- 上传作业 -->
+    <div class="phone">
+      <div class="phone-title">④ 上传作业</div>
+      <div class="screen">
+        <div class="card" style="text-align:center;">
+          <div class="up-icon">📷</div>
+          <div class="section-title">上传作业（仅照片）</div>
+          <div class="muted">拍照或选图直接提交，不分科目。AI 上线后自动识别科目并分析，处理完即清理云端原图。</div>
+          <div class="btn" style="margin-top:14px;">📷 拍照 / 选图上传</div>
+          <div class="muted" style="text-align:center;margin-top:8px;">仅支持照片，不支持视频</div>
+        </div>
+        <div class="card">
+          <div class="section-title">📋 提交记录</div>
+          <div class="rec">
+            <div><span class="rec-status" style="background:#e7f7ec;color:#22a44e;">已分析</span><div class="muted" style="margin-top:4px;">2026-08-03</div></div>
+            <div style="text-align:right;"><div class="muted">AI 识别：英语</div><div class="fix-btn">看错了？</div></div>
+          </div>
+          <div class="rec">
+            <div><span class="rec-status" style="background:#eef2ff;color:#5b6ef0;">待分析</span><div class="muted" style="margin-top:4px;">2026-08-04</div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="empty"><div class="empty-emoji">🖼️</div><div class="muted">还没有提交记录，上传第一张试试</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="swatch">
+    <div class="sw" style="background:#5b8def;">主色</div>
+    <div class="sw" style="background:#34c759;">好</div>
+    <div class="sw" style="background:#ffa726;">中</div>
+    <div class="sw" style="background:#e04646;">弱</div>
+    <div class="sw" style="background:#c7ccd4;">未测</div>
+  </div>
+</body>
+</html>

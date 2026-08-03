@@ -1,21 +1,29 @@
 .page { padding-bottom: 40rpx; }
 
-/* 渐变 hero */
-.hero { margin: 0 0 8rpx; padding: 36rpx 36rpx 44rpx; border-radius: 0 0 36rpx 36rpx; color: #fff; text-align: center; }
-.hero-name { font-size: 40rpx; font-weight: 800; }
-.hero-ring { display: flex; flex-direction: column; align-items: center; margin: 28rpx 0 10rpx; }
-.hero-ring-label { font-size: 24rpx; opacity: 0.95; margin-top: 18rpx; }
-.hero-hint { font-size: 26rpx; opacity: 0.92; }
+/* 渐变 hero（横向紧凑） */
+.hero {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 0 8rpx; padding: 28rpx 32rpx 30rpx;
+  border-radius: 0 0 28rpx 28rpx; color: #fff;
+}
+.hero-left { flex: 1; padding-right: 20rpx; }
+.hero-name { font-size: 36rpx; font-weight: 800; }
+.hero-hint { font-size: 24rpx; opacity: 0.92; margin-top: 8rpx; }
 
-/* 知识点 */
-.pt { padding: 18rpx 0; border-bottom: 1rpx solid #f0f1f5; }
-.pt:last-child { border-bottom: none; }
-.pt-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12rpx; }
-.pt-name { font-size: 28rpx; font-weight: 600; }
-.pt-ev { margin-top: 10rpx; font-size: 22rpx; }
+/* 核心问题 */
+.core { padding: 18rpx 0; border-bottom: 1rpx solid #f0f1f5; }
+.core:last-child { border-bottom: none; }
+.core-head { display: flex; align-items: center; margin-bottom: 8rpx; }
+.core-emoji { font-size: 30rpx; margin-right: 12rpx; }
+.core-name { flex: 1; font-size: 28rpx; font-weight: 600; }
+.core-why { font-size: 22rpx; line-height: 1.5; }
 
-.bar { height: 16rpx; background: #eef0f3; border-radius: 10rpx; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 10rpx; transition: width 0.4s ease; }
-.bar-red    { background: linear-gradient(90deg, #ff8a8a, #e04646); }
-.bar-yellow { background: linear-gradient(90deg, #ffc56b, #ffa726); }
-.bar-green  { background: linear-gradient(90deg, #6ee29a, #34c759); }
+/* 已掌握标签 */
+.mastered { display: flex; flex-wrap: wrap; }
+.tag {
+  display: inline-block; background: #e7f7ec; color: #22a44e;
+  font-size: 24rpx; padding: 8rpx 20rpx; border-radius: 24rpx; margin: 8rpx 12rpx 8rpx 0;
+}
+
+/* 空状态 */
+.empty-emoji { font-size: 56rpx; text-align: center; margin-bottom: 10rpx; }
