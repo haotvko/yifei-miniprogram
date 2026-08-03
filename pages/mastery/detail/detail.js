@@ -1,14 +1,19 @@
 const app = getApp();
 const { callFunction } = require('../../../utils/api.js');
 
-const COLOR = { green: '#34c759', blue: '#5b8def', yellow: '#ffa726', gray: '#c7ccd4' };
+const COLOR = { red: '#e04646', yellow: '#ffa726', blue: '#5b8def', green: '#34c759', gray: '#c7ccd4' };
 function colorOf(c) { return COLOR[c] || COLOR.gray; }
-function pctText(p) {
-  return p == null ? '待测' : Math.round(p * 100) + '%';
+function pctText(p) { return p == null ? '未测' : Math.round(p * 100) + '%'; }
+function statusLabel(s) {
+  return s === 'red' ? '待补' : s === 'yellow' ? '薄弱' : s === 'blue' ? '良好' : s === 'green' ? '已掌握' : '未测';
+}
+function pillClass(s) {
+  return s === 'red' ? 'pill-red' : s === 'yellow' ? 'pill-yellow' : s === 'blue' ? 'pill-blue'
+    : s === 'green' ? 'pill-green' : 'pill-gray';
 }
 
 Page({
-  data: { subject: null, core: [], main: [], loading: true },
+  data: { subject: null, items: [], core: [], loading: true },
 
   onLoad(options) {
     this.key = options.key;
@@ -29,27 +34,29 @@ Page({
     const subj = snap.subjects.find(s => s.key === this.key);
     if (!subj) { this.setData({ loading: false }); return; }
 
-    const all = (subj.points || []).map(p => ({
-      ...p,
+    // 全项评分卡：每一项都有掌握度评分（未测排最后）
+    const items = (subj.points || []).slice().sort((a, b) => {
+      const av = a.mastery_pct == null ? 2 : a.mastery_pct;
+      const bv = b.mastery_pct == null ? 2 : b.mastery_pct;
+      return av - bv;
+    }).map(p => ({
+      point: p.point,
       pct_text: pctText(p.mastery_pct),
-      status_label: p.status === 'red' ? '待补' : (p.status === 'yellow' ? '薄弱' : '已掌握')
+      barPct: (p.mastery_pct == null ? 4 : Math.max(4, Math.round(p.mastery_pct * 100))) + '%',
+      color: colorOf(p.status),
+      status_label: statusLabel(p.status)
     }));
 
-    // 核心问题：红色「待补」硬伤，最该先攻
-    const core = all.filter(p => p.status === 'red').map(p => ({
-      point: p.point,
-      pct_text: p.pct_text,
-      status_label: p.status_label,
-      why: (p.evidence && p.evidence.trim()) ? p.evidence : '建议优先安排针对性练习'
-    }));
-
-    // 主要问题：黄色「薄弱」需补强点
-    const main = all.filter(p => p.status === 'yellow').map(p => ({
-      point: p.point,
-      pct_text: p.pct_text,
-      status_label: p.status_label,
-      why: (p.evidence && p.evidence.trim()) ? p.evidence : '建议安排巩固练习'
-    }));
+    // 核心薄弱项：红(待补)+黄(薄弱)，最该先攻，带去练习
+    const core = (subj.points || [])
+      .filter(p => p.status === 'red' || p.status === 'yellow')
+      .map(p => ({
+        point: p.point,
+        pct_text: pctText(p.mastery_pct),
+        status_label: statusLabel(p.status),
+        pill_class: pillClass(p.status),
+        why: (p.evidence && p.evidence.trim()) ? p.evidence : '建议优先安排针对性练习'
+      }));
 
     wx.setNavigationBarTitle({ title: subj.name + ' · 掌握情况' });
     this.setData({
@@ -59,9 +66,15 @@ Page({
         ringPct: subj.mastery_pct == null ? 0 : Math.round(subj.mastery_pct * 100),
         ringColor: colorOf(subj.color)
       },
+      items,
       core,
-      main,
       loading: false
     });
+  },
+
+  goPractice() {
+    const key = this.data.subject && this.data.subject.key;
+    if (!key) return;
+    wx.navigateTo({ url: '/pages/tasks/tasks?subject=' + key });
   }
 });

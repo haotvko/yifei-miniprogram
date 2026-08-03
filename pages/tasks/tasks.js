@@ -10,6 +10,10 @@ Page({
     generating: false
   },
 
+  onLoad(options) {
+    this.presetSubject = (options && options.subject) || '';
+  },
+
   onShow() {
     this.loadPool();
   },
@@ -30,6 +34,12 @@ Page({
           selected[s.key] = true;
         }
       });
+      // 若从「核心问题」带科目跳来，则只预选该科目
+      if (this.presetSubject && options.some(o => o.key === this.presetSubject)) {
+        selected = {};
+        selected[this.presetSubject] = true;
+      }
+
       this.setData({
         options,
         selected,

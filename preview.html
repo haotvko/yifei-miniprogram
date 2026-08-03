@@ -69,13 +69,25 @@
   .bar-fill{height:100%;border-radius:6px;}
   .bar-red{background:linear-gradient(90deg,#ff8a8a,#e04646);} .bar-yellow{background:linear-gradient(90deg,#ffc56b,#ffa726);} .bar-green{background:linear-gradient(90deg,#6ee29a,#34c759);}
 
-  /* 核心问题 + 主要问题 */
-  .core { padding:10px 0; border-bottom:1px solid #f0f1f5; }
+  /* 评分卡网格（2 列） */
+  .score-grid{display:flex;flex-wrap:wrap;}
+  .score-item{width:50%;box-sizing:border-box;padding:5px;}
+  .si-inner{background:#f7f8fc;border-radius:14px;padding:11px 11px 9px;height:100%;}
+  .si-name{font-size:12px;color:#2b2f38;line-height:1.4;min-height:32px;}
+  .si-score{font-size:24px;font-weight:800;margin:2px 0 6px;}
+  .si-bar{height:6px;background:#e7e9f0;border-radius:4px;overflow:hidden;}
+  .si-bar-fill{height:100%;border-radius:4px;}
+  .si-tag{font-size:11px;margin-top:6px;}
+
+  /* 核心薄弱项 */
+  .core { padding:10px 0; border-bottom:1px solid #f0f1f5; display:flex; flex-direction:column; }
   .core:last-child{border:none;}
   .core-head{display:flex;align-items:center;margin-bottom:6px;}
   .core-emoji{font-size:16px;margin-right:8px;}
   .core-name{flex:1;font-size:14px;font-weight:600;}
   .core-why{font-size:11px;line-height:1.5;color:#6b7180;}
+  .go-practice{align-self:flex-end;margin-top:9px;padding:7px 17px;background:linear-gradient(135deg,#5b8def,#7c6bff);color:#fff;font-size:13px;font-weight:600;border-radius:999px;box-shadow:0 4px 10px rgba(91,141,239,.28);cursor:pointer;}
+  .pill-blue{background:#eaf1ff;color:#3f6fd1;} .pill-green{background:#e7f7ec;color:#22a44e;}
   .mastered{display:flex;flex-wrap:wrap;}
   .tag{display:inline-block;background:#e7f7ec;color:#22a44e;font-size:12px;padding:5px 11px;border-radius:13px;margin:5px 7px 5px 0;}
 
@@ -155,20 +167,54 @@
           <div class="ring ring-md" style="--c:#5b8def;--p:60"><div class="ring-mask"><span class="ring-num">60%</span></div></div>
         </div>
         <div class="card">
-          <div class="section-title">🚨 核心问题（待补 · 最该先攻）</div>
-          <div class="core">
-            <div class="core-head"><span class="core-name">名→形 词性转换</span><span class="pill pill-red">待补</span></div>
-            <div class="core-why">10 张作业 33 错，名→形失分最密，需优先补强</div>
+          <div class="section-title">📋 现阶段掌握内容</div>
+          <div class="score-grid">
+            <div class="score-item"><div class="si-inner">
+              <div class="si-name">完形填空·长语境</div>
+              <div class="si-score" style="color:#e04646">20%</div>
+              <div class="si-bar"><div class="si-bar-fill" style="width:20%;background:#e04646"></div></div>
+              <div class="si-tag" style="color:#e04646">待补</div>
+            </div></div>
+            <div class="score-item"><div class="si-inner">
+              <div class="si-name">词汇辨析/易混词</div>
+              <div class="si-score" style="color:#ffa726">46%</div>
+              <div class="si-bar"><div class="si-bar-fill" style="width:46%;background:#ffa726"></div></div>
+              <div class="si-tag" style="color:#ffa726">薄弱</div>
+            </div></div>
+            <div class="score-item"><div class="si-inner">
+              <div class="si-name">词性转换·动→名</div>
+              <div class="si-score" style="color:#ffa726">52%</div>
+              <div class="si-bar"><div class="si-bar-fill" style="width:52%;background:#ffa726"></div></div>
+              <div class="si-tag" style="color:#ffa726">薄弱</div>
+            </div></div>
+            <div class="score-item"><div class="si-inner">
+              <div class="si-name">词性转换·名→形</div>
+              <div class="si-score" style="color:#ffa726">58%</div>
+              <div class="si-bar"><div class="si-bar-fill" style="width:58%;background:#ffa726"></div></div>
+              <div class="si-tag" style="color:#ffa726">薄弱</div>
+            </div></div>
+            <div class="score-item"><div class="si-inner">
+              <div class="si-name">阅读问答（开放题）</div>
+              <div class="si-score" style="color:#ffa726">60%</div>
+              <div class="si-bar"><div class="si-bar-fill" style="width:60%;background:#ffa726"></div></div>
+              <div class="si-tag" style="color:#ffa726">薄弱</div>
+            </div></div>
           </div>
         </div>
         <div class="card">
-          <div class="section-title">⚠️ 主要问题（薄弱 · 需补强）</div>
+          <div class="section-title">🚨 核心薄弱项（优先攻克）</div>
           <div class="core">
-            <div class="core-head"><span class="core-name">基础语法 时态</span><span class="pill pill-yellow">薄弱 · 60%</span></div>
-            <div class="core-why">时态一致错误较多，建议专项练习</div>
+            <div class="core-head"><span class="core-name">完形填空·长语境</span><span class="pill pill-red">20% · 待补</span></div>
+            <div class="core-why">🟢真题：长语境类是当前最大确定性失分面</div>
+            <div class="go-practice">去练习 →</div>
+          </div>
+          <div class="core">
+            <div class="core-head"><span class="core-name">词汇辨析/易混词</span><span class="pill pill-yellow">46% · 薄弱</span></div>
+            <div class="core-why">🟢真题：易混词辨析错误较多，建议专项练习</div>
+            <div class="go-practice">去练习 →</div>
           </div>
         </div>
-        <div class="foot">数据截至快照生成日 · 仅展示未掌握项</div>
+        <div class="foot">评分来自真实作业落笔 · 数据截至快照生成日</div>
       </div>
     </div>
 

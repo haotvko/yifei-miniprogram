@@ -12,36 +12,35 @@
     </view>
   </view>
 
-  <!-- 核心问题：红色待补硬伤，最该先攻 -->
+  <!-- 现阶段掌握内容：每项一个掌握度评分 -->
+  <view class="card">
+    <view class="section-title">📋 现阶段掌握内容</view>
+    <view class="score-grid">
+      <view class="score-item" wx:for="{{items}}" wx:key="point">
+        <view class="si-inner">
+          <view class="si-name">{{item.point}}</view>
+          <view class="si-score" style="color:{{item.color}}">{{item.pct_text}}</view>
+          <view class="si-bar"><view class="si-bar-fill" style="width:{{item.barPct}};background:{{item.color}}"></view></view>
+          <view class="si-tag" style="color:{{item.color}}">{{item.status_label}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 核心薄弱项（最后一栏）：红+黄，优先攻克 -->
   <view class="card" wx:if="{{core.length}}">
-    <view class="section-title">🚨 核心问题（待补 · 最该先攻）</view>
+    <view class="section-title">🚨 核心薄弱项（优先攻克）</view>
     <view class="core" wx:for="{{core}}" wx:key="point">
       <view class="core-head">
         <text class="core-name">{{item.point}}</text>
-        <text class="pill pill-red">{{item.pct_text}} · {{item.status_label}}</text>
+        <text class="pill {{item.pill_class}}">{{item.pct_text}} · {{item.status_label}}</text>
       </view>
       <view class="muted core-why">{{item.why}}</view>
+      <view class="go-practice" bindtap="goPractice">去练习 →</view>
     </view>
   </view>
 
-  <!-- 主要问题：黄色薄弱，需补强 -->
-  <view class="card" wx:if="{{main.length}}">
-    <view class="section-title">⚠️ 主要问题（薄弱 · 需补强）</view>
-    <view class="core" wx:for="{{main}}" wx:key="point">
-      <view class="core-head">
-        <text class="core-name">{{item.point}}</text>
-        <text class="pill pill-yellow">{{item.pct_text}} · {{item.status_label}}</text>
-      </view>
-      <view class="muted core-why">{{item.why}}</view>
-    </view>
-  </view>
-
-  <view class="card center" wx:if="{{!core.length && !main.length}}">
-    <view class="empty-emoji">🎉</view>
-    <view class="muted">暂无需要攻克的问题，继续保持！</view>
-  </view>
-
-  <view class="muted center foot">数据截至快照生成日 · 仅展示未掌握项</view>
+  <view class="muted center foot">评分来自真实作业落笔 · 数据截至快照生成日</view>
 </view>
 <view wx:else class="loading">
   <view class="spinner"></view>

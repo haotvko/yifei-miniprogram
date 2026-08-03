@@ -10,12 +10,43 @@
 .hero-name { font-size: 36rpx; font-weight: 800; }
 .hero-hint { font-size: 24rpx; opacity: 0.92; margin-top: 8rpx; }
 
-/* 核心问题 */
-.core { padding: 18rpx 0; border-bottom: 1rpx solid #f0f1f5; }
+/* 现阶段掌握内容：2 列评分卡 */
+.score-grid { display: flex; flex-wrap: wrap; }
+.score-item { width: 50%; box-sizing: border-box; padding: 10rpx; }
+.si-inner { background: #f7f8fc; border-radius: 18rpx; padding: 18rpx 18rpx 16rpx; height: 100%; }
+.si-name { font-size: 24rpx; color: #2b2f38; line-height: 1.4; min-height: 64rpx; }
+.si-score { font-size: 44rpx; font-weight: 800; margin: 4rpx 0 10rpx; }
+.si-bar { height: 10rpx; background: #e7e9f0; border-radius: 6rpx; overflow: hidden; }
+.si-bar-fill { height: 100%; border-radius: 6rpx; }
+.si-tag { font-size: 20rpx; margin-top: 10rpx; }
+
+/* 状态 pill（全色系） */
+.pill { font-size: 22rpx; font-weight: 600; padding: 4rpx 16rpx; border-radius: 999rpx; }
+.pill-red { background: #fdecec; color: #e04646; }
+.pill-yellow { background: #fff3e0; color: #e08a00; }
+.pill-blue { background: #eaf1ff; color: #3f6fd1; }
+.pill-green { background: #e7f7ec; color: #22a44e; }
+.pill-gray { background: #f0f1f5; color: #8a90a0; }
+
+/* 核心薄弱项 */
+.core { padding: 18rpx 0; border-bottom: 1rpx solid #f0f1f5; display: flex; flex-direction: column; }
 .core:last-child { border-bottom: none; }
 .core-head { display: flex; align-items: center; margin-bottom: 8rpx; }
 .core-name { flex: 1; font-size: 28rpx; font-weight: 600; }
-.core-why { font-size: 22rpx; line-height: 1.5; }
+
+/* 去练习按钮：从问题直跳今日任务（自动勾选本科目） */
+.go-practice {
+  align-self: flex-end;
+  margin-top: 14rpx;
+  padding: 12rpx 30rpx;
+  background: linear-gradient(135deg, #5b8def, #7c6bff);
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 600;
+  border-radius: 999rpx;
+  box-shadow: 0 6rpx 16rpx rgba(91, 139, 239, 0.28);
+}
+.go-practice:active { opacity: 0.85; }
 
 /* 空状态 */
 .empty-emoji { font-size: 56rpx; text-align: center; margin-bottom: 10rpx; }
