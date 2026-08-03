@@ -2,8 +2,8 @@
 // 注意：envId / appid 需替换为你自己的微信云开发环境 ID 与小程序的 AppID
 App({
   globalData: {
-    // 【需替换】你的微信云开发环境 ID（在微信开发者工具「云开发」控制台查看）
-    envId: 'your-cloud-env-id',
+    // 微信云开发环境 ID（2026-08-03 由用户在 CloudBase 控制台创建）
+    envId: 'cloud1-d6gvwf6q09e5e6577',
     // 看板快照缓存（由 getSnapshot 云函数填充）
     snapshot: null
   },
