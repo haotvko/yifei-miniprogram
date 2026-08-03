@@ -14,16 +14,8 @@
 .core { padding: 18rpx 0; border-bottom: 1rpx solid #f0f1f5; }
 .core:last-child { border-bottom: none; }
 .core-head { display: flex; align-items: center; margin-bottom: 8rpx; }
-.core-emoji { font-size: 30rpx; margin-right: 12rpx; }
 .core-name { flex: 1; font-size: 28rpx; font-weight: 600; }
 .core-why { font-size: 22rpx; line-height: 1.5; }
-
-/* 已掌握标签 */
-.mastered { display: flex; flex-wrap: wrap; }
-.tag {
-  display: inline-block; background: #e7f7ec; color: #22a44e;
-  font-size: 24rpx; padding: 8rpx 20rpx; border-radius: 24rpx; margin: 8rpx 12rpx 8rpx 0;
-}
 
 /* 空状态 */
 .empty-emoji { font-size: 56rpx; text-align: center; margin-bottom: 10rpx; }

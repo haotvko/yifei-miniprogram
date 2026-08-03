@@ -12,33 +12,36 @@
     </view>
   </view>
 
-  <!-- 核心问题（最该攻克的薄弱点，红/黄优先） -->
+  <!-- 核心问题：红色待补硬伤，最该先攻 -->
   <view class="card" wx:if="{{core.length}}">
-    <view class="section-title">🚨 核心问题（优先攻克）</view>
+    <view class="section-title">🚨 核心问题（待补 · 最该先攻）</view>
     <view class="core" wx:for="{{core}}" wx:key="point">
       <view class="core-head">
-        <text class="core-emoji">{{item.emoji}}</text>
         <text class="core-name">{{item.point}}</text>
-        <text class="pill pill-{{item.status}}">{{item.pct_text}} · {{item.status_label}}</text>
+        <text class="pill pill-red">{{item.pct_text}} · {{item.status_label}}</text>
       </view>
       <view class="muted core-why">{{item.why}}</view>
     </view>
   </view>
 
-  <view class="card center" wx:elif="{{!mastered.length}}">
-    <view class="empty-emoji">🎉</view>
-    <view class="muted">暂无核心问题，继续保持！</view>
-  </view>
-
-  <!-- 已掌握（绿色点） -->
-  <view class="card" wx:if="{{mastered.length}}">
-    <view class="section-title">✅ 已掌握（{{mastered.length}}）</view>
-    <view class="mastered">
-      <text class="tag" wx:for="{{mastered}}" wx:key="point">{{item.point}}</text>
+  <!-- 主要问题：黄色薄弱，需补强 -->
+  <view class="card" wx:if="{{main.length}}">
+    <view class="section-title">⚠️ 主要问题（薄弱 · 需补强）</view>
+    <view class="core" wx:for="{{main}}" wx:key="point">
+      <view class="core-head">
+        <text class="core-name">{{item.point}}</text>
+        <text class="pill pill-yellow">{{item.pct_text}} · {{item.status_label}}</text>
+      </view>
+      <view class="muted core-why">{{item.why}}</view>
     </view>
   </view>
 
-  <view class="muted center foot">数据截至快照生成日 · 仅展示派生看板</view>
+  <view class="card center" wx:if="{{!core.length && !main.length}}">
+    <view class="empty-emoji">🎉</view>
+    <view class="muted">暂无需要攻克的问题，继续保持！</view>
+  </view>
+
+  <view class="muted center foot">数据截至快照生成日 · 仅展示未掌握项</view>
 </view>
 <view wx:else class="loading">
   <view class="spinner"></view>
