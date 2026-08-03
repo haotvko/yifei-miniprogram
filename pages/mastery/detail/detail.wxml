@@ -1,30 +1,40 @@
 <view class="page" wx:if="{{!loading && subject}}">
-  <view class="card hero hero-{{subject.color}}">
-    <view class="hero-num">{{subject.mastery_text}}</view>
-    <view class="muted">综合掌握度</view>
+  <!-- 渐变 hero：科目名 + 大进度环 -->
+  <view class="hero grad-primary">
+    <view class="hero-name">{{subject.name}}</view>
+    <view class="hero-ring">
+      <view class="ring ring-xl" style="background: conic-gradient({{subject.ringColor}} {{subject.ringPct}}%, rgba(255,255,255,0.22) 0);">
+        <view class="ring-mask ring-mask-xl">
+          <text class="ring-num-xl">{{subject.mastery_text}}</text>
+        </view>
+      </view>
+      <view class="hero-ring-label">综合掌握度</view>
+    </view>
     <view class="hero-hint">{{subject.key_hint}}</view>
   </view>
 
+  <!-- 知识点掌握（薄弱优先） -->
   <view class="card" wx:if="{{points.length}}">
-    <view class="section-title">知识点掌握（薄弱优先）</view>
+    <view class="section-title">📊 知识点掌握（薄弱优先）</view>
     <view class="pt" wx:for="{{points}}" wx:key="point">
       <view class="pt-head">
         <text class="pt-name">{{item.point}}</text>
-        <text class="pt-tag tag-{{item.status}}">{{item.pct_text}} · {{item.status_label}}</text>
+        <text class="pill pill-{{item.status}}">{{item.pct_text}} · {{item.status_label}}</text>
       </view>
-      <view class="bar">
-        <view class="bar-fill bar-{{item.status}}"
-              style="width:{{item.pct_text==='待测' ? '0%' : item.pct_text}}"></view>
-      </view>
+      <view class="bar"><view class="bar-fill bar-{{item.status}}" style="width:{{item.barPct}}"></view></view>
       <view class="muted pt-ev">{{item.evidence}}</view>
     </view>
   </view>
 
+  <!-- 待测板块 -->
   <view class="card" wx:if="{{subject.untested.length}}">
-    <view class="section-title">待测板块（笔头无法评估）</view>
+    <view class="section-title">📝 待测板块</view>
     <view class="muted">{{subject.untested.join('、')}} —— 可上传补充材料（录音 / 作文照片）</view>
   </view>
 
-  <view class="muted center" style="padding:20rpx;">数据截至快照生成日 · 仅展示派生看板</view>
+  <view class="muted center foot">数据截至快照生成日 · 仅展示派生看板</view>
 </view>
-<view wx:else class="center muted" style="padding:60rpx;">加载中…</view>
+<view wx:else class="loading">
+  <view class="spinner"></view>
+  <text class="muted">加载中…</text>
+</view>

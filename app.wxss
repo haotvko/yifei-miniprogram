@@ -1,43 +1,69 @@
-/* 伊菲学习管理系统 · 全局样式 */
+/* 伊菲学习管理系统 · 全局样式 v2（温暖教育风 · 状态色编码） */
+
 page {
-  background: #f5f6fa;
+  background: #f4f6fb;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
-  color: #2c3038;
+  color: #2b2f38;
 }
 
+/* 主色渐变（品牌） */
+.grad-primary { background: linear-gradient(135deg, #5b8def 0%, #7c6bff 100%); }
+
+/* 卡片：更大圆角 + 柔和阴影 + 细高光边 */
 .card {
   background: #ffffff;
-  border-radius: 16rpx;
-  padding: 28rpx;
+  border-radius: 24rpx;
+  padding: 30rpx;
   margin: 20rpx 24rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8rpx 24rpx rgba(45, 67, 121, 0.07);
+  border: 1rpx solid rgba(255, 255, 255, 0.7);
 }
 
-.muted {
-  color: #9aa0a6;
-  font-size: 24rpx;
-}
+.muted { color: #9aa1ad; font-size: 24rpx; }
+.center { text-align: center; }
+.section-title { font-size: 30rpx; font-weight: 700; margin: 8rpx 0 14rpx; color: #2b2f38; }
+.foot { margin: 20rpx 24rpx 8rpx; }
 
-.center {
-  text-align: center;
-}
-
+/* 按钮 */
 .btn-primary {
-  background: #4a90d9;
-  color: #fff;
-  border-radius: 40rpx;
-  font-size: 30rpx;
+  background: linear-gradient(135deg, #5b8def, #7c6bff);
+  color: #ffffff; border-radius: 44rpx; font-size: 30rpx; font-weight: 600;
+  box-shadow: 0 10rpx 24rpx rgba(91, 141, 239, 0.35);
 }
-
 .btn-ghost {
-  background: #eef3fb;
-  color: #4a90d9;
-  border-radius: 40rpx;
-  font-size: 28rpx;
+  background: #eef2ff; color: #5b6ef0; border-radius: 40rpx; font-size: 28rpx; font-weight: 600;
 }
 
-.section-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  margin: 8rpx 0 12rpx;
+/* 真实进度环（conic 填充 + 内白圆形成环；不支持 conic 时回退灰圆） */
+.ring { width: 128rpx; height: 128rpx; border-radius: 50%; position: relative; background: #eceef3; }
+.ring-mask {
+  position: absolute; top: 12rpx; left: 12rpx; right: 12rpx; bottom: 12rpx;
+  background: #ffffff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
 }
+.ring-num { font-size: 28rpx; font-weight: 700; color: #2b2f38; }
+
+.ring-lg { width: 220rpx; height: 220rpx; }
+.ring-mask-lg { top: 20rpx; left: 20rpx; right: 20rpx; bottom: 20rpx; }
+.ring-num-lg { font-size: 52rpx; font-weight: 800; color: #ffffff; }
+
+.ring-xl { width: 240rpx; height: 240rpx; }
+.ring-mask-xl { top: 22rpx; left: 22rpx; right: 22rpx; bottom: 22rpx; }
+.ring-num-xl { font-size: 56rpx; font-weight: 800; color: #ffffff; }
+
+/* 状态 pill（颜色编码：绿=好 蓝=中上 橙=中 红=弱 灰=未测） */
+.pill { display: inline-block; padding: 6rpx 18rpx; border-radius: 24rpx; font-size: 22rpx; font-weight: 600; }
+.pill-green { background: #e7f7ec; color: #22a44e; }
+.pill-blue  { background: #eaf0ff; color: #5b6ef0; }
+.pill-orange{ background: #fff3e0; color: #e08a1e; }
+.pill-red   { background: #fdecec; color: #e04646; }
+.pill-gray  { background: #f1f2f5; color: #9aa1ad; }
+
+/* 加载态 */
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120rpx 0; }
+.spinner {
+  width: 56rpx; height: 56rpx; border-radius: 50%;
+  border: 6rpx solid #e3e8f3; border-top-color: #5b8def;
+  animation: spin 0.8s linear infinite; margin-bottom: 20rpx;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

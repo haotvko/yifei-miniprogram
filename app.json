@@ -13,10 +13,10 @@
     "enablePullDownRefresh": false
   },
   "tabBar": {
-    "color": "#9aa0a6",
-    "selectedColor": "#4a90d9",
+    "color": "#9aa1ad",
+    "selectedColor": "#5b6ef0",
     "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list": [
       { "pagePath": "pages/mastery/index/index", "text": "掌握情况" },
       { "pagePath": "pages/tasks/tasks", "text": "今日任务" },

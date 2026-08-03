@@ -1,6 +1,8 @@
 const app = getApp();
 const { callFunction } = require('../../../utils/api.js');
 
+const COLOR = { green: '#34c759', blue: '#5b8def', yellow: '#ffa726', gray: '#c7ccd4' };
+function colorOf(c) { return COLOR[c] || COLOR.gray; }
 function pctText(p) {
   return p == null ? '待测' : Math.round(p * 100) + '%';
 }
@@ -33,12 +35,18 @@ Page({
     ).map(p => ({
       ...p,
       pct_text: pctText(p.mastery_pct),
+      barPct: (p.mastery_pct == null ? 4 : Math.max(4, Math.round(p.mastery_pct * 100))) + '%',
       status_label: p.status === 'red' ? '待补' : (p.status === 'yellow' ? '薄弱' : '已掌握')
     }));
 
     wx.setNavigationBarTitle({ title: subj.name + ' · 掌握情况' });
     this.setData({
-      subject: { ...subj, mastery_text: pctText(subj.mastery_pct) },
+      subject: {
+        ...subj,
+        mastery_text: pctText(subj.mastery_pct),
+        ringPct: subj.mastery_pct == null ? 0 : Math.round(subj.mastery_pct * 100),
+        ringColor: colorOf(subj.color)
+      },
       points,
       loading: false
     });

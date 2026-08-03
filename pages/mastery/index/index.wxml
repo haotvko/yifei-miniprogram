@@ -1,35 +1,54 @@
 <view class="page">
-  <view wx:if="{{loading}}" class="center muted" style="padding:60rpx;">加载中…</view>
+  <view wx:if="{{loading}}" class="loading">
+    <view class="spinner"></view>
+    <text class="muted">正在读取伊菲的看板…</text>
+  </view>
 
   <block wx:else>
-    <view class="card summary" wx:if="{{summary}}">
-      <view class="sum-row">
-        <view class="sum-item">
-          <view class="sum-num">{{summary.mastery_pct_text}}</view>
-          <view class="muted">语数英合计掌握度</view>
+    <!-- 渐变 hero：问候 + 总掌握度环 + 预测分 -->
+    <view class="hero grad-primary">
+      <view class="hero-top">
+        <view>
+          <view class="hero-hi">伊菲的学习看板 👋</view>
+          <view class="hero-sub">语数英一起，稳步提分</view>
         </view>
-        <view class="sum-item">
-          <view class="sum-num">{{summary.predicted_text}}</view>
-          <view class="muted">语数英合计预测分</view>
+        <view class="hero-avatar">📚</view>
+      </view>
+
+      <view class="hero-ring">
+        <view class="ring ring-lg" style="background: conic-gradient({{summary.totalColor}} {{summary.totalPct}}%, rgba(255,255,255,0.22) 0);">
+          <view class="ring-mask ring-mask-lg">
+            <text class="ring-num-lg">{{summary.mastery_pct_text}}</text>
+          </view>
+        </view>
+        <view class="hero-ring-label">语数英合计掌握度</view>
+      </view>
+
+      <view class="hero-foot">
+        <view class="hero-stat">
+          <text class="hs-num">{{summary.predicted_text}}</text>
+          <text class="hs-label">语数英预测分 / 450</text>
         </view>
       </view>
-      <view class="muted sum-note">{{summary.untested_300_note}}</view>
     </view>
 
-    <view class="muted" style="margin:8rpx 24rpx;">{{updatedText}}</view>
+    <view class="muted upd">{{updatedText}}</view>
 
+    <!-- 科目卡片 -->
     <view class="subj-card card" wx:for="{{subjects}}" wx:key="key"
-          bindtap="goDetail" data-key="{{item.key}}">
-      <view class="subj-left">
+          bindtap="goDetail" data-key="{{item.key}}" hover-class="card-hover">
+      <view class="subj-emoji">{{item.emoji}}</view>
+      <view class="subj-mid">
         <view class="subj-name">{{item.name}}</view>
-        <view class="muted" wx:if="{{item.status==='pending'}}">待评估 · 未上传</view>
-        <view class="muted" wx:else>{{item.weak_count}} 处待补 · {{item.key_hint}}</view>
+        <view class="muted subj-sub" wx:if="{{item.status==='pending'}}">待评估 · 还没上传作业</view>
+        <view class="muted subj-sub" wx:else>{{item.weak_count}} 处待补 · {{item.key_hint}}</view>
       </view>
-      <view class="subj-right">
-        <view class="ring ring-{{item.color}}">
-          <text class="ring-num">{{item.mastery_text}}</text>
-        </view>
+      <view class="ring" style="background: conic-gradient({{item.ringColor}} {{item.ringPct}}%, #eceef3 0);">
+        <view class="ring-mask"><text class="ring-num">{{item.mastery_text}}</text></view>
       </view>
+      <view class="subj-arrow">›</view>
     </view>
+
+    <view class="muted foot">点科目查看薄弱知识点 · 数据来自伊菲真实作业</view>
   </block>
 </view>

@@ -1,8 +1,19 @@
 const app = getApp();
 const { callFunction } = require('../../../utils/api.js');
 
+// 状态色：绿=好 蓝=中上 橙=中 灰=未测
+const COLOR = { green: '#34c759', blue: '#5b8def', yellow: '#ffa726', gray: '#c7ccd4' };
+const EMOJI = { english: '📘', math: '📐', chinese: '📖' };
+
 function pctText(p) {
   return p == null ? '待测' : Math.round(p * 100) + '%';
+}
+function colorOf(c) { return COLOR[c] || COLOR.gray; }
+function totalColorOf(p) {
+  if (p == null) return COLOR.gray;
+  if (p >= 0.7) return COLOR.green;
+  if (p >= 0.4) return COLOR.blue;
+  return COLOR.yellow;
 }
 
 Page({
@@ -26,7 +37,10 @@ Page({
 
       const subjects = (snap.subjects || []).map(s => ({
         ...s,
-        mastery_text: pctText(s.mastery_pct)
+        mastery_text: pctText(s.mastery_pct),
+        ringPct: s.mastery_pct == null ? 0 : Math.round(s.mastery_pct * 100),
+        ringColor: colorOf(s.color),
+        emoji: EMOJI[s.key] || '📚'
       }));
 
       let summary = null;
@@ -39,7 +53,9 @@ Page({
         summary = {
           ...snap.summary,
           mastery_pct_text: pctText(snap.summary.mastery_pct),
-          predicted_text: hasAny ? (total + ' / 450') : '待测'
+          predicted_text: hasAny ? (total + ' / 450') : '待测',
+          totalPct: snap.summary.mastery_pct == null ? 0 : Math.round(snap.summary.mastery_pct * 100),
+          totalColor: totalColorOf(snap.summary.mastery_pct)
         };
       }
 

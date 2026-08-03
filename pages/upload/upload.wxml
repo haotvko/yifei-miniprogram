@@ -1,13 +1,14 @@
 <view class="page">
   <view class="card upload-card">
+    <view class="up-icon">📷</view>
     <view class="section-title">上传作业（仅照片）</view>
     <view class="muted">拍照或选图直接提交，不分科目。AI 每次上线会自动识别科目并分析，结果更新到「掌握情况」。处理完即清理云端原图（本地留底）。</view>
-    <button class="btn-primary up-btn" bindtap="chooseAndUpload" loading="{{uploading}}">拍照 / 选图上传</button>
-    <view class="muted center" style="margin-top:8rpx;">仅支持照片，不支持视频</view>
+    <button class="btn-primary up-btn" bindtap="chooseAndUpload" loading="{{uploading}}">📷 拍照 / 选图上传</button>
+    <view class="muted center" style="margin-top:10rpx;">仅支持照片，不支持视频</view>
   </view>
 
   <view class="card" wx:if="{{list.length}}">
-    <view class="section-title">提交记录</view>
+    <view class="section-title">📋 提交记录</view>
     <view class="rec" wx:for="{{list}}" wx:key="_id">
       <view class="rec-left">
         <view class="rec-status status-{{item.status}}">{{item.statusText}}</view>
@@ -23,5 +24,8 @@
     </view>
   </view>
 
-  <view wx:if="{{!list.length}}" class="muted center" style="padding:30rpx;">还没有提交记录</view>
+  <view wx:if="{{!list.length}}" class="empty">
+    <view class="empty-emoji">🖼️</view>
+    <view class="muted">还没有提交记录，上传第一张试试</view>
+  </view>
 </view>

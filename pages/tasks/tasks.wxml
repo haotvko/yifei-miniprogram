@@ -1,12 +1,12 @@
 <view class="page">
-  <view class="card">
-    <view class="section-title">今日任务 · 选科目生成</view>
+  <view class="card intro">
+    <view class="intro-title">🎯 今日任务 · 选科目生成</view>
     <view class="muted">任务池更新于：{{poolUpdated || '—'}}</view>
     <view class="chips">
       <view class="chip {{selected[item.key] ? 'chip-on' : ''}}"
             wx:for="{{options}}" wx:key="key"
             bindtap="toggle" data-key="{{item.key}}">
-        {{item.name}} ({{item.count}})
+        {{item.name}} · {{item.count}}
       </view>
     </view>
     <button class="btn-primary gen-btn" bindtap="generate" loading="{{generating}}">生成今日任务</button>
@@ -14,14 +14,14 @@
 
   <block wx:if="{{cards.length}}">
     <view class="card task-card" wx:for="{{cards}}" wx:key="subject">
-      <view class="tc-subj">{{item.subjectName}}</view>
+      <view class="tc-badge">{{item.subjectName}}</view>
       <view class="tc-title">{{item.card.title}}</view>
 
       <view wx:if="{{item.card.word_from}}" class="tc-line">
-        <text class="tc-label">原词</text> {{item.card.word_from}}
+        <text class="tc-label">原词</text> <text class="tc-strong">{{item.card.word_from}}</text>
       </view>
       <view wx:if="{{item.card.word_from}}" class="tc-line">
-        <text class="tc-label">目标词</text> {{item.card.word_to}}
+        <text class="tc-label">目标词</text> <text class="tc-strong">{{item.card.word_to}}</text>
         <text wx:if="{{item.card.ipa}}" class="tc-ipa"> {{item.card.ipa}}</text>
       </view>
       <view wx:if="{{item.card.collocation}}" class="tc-line">
@@ -31,19 +31,21 @@
         <text class="tc-label">考点</text> {{item.card.point}}
       </view>
 
-      <view class="tc-line"><text class="tc-label red">规则</text> {{item.card.rule}}</view>
+      <view class="tc-line"><text class="tc-label tc-label-red">规则</text> {{item.card.rule}}</view>
       <view class="tc-line"><text class="tc-label">怎么学</text> {{item.card.how}}</view>
-      <view class="tc-line"><text class="tc-label blue">为什么</text> {{item.card.why}}</view>
+      <view class="tc-line"><text class="tc-label tc-label-blue">为什么</text> {{item.card.why}}</view>
 
       <button class="btn-ghost save-btn" data-idx="{{index}}" bindtap="saveCard">保存 / 打印图片</button>
     </view>
   </block>
 
-  <view wx:if="{{!cards.length && options.length}}" class="muted center" style="padding:30rpx;">
-    勾选科目后点「生成今日任务」
+  <view wx:if="{{!cards.length && options.length}}" class="empty">
+    <view class="empty-emoji">🪄</view>
+    <view class="muted">勾选科目后点「生成今日任务」</view>
   </view>
-  <view wx:if="{{!options.length}}" class="muted center" style="padding:30rpx;">
-    任务池暂无待出卡片，AI 在线时会自动补充
+  <view wx:if="{{!options.length}}" class="empty">
+    <view class="empty-emoji">📭</view>
+    <view class="muted">任务池暂无待出卡片，AI 在线时会自动补充</view>
   </view>
 
   <canvas type="2d" id="cardCanvas" class="hidden-canvas"></canvas>

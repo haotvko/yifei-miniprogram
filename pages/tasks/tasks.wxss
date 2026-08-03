@@ -1,32 +1,44 @@
 .page { padding-bottom: 40rpx; }
 
-.chips { display: flex; flex-wrap: wrap; margin: 16rpx 0; }
+.intro { background: linear-gradient(180deg, #ffffff, #fbfcff); }
+.intro-title { font-size: 32rpx; font-weight: 800; }
+
+.chips { display: flex; flex-wrap: wrap; margin: 18rpx 0; }
 .chip {
-  padding: 12rpx 26rpx; margin: 8rpx 12rpx 8rpx 0;
-  background: #f0f1f3; color: #6b7180; border-radius: 30rpx; font-size: 26rpx;
+  padding: 14rpx 28rpx; margin: 8rpx 14rpx 8rpx 0;
+  background: #f0f1f5; color: #6b7180; border-radius: 32rpx; font-size: 26rpx; font-weight: 600;
+  border: 2rpx solid transparent;
 }
-.chip-on { background: #4a90d9; color: #fff; }
+.chip-on {
+  background: #eef2ff; color: #5b6ef0; border-color: #5b6ef0;
+}
 
-.gen-btn { margin-top: 10rpx; }
+.gen-btn { margin-top: 8rpx; }
 
-.task-card { border-left: 8rpx solid #4a90d9; }
-.tc-subj { font-size: 24rpx; color: #9aa0a6; }
-.tc-title { font-size: 32rpx; font-weight: 700; color: #4a90d9; margin: 6rpx 0 14rpx; }
-.tc-line { font-size: 27rpx; margin: 10rpx 0; line-height: 1.5; }
+/* 任务卡 */
+.task-card { border-left: 8rpx solid #5b6ef0; }
+.tc-badge {
+  display: inline-block; font-size: 22rpx; font-weight: 700; color: #5b6ef0;
+  background: #eef2ff; padding: 6rpx 18rpx; border-radius: 20rpx; margin-bottom: 12rpx;
+}
+.tc-title { font-size: 34rpx; font-weight: 800; color: #2b2f38; margin: 4rpx 0 18rpx; line-height: 1.4; }
+.tc-line { font-size: 27rpx; margin: 12rpx 0; line-height: 1.55; color: #444b57; }
+.tc-strong { font-weight: 700; color: #2b2f38; }
 .tc-label {
-  display: inline-block; min-width: 84rpx; font-size: 22rpx; color: #fff;
-  background: #9aa0a6; border-radius: 8rpx; text-align: center; margin-right: 10rpx; padding: 2rpx 0;
+  display: inline-block; min-width: 80rpx; font-size: 22rpx; font-weight: 700; color: #6b7180;
+  background: #f0f1f5; border-radius: 8rpx; text-align: center; margin-right: 12rpx; padding: 4rpx 0;
 }
-.tc-label.red { background: #e04646; }
-.tc-label.blue { background: #4a90d9; }
-.tc-ipa { color: #9aa0a6; }
+.tc-label-red { background: #fdecec; color: #e04646; }
+.tc-label-blue { background: #eaf0ff; color: #5b6ef0; }
+.tc-ipa { color: #9aa1ad; }
 
-.save-btn { margin-top: 16rpx; }
+.save-btn { margin-top: 18rpx; }
+
+/* 空状态 */
+.empty { display: flex; flex-direction: column; align-items: center; padding: 90rpx 0; }
+.empty-emoji { font-size: 88rpx; margin-bottom: 20rpx; }
 
 .hidden-canvas {
-  position: fixed;
-  top: -9999px;
-  left: -9999px;
-  width: 360px;
-  height: 560px;
+  position: fixed; top: -9999px; left: -9999px;
+  width: 360px; height: 560px;
 }

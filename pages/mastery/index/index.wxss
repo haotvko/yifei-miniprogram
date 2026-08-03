@@ -1,22 +1,34 @@
 .page { padding-bottom: 40rpx; }
 
-.summary { background: linear-gradient(135deg, #eef3fb, #ffffff); }
-.sum-row { display: flex; justify-content: space-around; }
-.sum-item { text-align: center; }
-.sum-num { font-size: 52rpx; font-weight: 700; color: #2c3038; }
-.sum-note { margin-top: 12rpx; text-align: center; }
-
-.subj-card { display: flex; align-items: center; justify-content: space-between; }
-.subj-name { font-size: 34rpx; font-weight: 600; }
-.subj-left { flex: 1; }
-
-.ring {
-  width: 116rpx; height: 116rpx; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  border: 8rpx solid #ccc;
+/* 渐变 hero */
+.hero { margin: 0 0 8rpx; padding: 40rpx 36rpx 44rpx; border-radius: 0 0 36rpx 36rpx; color: #fff; }
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.hero-hi { font-size: 38rpx; font-weight: 800; }
+.hero-sub { font-size: 26rpx; opacity: 0.92; margin-top: 8rpx; }
+.hero-avatar {
+  width: 76rpx; height: 76rpx; border-radius: 50%;
+  background: rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center;
+  font-size: 40rpx;
 }
-.ring-num { font-size: 30rpx; font-weight: 700; }
-.ring-green { border-color: #34c759; color: #34c759; }
-.ring-blue  { border-color: #4a90d9; color: #4a90d9; }
-.ring-yellow{ border-color: #f5a623; color: #f5a623; }
-.ring-gray  { border-color: #c7ccd4; color: #9aa0a6; }
+
+.hero-ring { display: flex; flex-direction: column; align-items: center; margin: 30rpx 0 10rpx; }
+.hero-ring-label { font-size: 24rpx; opacity: 0.95; margin-top: 18rpx; }
+
+.hero-foot { display: flex; justify-content: center; }
+.hero-stat { background: rgba(255,255,255,0.18); border-radius: 20rpx; padding: 16rpx 40rpx; text-align: center; }
+.hs-num { display: block; font-size: 40rpx; font-weight: 800; }
+.hs-label { display: block; font-size: 22rpx; opacity: 0.9; margin-top: 4rpx; }
+
+.upd { margin: 16rpx 24rpx 0; text-align: center; }
+
+/* 科目卡片 */
+.subj-card { display: flex; align-items: center; }
+.card-hover { transform: scale(0.985); }
+.subj-emoji {
+  width: 84rpx; height: 84rpx; border-radius: 22rpx; margin-right: 22rpx;
+  background: #eef2ff; display: flex; align-items: center; justify-content: center; font-size: 44rpx;
+}
+.subj-mid { flex: 1; }
+.subj-name { font-size: 34rpx; font-weight: 700; }
+.subj-sub { margin-top: 6rpx; }
+.subj-arrow { color: #c7ccd4; font-size: 40rpx; margin-left: 8rpx; }
