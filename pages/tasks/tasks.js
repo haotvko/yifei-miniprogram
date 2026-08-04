@@ -2,10 +2,23 @@ const app = getApp();
 const { callFunction } = require('../../utils/api.js');
 // 本地题库仅作离线兜底；优先使用云端下发的 getAssets 缓存
 const localBank = require('../../questionbank.js');
+// 产出型 fill 题库（词性转换/写出结果等，契约见 17-方案；本地样例，云端重传后优先云端）
+const localFill = require('../../questionbank_fill.js');
 // 本地任务池兜底：云端 snapshot.task_pool 不可用 / 未刷新时，高价值任务卡仍可见
 const localPool = require('../../taskpool.js');
 function getBank() {
-  return app.globalData.bank || wx.getStorageSync('questionbank') || localBank;
+  const base = app.globalData.bank || wx.getStorageSync('questionbank') || localBank;
+  // 合并 fill 题库：同一 point 下 choice + fill 并存（数组拼接），云端 assets 重传后 base 含 fill 时自动去重依赖云端
+  const fill = localFill || {};
+  const merged = {};
+  Object.keys(base || {}).forEach(k => { merged[k] = Object.assign({}, base[k]); });
+  Object.keys(fill).forEach(k => {
+    merged[k] = merged[k] || {};
+    Object.keys(fill[k] || {}).forEach(pt => {
+      merged[k][pt] = (merged[k][pt] || []).concat(fill[k][pt]);
+    });
+  });
+  return merged;
 }
 
 const COLOR = { red: '#e04646', yellow: '#ffa726', blue: '#5b8def', green: '#34c759', gray: '#c7ccd4' };
@@ -19,7 +32,9 @@ Page({
     mode: 'practice',      // practice=智能提分练习 / roi=高价值任务卡
     quantity: 5,           // 每科题量 2–10
     printSections: [],     // [{subjectKey, subjectName, kind:'practice'|'roi', items:[...]}]
-    saving: false
+    saving: false,
+    answers: {},           // 屏幕答题：{itemId: 用户输入/选中选项}
+    results: {}            // 屏幕答题：{itemId: {correct, picked}}（判分后回填，练习后反馈，铁律 3.11 发布时无答案）
   },
 
   onLoad(options) {
@@ -172,12 +187,17 @@ Page({
         });
         if (!pool.length) return;
         const n = Math.min(qty, pool.length);
-        const items = this.shuffle(pool).slice(0, n).map(p => {
+        const items = this.shuffle(pool).slice(0, n).map((p, i) => {
           const q = p.q;
+          const isFill = !q.options || q.type === 'fill';
           return {
+            id: k + '-' + i,
             q: q.q,
             tag: subj.name + ' · ' + p.point,
-            choices: q.options.map((o, i2) => ({ l: String.fromCharCode(65 + i2), t: o, correct: o === q.answer })),
+            isFill,
+            type: q.type || (q.options ? 'choice' : 'fill'),
+            match: q.match || 'exact',
+            choices: isFill ? [] : q.options.map((o, i2) => ({ l: String.fromCharCode(65 + i2), t: o, correct: o === q.answer })),
             answer: q.answer,
             explain: q.explain
           };
@@ -195,7 +215,7 @@ Page({
       if (!sections.length) { wx.showToast({ title: '所选科目暂无高价值任务', icon: 'none' }); return; }
     }
 
-    this.setData({ printSections: sections });
+    this.setData({ printSections: sections, answers: {}, results: {} });
 
     const modeLabel = mode === 'practice' ? '智能提分练习' : '高价值任务卡';
     const title = '伊菲学习 · 今日任务（' + modeLabel + ' · ' + sections.length + '科）';
@@ -224,12 +244,19 @@ Page({
             ctx.font = '13px sans-serif';
             y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
             y += 2;
-            (q.choices || []).forEach(o => {
-              // 发布内容不带答案：选项不做正确项高亮/加粗（铁律 3.11）
-              ctx.fillStyle = '#2b2f38';
+            if (q.isFill) {
+              // fill（产出型）：打印图只画答题空，答案/解析不渲染（铁律 3.11）
+              ctx.fillStyle = '#6b7180';
               ctx.font = '12px sans-serif';
-              y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
-            });
+              y = this.drawWrapped(ctx, '答：____________________', M + 8, y + 15, W - 2 * M - 8, 16);
+            } else {
+              (q.choices || []).forEach(o => {
+                // 发布内容不带答案：选项不做正确项高亮/加粗（铁律 3.11）
+                ctx.fillStyle = '#2b2f38';
+                ctx.font = '12px sans-serif';
+                y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
+              });
+            }
             // 答案/解析不渲染到发布图（铁律 3.11：练习后由家长核对）
             ctx.strokeStyle = '#eef1f7';
             ctx.lineWidth = 1;
@@ -326,6 +353,74 @@ Page({
         }
       });
     });
+  },
+
+  // ===== 屏幕内答题（fill/choice 判分，练习后反馈；发布时无答案，铁律 3.11） =====
+
+  // 按 id 从当前 printSections 找到题目（含 answer/explain/match）
+  findItem(id) {
+    const secs = this.data.printSections || [];
+    for (let i = 0; i < secs.length; i++) {
+      const items = secs[i].items || [];
+      for (let j = 0; j < items.length; j++) {
+        if (items[j].id === id) return items[j];
+      }
+    }
+    return null;
+  },
+
+  // 输入归一化：去首尾空格/小写/去所有空格；上标转 ^ 记号（\u 转义保证源码 GBK 安全）、乘除号转 ASCII
+  normalizeInput(s) {
+    return String(s == null ? '' : s).trim().toLowerCase()
+      .replace(/[\u00b2\u00b3\u2074\u2075\u2070]/g, function (c) {
+        return { '\u00b2': '^2', '\u00b3': '^3', '\u2074': '^4', '\u2075': '^5', '\u2070': '^0' }[c];
+      })
+      .replace(/\u00d7/g, '*').replace(/\u00f7/g, '/')
+      .replace(/\s+/g, '');
+  },
+
+  // 判分：exact=命中 answer 的 | 等价表任一项；keywords=输入包含某段全部关键词（空格分隔）
+  checkAnswer(item, input) {
+    const user = this.normalizeInput(input);
+    if (!user) return false;
+    const parts = String(item.answer || '').split('|').map(a => this.normalizeInput(a)).filter(Boolean);
+    if (item.match === 'keywords') {
+      return parts.some(p => {
+        const kws = p.split(' ').filter(Boolean);
+        return kws.every(kw => user.indexOf(kw) >= 0);
+      });
+    }
+    return parts.indexOf(user) >= 0;
+  },
+
+  // 选择题：点选项立即判分（已判分不可改）
+  onPickOption(e) {
+    const id = e.currentTarget.dataset.id;
+    const val = e.currentTarget.dataset.val;
+    const r = this.data.results[id];
+    if (r && r.show) return;
+    const item = this.findItem(id);
+    if (!item) return;
+    const correct = (item.choices || []).some(o => o.l === val && o.correct);
+    this.setData({ ['results.' + id]: { correct, picked: val, show: true } });
+  },
+
+  // fill：输入
+  onInputFill(e) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({ ['answers.' + id]: e.detail.value });
+  },
+
+  // fill：提交判分
+  onSubmitFill(e) {
+    const id = e.currentTarget.dataset.id;
+    const r = this.data.results[id];
+    if (r && r.show) return;
+    const item = this.findItem(id);
+    if (!item) return;
+    const input = this.data.answers[id] || '';
+    const correct = this.checkAnswer(item, input);
+    this.setData({ ['results.' + id]: { correct, picked: input, show: true } });
   },
 
   // 按宽度换行绘制文本，返回绘制后的 y；dry 模式只量不画

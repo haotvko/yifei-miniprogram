@@ -79,8 +79,32 @@
   display: inline-block; min-width: 40rpx; height: 40rpx; line-height: 40rpx; text-align: center;
   background: #e2e7f0; color: #5b6ef0; border-radius: 8rpx; font-weight: 700; margin-right: 18rpx;
 }
-/* 铁律 3.11 发布不带答案：不再使用正确项高亮（.opt-right 样式已移除） */
+/* 屏幕答题判分反馈（作答后显示，发布时无答案，铁律 3.11） */
+.q-opt.opt-right { background: #e9f9ee; }
+.q-opt.opt-right .opt-l { background: #34c759; color: #fff; }
+.q-opt.opt-wrong { background: #fdecec; }
+.q-opt.opt-wrong .opt-l { background: #e04646; color: #fff; }
+.q-opt.opt-dim { opacity: 0.5; }
 .opt-t { flex: 1; }
+
+/* fill 输入 + 判分 */
+.q-fill { display: flex; align-items: center; margin-top: 8rpx; }
+.fill-input {
+  flex: 1; height: 64rpx; line-height: 64rpx; border: 2rpx solid #d3dae6;
+  border-radius: 10rpx; padding: 0 16rpx; font-size: 28rpx; background: #fafbfd;
+}
+.fill-btn { margin-left: 16rpx; background: #5b6ef0; color: #fff; font-size: 26rpx; }
+
+/* 判分结果（作答后反馈） */
+.q-result { margin-top: 12rpx; padding: 12rpx 16rpx; border-radius: 10rpx; }
+.q-result.r-ok { background: #e9f9ee; }
+.q-result.r-no { background: #fdecec; }
+.r-line { display: flex; align-items: center; flex-wrap: wrap; }
+.r-tag { font-weight: 700; font-size: 26rpx; margin-right: 12rpx; }
+.r-ok .r-tag { color: #1a8f4c; }
+.r-no .r-tag { color: #e04646; }
+.r-ans { font-size: 26rpx; color: #e04646; font-weight: 600; }
+.r-exp { margin-top: 6rpx; font-size: 24rpx; color: #6b7180; }
 
 .q-answer { margin-top: 18rpx; padding-top: 16rpx; border-top: 2rpx dashed #e2e7f0; }
 .ans-line { font-size: 28rpx; font-weight: 700; color: #34c759; }

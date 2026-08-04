@@ -36,20 +36,36 @@
     <view wx:for="{{printSections}}" wx:key="subjectKey" wx:for-item="sec">
       <view class="sec-head">【{{sec.subjectName}}】</view>
 
-      <!-- 练习模式 -->
+      <!-- 练习模式（屏幕内可答题：选择题点选、fill 输入判分；发布时无答案，作答后反馈，铁律 3.11） -->
       <block wx:if="{{sec.kind==='practice'}}">
-        <view class="card qcard" wx:for="{{sec.items}}" wx:key="index" wx:for-item="item">
+        <view class="card qcard" wx:for="{{sec.items}}" wx:key="id" wx:for-item="item">
           <view class="q-top">
             <text class="q-num">第 {{index+1}} 题</text>
             <text class="q-tag">{{item.tag}}</text>
           </view>
           <view class="q-stem">{{item.q}}</view>
-          <view class="q-opts">
-            <!-- 发布内容不带答案：选项不做正确项高亮（铁律 3.11） -->
-            <view class="q-opt" wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l">
+          <!-- 选择题：点选判分 -->
+          <view class="q-opts" wx:if="{{!item.isFill}}">
+            <view class="q-opt {{results[item.id] && results[item.id].show ? (opt.correct ? 'opt-right' : (opt.l === results[item.id].picked ? 'opt-wrong' : 'opt-dim')) : ''}}"
+                  wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l"
+                  bindtap="onPickOption" data-id="{{item.id}}" data-val="{{opt.l}}">
               <text class="opt-l">{{opt.l}}</text>
               <text class="opt-t">{{opt.t}}</text>
             </view>
+          </view>
+          <!-- fill：输入 + 判分 -->
+          <view class="q-fill" wx:else>
+            <input class="fill-input" value="{{answers[item.id]}}" bindinput="onInputFill"
+                   data-id="{{item.id}}" placeholder="输入答案" confirm-type="done" maxlength="50" />
+            <button class="fill-btn" size="mini" bindtap="onSubmitFill" data-id="{{item.id}}">判分</button>
+          </view>
+          <!-- 判分结果（作答后反馈） -->
+          <view wx:if="{{results[item.id] && results[item.id].show}}" class="q-result {{results[item.id].correct ? 'r-ok' : 'r-no'}}">
+            <view class="r-line">
+              <text class="r-tag">{{results[item.id].correct ? '答对' : '答错'}}</text>
+              <text class="r-ans" wx:if="{{!results[item.id].correct}}">参考答案：{{item.answer}}</text>
+            </view>
+            <view class="r-exp" wx:if="{{item.explain}}">{{item.explain}}</view>
           </view>
         </view>
       </block>
