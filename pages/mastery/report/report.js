@@ -1,6 +1,6 @@
 const app = getApp();
 const { callFunction } = require('../../../utils/api.js');
-const reports = require('../../reports.js');
+const reports = require('../../../reports.js');
 
 const COLOR = { red: '#e04646', yellow: '#ffa726', blue: '#5b8def', green: '#34c759', gray: '#c7ccd4' };
 function colorOf(c) { return COLOR[c] || COLOR.gray; }
