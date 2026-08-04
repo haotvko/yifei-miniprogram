@@ -22,7 +22,7 @@
 | AppID | `wx5fa7812520b8392f` |
 | 云环境 ID | `cloud1-d6gvwf6q09e5e6577` |
 | GitHub | `https://github.com/haotvko/yifei-miniprogram.git`（`master`） |
-| 云函数 | `upload` / `getSnapshot` / `drawTask` / `getUploads` / `correctSubject`（已部署） |
+| 云函数 | `upload` / `getSnapshot` / `drawTask` / `getUploads` / `correctSubject` / `getAssets`（6 个，均已部署） |
 | 集合 | `snapshot`（看板）、`uploads`（上传记录） |
 | 云存储 | `assets/`（questionbank.json / reports.json）、`uploads/`（图） |
 
@@ -42,7 +42,7 @@ yifei-miniprogram/
 │   ├── mastery/report/            # 单考点详细汇报（require 用 ../../../）
 │   ├── tasks/                     # 今日任务：多选科目 + 两模式 + 一键 A4
 │   └── upload/                    # 上传作业：多选照片 + 批量提交
-├── cloudfunctions/                # 5 个云函数
+├── cloudfunctions/                # 6 个云函数
 ├── pipeline/                      # 构建脚本（不打进代码包）
 │   ├── export_snapshot.py         # Obsidian YAML → snapshot.json
 │   ├── seed_db.js                 # snapshot.json → 云端 snapshot 集合
