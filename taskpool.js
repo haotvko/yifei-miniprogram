@@ -30,6 +30,34 @@ module.exports = {
         how: "1.记双义 2.练单复数 3.造句",
         why: "价值排序 T1，易混 countable/uncountable"
       }
+    },
+    {
+      id: "en-03",
+      type: "master",
+      title: "词形/词性转换（动→名/形→副/否定前缀等）",
+      roi: 0.85,
+      delivered_at: null,
+      card: {
+        title: "词形变化+词性转换",
+        point: "词性转换·动→名 / 形→副 / 不规则",
+        rule: "按词族记忆派生（同一词根）；注意不规则变化",
+        how: "1.列词族（curious→curiosity→curiously） 2.记拼写重读 3.默写对比",
+        why: "2026-08-03+04 batch 23张反复错（curious→curiosity、hopefully、success、possible、eighty→eightieth 等），频率高、确定性可攻"
+      }
+    },
+    {
+      id: "en-04",
+      type: "master",
+      title: "同义句改写（一般疑问/反义/保持句义）",
+      roi: 0.82,
+      delivered_at: null,
+      card: {
+        title: "同义句/反义句改写",
+        point: "句型转换·一般疑问 / 反义 / 同义保持",
+        rule: "一般疑问：be/do/does 提前；反义加 not 或换反义词；保持句义不变只换表达",
+        how: "1.看题目要求（一般疑问/反义/同义不变） 2.对应变换 3.检查句义",
+        why: "2026-08-03+04 batch Sandy/blind boy/other boys/halfway/make kids 等改写高频错，确定性可攻"
+      }
     }
   ],
   math: [
@@ -45,7 +73,63 @@ module.exports = {
         how: "1.标负号 2.逐项变号 3.复查",
         why: "符号错占数学丢分约 1/3"
       }
+    },
+    {
+      id: "ma-02",
+      type: "master",
+      title: "M2 次数计算与同类项判定",
+      roi: 0.82,
+      delivered_at: null,
+      card: {
+        point: "单项式次数=字母指数之和；同类项=字母+指数全相同",
+        rule: "系数不计次数；多项式次数=最高项次数",
+        how: "1.列单项式字母及指数 2.相加得次数 3.对照同类项需字母与指数全等",
+        why: "2026-08-03+04 batch Q17 单项式次数（学生把 3a^3 b^6 算成 11 而非 9）、Q15-16 升幂排列 多错；M2 概念清不清的确定性错误"
+      }
+    },
+    {
+      id: "ma-03",
+      type: "master",
+      title: "M6 完全平方公式参数判定",
+      roi: 0.78,
+      delivered_at: null,
+      card: {
+        point: "x^2 +- kxy + y^2 为完全平方时 k = 正负2",
+        rule: "(x+-y)^2 = x^2 +- 2xy + y^2 中间项系数即 k",
+        how: "1.看中间项符号 2.k = 中间项系数与 xy 系数关系 3.检验展开",
+        why: "2026-08-04 batch Q6-7 学生答「无」（应为正负6/正负4），概念与同类项判定关联弱"
+      }
     }
   ],
-  chinese: []
+  chinese: [
+    {
+      id: "zh-01",
+      type: "master",
+      title: "文言实词多义（且/顷/数）",
+      roi: 0.9,
+      delivered_at: null,
+      card: {
+        title: "文言实词多义辨析",
+        point: "文言实词多义",
+        rule: "按语境定义项，勿死记单一义",
+        how: "1.记多义清单 2.结合例句判定 3.翻译代入验证",
+        why: "2026-08-02 首批 3 处实词多义失分（且=将要、顷=不久、数=屡次），确定性可攻"
+      }
+    },
+    {
+      id: "zh-02",
+      type: "word",
+      title: "安（安定/怎么/养）",
+      roi: 0.8,
+      delivered_at: null,
+      card: {
+        word_from: "安",
+        word_to: "安（怎么·表反问）",
+        collocation: "安能辨我是雄雌",
+        rule: "多义：安（怎么）常表反问",
+        how: "1.记三义 2.例句辨析 3.默写巩固",
+        why: "《中考语文价值排序》T1·高频核心50之首"
+      }
+    }
+  ]
 };

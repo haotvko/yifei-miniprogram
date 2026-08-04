@@ -36,7 +36,8 @@ function createColl(name) {
 
 function deleteDoc(name, filter) {
   try {
-    tcbDb({ TableName: name, CommandType: 'DELETE', Command: JSON.stringify({ delete: name, query: filter }) });
+    // Tcb CLI 3.7.0 nosql execute 用 MongoDB 原生命令：delete 的 deletes 数组里 q=过滤条件（勿用 query 字段，会报 Unrecognized field 'query'）
+    tcbDb({ TableName: name, CommandType: 'DELETE', Command: JSON.stringify({ delete: name, deletes: [{ q: filter, limit: 1 }] }) });
     console.log(`· 已删除 ${name} 旧文档 ${JSON.stringify(filter)}`);
   } catch (e) {
     const msg = (e.stderr || e.stdout || e.message || '').split('\n')[0];
