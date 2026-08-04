@@ -2,8 +2,27 @@
   <view class="card upload-card">
     <view class="up-icon"></view>
     <view class="section-title">上传作业（仅照片）</view>
-    <view class="muted">拍照或选图直接提交，不分科目。AI 每次上线会自动识别科目并分析，结果更新到「掌握情况」。处理完即清理云端原图（本地留底）。</view>
-    <button class="btn-primary up-btn" bindtap="chooseAndUpload" loading="{{uploading}}">拍照 / 选图上传</button>
+    <view class="muted">拍照或选图直接提交，不分科目。一次可多选，也可分几次添加，AI 上线后自动识别科目并分析，结果更新到「掌握情况」。处理完即清理云端原图（本地留底）。</view>
+    <button class="btn-primary up-btn" bindtap="addPhotos" disabled="{{uploading}}">＋ 添加照片（可多选）</button>
+
+    <!-- 已选照片预览 -->
+    <view class="preview-grid" wx:if="{{selected.length}}">
+      <view class="pv-item" wx:for="{{selected}}" wx:key="index" wx:for-item="p">
+        <image class="pv-img" src="{{p.path}}" mode="aspectFill"></image>
+        <view class="pv-del" catchtap="removePhoto" data-idx="{{index}}">×</view>
+        <view class="pv-size">{{p.sizeText}}</view>
+      </view>
+    </view>
+
+    <!-- 批量提交 -->
+    <view class="submit-bar" wx:if="{{selected.length}}">
+      <view class="sel-count muted">已选 {{selected.length}} / {{30}} 张</view>
+      <button class="btn-primary sub-btn" bindtap="submitAll" loading="{{uploading}}">
+        {{uploading ? ('上传中 ' + uploaded + '/' + total) : ('提交上传（' + selected.length + ' 张）')}}
+      </button>
+      <view class="clear-link" bindtap="clearSelected" wx:if="{{!uploading}}">清空</view>
+    </view>
+
     <view class="muted center" style="margin-top:10rpx;">仅支持照片，不支持视频</view>
   </view>
 
