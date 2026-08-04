@@ -14,7 +14,7 @@
   <!-- 设置区 -->
   <view class="card setup">
     <view class="intro-title">{{mode==='practice' ? '智能提分练习' : '高价值任务卡'}}</view>
-    <view class="muted">已选 <text class="hl">{{selectedSubjects.length}}</text> 科：内容来自所选科目最该补的项，选完一键生成可打印 A4 图（含答案）。</view>
+    <view class="muted">已选 <text class="hl">{{selectedSubjects.length}}</text> 科：内容来自所选科目最该补的项，选完一键生成可打印 A4 图（不含答案，铁律 3.11）。</view>
 
     <view class="row qty-row" wx:if="{{mode==='practice'}}">
       <view class="row-label">每科题量</view>
@@ -30,9 +30,9 @@
     <view wx:if="{{saving}}" class="muted center" style="margin:14rpx 0;">生成中…</view>
   </view>
 
-  <!-- 预览（与打印内容一致，含答案） -->
+  <!-- 预览（与打印内容一致，不含答案） -->
   <view wx:if="{{printSections.length}}">
-    <view class="prev-title">预览（与打印内容一致 · 含答案）</view>
+    <view class="prev-title">预览（与打印内容一致 · 不含答案）</view>
     <view wx:for="{{printSections}}" wx:key="subjectKey" wx:for-item="sec">
       <view class="sec-head">【{{sec.subjectName}}】</view>
 
@@ -45,14 +45,11 @@
           </view>
           <view class="q-stem">{{item.q}}</view>
           <view class="q-opts">
-            <view class="q-opt {{opt.correct ? 'opt-right' : ''}}" wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l">
+            <!-- 发布内容不带答案：选项不做正确项高亮（铁律 3.11） -->
+            <view class="q-opt" wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l">
               <text class="opt-l">{{opt.l}}</text>
               <text class="opt-t">{{opt.t}}</text>
             </view>
-          </view>
-          <view class="q-answer">
-            <view class="ans-line"><text class="ans-tag">答案</text> {{item.answer}}</view>
-            <view class="ans-exp" wx:if="{{item.explain}}">{{item.explain}}</view>
           </view>
         </view>
       </block>

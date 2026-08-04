@@ -143,7 +143,7 @@ Page({
     return a;
   },
 
-  // 一键生成：汇总所有选中科目，出一张可打印图（含答案）
+  // 一键生成：汇总所有选中科目，出一张可打印图（不含答案，铁律 3.11）
   generate() {
     if (this.data.saving) return;
     const sel = this.data.selectedSubjects;
