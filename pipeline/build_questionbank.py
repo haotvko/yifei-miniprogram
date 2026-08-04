@@ -31,7 +31,86 @@ def build_form(items, point):
     return qs
 
 
-# ---------------- 英语：词性转换 名→形 ----------------
+# ============================================================
+# fill 产出型题目（2026-08-04 方案 §四，契约见 17-题库题型扩展方案-给甲）
+# 结构: {q, answer(含 | 等价表), explain, type:"fill", match:"exact"|"keywords"}
+# 运行: python build_questionbank.py --fill  → 输出 questionbank_fill.js（本地样例，不推云端）
+# 渲染/判分由甲侧 tasks 页答题模式实现；老选择题不受影响。
+# ============================================================
+
+def build_fill_words(items):
+    """词性转换 fill：给真实句子的空，写出正确派生形式。answer=派生词。"""
+    qs = []
+    for base, form, sentence in items:
+        qs.append({
+            "q": f"用所给词的适当形式填空：{sentence}（{base}）",
+            "answer": form,
+            "explain": f"“{base}” 在该句应变为 “{form}”。",
+            "type": "fill",
+            "match": "exact",
+        })
+    return qs
+
+
+# 名→形 fill 样例（真实句 + 派生词）
+N2A_FILL = [
+    ("care", "careful", "Be ______ with your homework."),
+    ("help", "helpful", "The old man is very ______ to others."),
+    ("hope", "hopeful", "We are ______ that he can win the game."),
+    ("meaning", "meaningful", "It is ______ to help those in need."),
+    ("success", "successful", "She is a ______ businesswoman."),
+    ("beauty", "beautiful", "What a ______ flower it is!"),
+    ("danger", "dangerous", "It is ______ to swim in the river alone."),
+    ("noise", "noisy", "The street is too ______ at night."),
+    ("health", "healthy", "Eating vegetables keeps us ______."),
+    ("luck", "lucky", "He was ______ to catch the last train."),
+    ("fun", "funny", "The clown is very ______."),
+    ("sun", "sunny", "It is a ______ day today."),
+    ("wind", "windy", "It is ______ in autumn in Beijing."),
+    ("rain", "rainy", "Take an umbrella; it is ______ outside."),
+    ("snow", "snowy", "The mountain is ______ in winter."),
+    ("cloud", "cloudy", "The sky is ______ this morning."),
+    ("fog", "foggy", "It is ______ today, so drive slowly."),
+    ("sleep", "sleepy", "I feel ______ after the long trip."),
+    ("hunger", "hungry", "The little boy is very ______."),
+    ("thirst", "thirsty", "After running, he felt ______."),
+    ("friend", "friendly", "People in this village are very ______."),
+    ("love", "lovely", "The baby is really ______."),
+    ("day", "daily", "Reading is part of my ______ life."),
+    ("week", "weekly", "We have a ______ meeting every Monday."),
+    ("month", "monthly", "This magazine is published ______."),
+    ("year", "yearly", "The school holds a ______ sports meeting."),
+    ("education", "educational", "This is an ______ program for children."),
+    ("tradition", "traditional", "They celebrate the ______ festival together."),
+    ("nature", "natural", "I like ______ beauty best."),
+    ("culture", "cultural", "The city is rich in ______ heritage."),
+    ("music", "musical", "She is a ______ girl."),
+    ("practice", "practical", "This is a ______ suggestion."),
+    ("science", "scientific", "We should follow a ______ method."),
+    ("energy", "energetic", "The young man is always ______."),
+    ("gold", "golden", "The sky is ______ at sunset."),
+    ("wood", "wooden", "The chair is made of ______."),
+    ("anger", "angry", "He was ______ with me for being late."),
+    ("silence", "silent", "The classroom was ______ during the test."),
+    ("pride", "proud", "Her parents are ______ of her."),
+    ("colour", "colourful", "The garden is ______ in spring."),
+    ("use", "useful", "This tool is very ______ for cooking."),
+    ("pain", "painful", "The cut on his arm is ______."),
+    ("peace", "peaceful", "The village is quiet and ______."),
+    ("power", "powerful", "The car has a ______ engine."),
+    ("wonder", "wonderful", "We had a ______ time at the beach."),
+    ("poison", "poisonous", "That snake is ______."),
+    ("wealth", "wealthy", "The family is very ______."),
+    ("dirt", "dirty", "Wash your hands; they are ______."),
+    ("salt", "salty", "The soup is too ______."),
+    ("fool", "foolish", "It is ______ to waste food."),
+    ("child", "childish", "Don't be so ______."),
+    ("live", "lively", "The party was really ______."),
+    ("nation", "national", "May Day is a ______ holiday."),
+    ("person", "personal", "This is my ______ opinion."),
+]
+
+# 名→形**选择题**词表（恢复原 63 项，保证现有题库不变化；N2A_FILL 仅用于 fill）
 n2a = [
     ("care", "careful"), ("use", "useful"), ("help", "helpful"), ("hope", "hopeful"),
     ("pain", "painful"), ("meaning", "meaningful"), ("peace", "peaceful"), ("power", "powerful"),
@@ -557,8 +636,106 @@ def gen_frac():
 bank["math"]["分数系数合并同类项"] = gen_frac()
 
 
-# ---------------- 写出 questionbank.js ----------------
+# ============================================================
+# fill 产出型题库（--fill 输出 questionbank_fill.js，本地样例）
+# ============================================================
+
+# 动→名 fill 样例（真实句 + 派生名词）
+V2N_FILL = [
+    ("act", "action", "We should take ______ to protect the environment."),
+    ("decide", "decision", "It is not easy to make a ______."),
+    ("develop", "development", "The ______ of science changes our life."),
+    ("compete", "competition", "She won first prize in the ______."),
+    ("discuss", "discussion", "We had a hot ______ about the film."),
+    ("educate", "education", "______ is important for everyone."),
+    ("improve", "improvement", "There is much ______ in his writing."),
+    ("achieve", "achievement", "Winning the match was a great ______."),
+    ("invite", "invitation", "Thank you for your ______."),
+    ("protect", "protection", "The forest needs our ______."),
+    ("suggest", "suggestion", "Could you give me some ______?"),
+    ("celebrate", "celebration", "The whole city was in ______ that night."),
+    ("invent", "invention", "The ______ of the wheel changed the world."),
+    ("attract", "attraction", "The Great Wall is a great ______."),
+    ("collect", "collection", "He has a big ______ of stamps."),
+    ("prepare", "preparation", "We need good ______ for the exam."),
+    ("perform", "performance", "Her ______ on the stage was wonderful."),
+    ("express", "expression", "There was a happy ______ on his face."),
+    ("explain", "explanation", "Please give me an ______."),
+    ("introduce", "introduction", "Let me give a brief ______ of our school."),
+]
+
+# 动→名选择题仍用上方 v2n（60 题）；V2N_FILL 仅用于 fill 产出型（见 build_fill_bank）。
+
+
+def gen_math_fill():
+    """数学 fill：写出结果。answer 用 | 分隔等价形式（渲染端去空格+小写归一后比对）。"""
+    qs = []
+    # 符号管理
+    for a, b in [(3, 8), (2, 7), (5, 11), (4, 9), (6, 13), (1, 6), (8, 15), (3, 12), (5, 9), (7, 14)]:
+        qs.append({"q": f"化简：-( {a} - {b} ) = ?",
+                   "answer": str(b - a),
+                   "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+                   "type": "fill", "match": "exact"})
+    # 指数法则
+    for m, n in [(2, 3), (3, 4), (2, 5), (4, 2), (3, 3), (5, 2), (2, 2), (3, 5), (4, 3), (6, 2)]:
+        qs.append({"q": f"化简：x^{m} · x^{n} = ?",
+                   "answer": f"x^{m+n}",
+                   "explain": "同底数幂相乘，指数相加。",
+                   "type": "fill", "match": "exact"})
+        qs.append({"q": f"化简：(x^{m})^{n} = ?",
+                   "answer": f"x^{m*n}",
+                   "explain": "幂的乘方，指数相乘。",
+                   "type": "fill", "match": "exact"})
+    # 分配律
+    for a, c in [(3, 4), (2, 5), (5, 3), (4, 6), (6, 2), (7, 3), (8, 4), (3, 7), (5, 5), (9, 2)]:
+        qs.append({"q": f"化简：{a}(x + {c}) = ?",
+                   "answer": f"{a}x+{a*c}|{a}x + {a*c}",
+                   "explain": f"分配律：{a}(x+{c})={a}x+{a*c}，每项都要乘。",
+                   "type": "fill", "match": "exact"})
+    # 完全平方
+    for n in [3, 5, 7, 2, 4, 6, 8, 1, 9, 10]:
+        qs.append({"q": f"计算：(x + {n})^2 = ?",
+                   "answer": f"x^2+{2*n}x+{n*n}|x^2 + {2*n}x + {n*n}",
+                   "explain": f"(x±a)^2=x^2±2ax+a^2：中间项=2×{n}x，常数项={n*n}。",
+                   "type": "fill", "match": "exact"})
+    # 平方差
+    for a, b in [(3, 2), (5, 1), (4, 3), (7, 2), (6, 5), (8, 3), (5, 4), (9, 2), (3, 1), (10, 7)]:
+        qs.append({"q": f"计算：(x + {a})(x - {a}) = ?",
+                   "answer": f"x^2-{a*a}|x^2 - {a*a}",
+                   "explain": f"平方差公式：(x+a)(x-a)=x^2-a^2={a*a}。",
+                   "type": "fill", "match": "exact"})
+    # 因式分解（平方差）
+    for a in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]:
+        qs.append({"q": f"因式分解：x^2 - {a*a} = ?",
+                   "answer": f"(x-{a})(x+{a})|(x+{a})(x-{a})",
+                   "explain": f"x^2-{a*a}=(x-{a})(x+{a})。",
+                   "type": "fill", "match": "exact"})
+    return qs
+
+
+def build_fill_bank():
+    """组装 fill 题库：english 词性转换（名→形/动→名）+ math 数学写出结果。"""
+    mq = gen_math_fill()   # 顺序: 符号10 / 指数20 / 分配10 / 完全平方10 / 平方差10 / 因式分解10
+    fb = {"english": {}, "math": {}}
+    fb["english"]["词性转换·名→形"] = build_fill_words(N2A_FILL[:20])   # 20 样例
+    fb["english"]["词性转换·动→名"] = build_fill_words(V2N_FILL[:20])   # 20 样例
+    fb["math"]["符号管理（负号奇偶/去括号分配）"] = mq[0:10]
+    fb["math"]["指数法则混淆"] = mq[10:30]
+    fb["math"]["分配律漏项"] = mq[30:40]
+    fb["math"]["完全平方变形与逆用"] = mq[40:50]
+    fb["math"]["平方差公式"] = mq[50:60]
+    fb["math"]["因式分解-平方差"] = mq[60:70]
+    return fb
+
+
+# ---------------- 写出 questionbank.js / questionbank_fill.js ----------------
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--fill", action="store_true",
+                    help="额外输出 questionbank_fill.js（产出型 fill 样例，本地不推云端）")
+    args = ap.parse_args()
+
     # 校验数量
     report = []
     for subj, pts in bank.items():
@@ -578,6 +755,20 @@ def main():
     with open("questionbank.js", "w", encoding="utf-8") as f:
         f.write(out)
     print("已写出 questionbank.js")
+
+    if args.fill:
+        fb = build_fill_bank()
+        fout = "// 产出型 fill 题库（样例，本地不推云端）——契约见 Obsidian 17-题库题型扩展方案-给甲\n"
+        fout += "// 结构: questionbankFill[subject][point] = [{q, answer(可含 | 等价), explain, type:'fill', match:'exact'}]\n"
+        fout += "// 渲染/判分由甲侧 tasks 页答题模式实现；当前 App 选择题不受影响。\n"
+        fout += "module.exports = " + json.dumps(fb, ensure_ascii=False, indent=1) + ";\n"
+        with open("questionbank_fill.js", "w", encoding="utf-8") as f:
+            f.write(fout)
+        fr = [(s, p, len(q)) for s, pts in fb.items() for p, q in pts.items()]
+        print("fill 样例统计：")
+        for s, p, n in fr:
+            print(f"  {s:8s} {p:24s} {n}")
+        print(f"fill 总计 {sum(x[2] for x in fr)} 题 → questionbank_fill.js")
 
 
 if __name__ == "__main__":
