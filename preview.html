@@ -86,7 +86,7 @@
   .core-emoji{font-size:16px;margin-right:8px;}
   .core-name{flex:1;font-size:14px;font-weight:600;}
   .core-why{font-size:11px;line-height:1.5;color:#6b7180;}
-  .go-practice{align-self:flex-end;margin-top:9px;padding:7px 17px;background:linear-gradient(135deg,#5b8def,#7c6bff);color:#fff;font-size:13px;font-weight:600;border-radius:999px;box-shadow:0 4px 10px rgba(91,141,239,.28);cursor:pointer;}
+  .core-hint{margin-top:9px;font-size:11px;color:#5b6ef0;background:#eef2ff;border-radius:8px;padding:7px 9px;cursor:pointer;}
   .pill-blue{background:#eaf1ff;color:#3f6fd1;} .pill-green{background:#e7f7ec;color:#22a44e;}
   .mastered{display:flex;flex-wrap:wrap;}
   .tag{display:inline-block;background:#e7f7ec;color:#22a44e;font-size:12px;padding:5px 11px;border-radius:13px;margin:5px 7px 5px 0;}
@@ -202,16 +202,11 @@
           </div>
         </div>
         <div class="card">
-          <div class="section-title">🚨 核心薄弱项（优先攻克）</div>
+          <div class="section-title">🚨 当前最该攻的一项</div>
           <div class="core">
             <div class="core-head"><span class="core-name">完形填空·长语境</span><span class="pill pill-red">20% · 待补</span></div>
             <div class="core-why">🟢真题：长语境类是当前最大确定性失分面</div>
-            <div class="go-practice">去练习 →</div>
-          </div>
-          <div class="core">
-            <div class="core-head"><span class="core-name">词汇辨析/易混词</span><span class="pill pill-yellow">46% · 薄弱</span></div>
-            <div class="core-why">🟢真题：易混词辨析错误较多，建议专项练习</div>
-            <div class="go-practice">去练习 →</div>
+            <div class="core-hint">→ 在「今日任务」下拉选择此考点即可针对性练习</div>
           </div>
         </div>
         <div class="foot">评分来自真实作业落笔 · 数据截至快照生成日</div>
@@ -220,29 +215,41 @@
 
     <!-- 今日任务 -->
     <div class="phone">
-      <div class="phone-title">③ 今日任务</div>
+      <div class="phone-title">③ 今日任务（下拉选考点 + 题量）</div>
       <div class="screen">
         <div class="card">
-          <div class="section-title">🎯 今日任务 · 选科目生成</div>
-          <div class="muted">任务池更新于：2026-08-03</div>
-          <div class="chips">
-            <div class="chip chip-on">英语 · 2</div>
-            <div class="chip chip-on">数学 · 1</div>
-            <div class="chip">语文 · 0</div>
+          <div class="section-title">🎯 今日练习</div>
+          <div class="muted">选择考点与题量，从题库随机抽取练习</div>
+          <div class="row">
+            <div class="row-label">练习考点</div>
+            <div class="picker-box" style="flex:1;display:flex;justify-content:space-between;background:#f4f6fb;border:1px solid #e2e7f0;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:600;">
+              <span>英语 · 完形填空·长语境</span><span style="color:#9aa1ad;">▾</span>
+            </div>
           </div>
-          <div class="btn">生成今日任务</div>
+          <div class="row" style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="row-label">练习题量</div>
+            <div style="display:flex;align-items:center;">
+              <span style="display:inline-block;width:30px;height:30px;line-height:28px;text-align:center;background:#eef2ff;color:#5b6ef0;border-radius:50%;font-weight:700;">−</span>
+              <span style="margin:0 14px;font-size:18px;font-weight:800;">5</span>
+              <span style="display:inline-block;width:30px;height:30px;line-height:28px;text-align:center;background:#eef2ff;color:#5b6ef0;border-radius:50%;font-weight:700;">＋</span>
+              <span style="font-size:12px;color:#9aa1ad;margin-left:8px;">题（每科 2–10）</span>
+            </div>
+          </div>
+          <div class="btn" style="background:linear-gradient(135deg,#5b8def,#6f6ef0);color:#fff;border-radius:10px;font-weight:700;text-align:center;padding:12px 0;margin-top:6px;">开始练习</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#5b8def,#6f6ef0);border-radius:12px;padding:12px 14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;">
+          <div><div style="font-size:14px;font-weight:800;color:#fff;">英语 · 完形填空·长语境</div><div style="font-size:11px;color:rgba(255,255,255,0.9);">共 5 题 · 点击题目看答案</div></div>
+          <div style="font-size:12px;color:#fff;background:rgba(255,255,255,0.22);padding:5px 10px;border-radius:14px;">显示答案</div>
         </div>
         <div class="card" style="border-left:5px solid #5b6ef0;">
-          <div class="tc-badge">英语</div>
-          <div class="tc-title">wonder → wonderful 名转形</div>
-          <div class="tc-line"><span class="tc-label">原词</span> wonder</div>
-          <div class="tc-line"><span class="tc-label">目标词</span> wonderful</div>
-          <div class="tc-line"><span class="tc-label red">规则</span> 名词+y→形容词，表"充满…的"</div>
-          <div class="tc-line"><span class="tc-label">怎么学</span> 造句 3 遍 + 默写</div>
-          <div class="tc-line"><span class="tc-label blue">为什么</span> 名→形是上海卷最高频失分点</div>
-          <div class="btn btn-ghost" style="margin-top:10px;">保存 / 打印图片</div>
+          <div style="display:flex;justify-content:space-between;"><span style="font-size:13px;font-weight:800;color:#5b6ef0;">第 1 题</span><span style="font-size:11px;color:#9aa1ad;">看答案</span></div>
+          <div style="font-size:14px;margin:6px 0 10px;">My mother _____ early every morning to make breakfast.</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">A</span>gets up</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">B</span>gets on</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">C</span>gets off</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">D</span>gets down</div>
         </div>
-        <div class="empty"><div class="empty-emoji">🪄</div><div class="muted">勾选科目后点「生成今日任务」</div></div>
+        <div class="empty"><div class="empty-emoji">📚</div><div class="muted">题库：每个考点 50–100 题，随机抽练</div></div>
       </div>
     </div>
 

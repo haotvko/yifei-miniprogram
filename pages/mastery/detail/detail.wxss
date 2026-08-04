@@ -34,19 +34,12 @@
 .core-head { display: flex; align-items: center; margin-bottom: 8rpx; }
 .core-name { flex: 1; font-size: 28rpx; font-weight: 600; }
 
-/* 去练习按钮：从问题直跳今日任务（自动勾选本科目） */
-.go-practice {
-  align-self: flex-end;
-  margin-top: 14rpx;
-  padding: 12rpx 30rpx;
-  background: linear-gradient(135deg, #5b8def, #7c6bff);
-  color: #ffffff;
-  font-size: 26rpx;
-  font-weight: 600;
-  border-radius: 999rpx;
-  box-shadow: 0 6rpx 16rpx rgba(91, 139, 239, 0.28);
+/* 当前最该攻的一项 · 引导去今日任务 */
+.core-why { font-size: 24rpx; line-height: 1.5; }
+.core-hint {
+  margin-top: 14rpx; font-size: 23rpx; color: #5b6ef0;
+  background: #eef2ff; border-radius: 12rpx; padding: 12rpx 16rpx;
 }
-.go-practice:active { opacity: 0.85; }
 
 /* 空状态 */
 .empty-emoji { font-size: 56rpx; text-align: center; margin-bottom: 10rpx; }

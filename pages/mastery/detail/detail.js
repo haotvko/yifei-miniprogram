@@ -47,9 +47,15 @@ Page({
       status_label: statusLabel(p.status)
     }));
 
-    // 核心薄弱项：红(待补)+黄(薄弱)，最该先攻，带去练习
+    // 核心薄弱项：只取最该先攻的「一项」（掌握度最低的红/黄）
     const core = (subj.points || [])
       .filter(p => p.status === 'red' || p.status === 'yellow')
+      .sort((a, b) => {
+        const av = a.mastery_pct == null ? 2 : a.mastery_pct;
+        const bv = b.mastery_pct == null ? 2 : b.mastery_pct;
+        return av - bv;
+      })
+      .slice(0, 1)
       .map(p => ({
         point: p.point,
         pct_text: pctText(p.mastery_pct),
@@ -70,11 +76,5 @@ Page({
       core,
       loading: false
     });
-  },
-
-  goPractice() {
-    const key = this.data.subject && this.data.subject.key;
-    if (!key) return;
-    wx.navigateTo({ url: '/pages/tasks/tasks?subject=' + key });
   }
 });

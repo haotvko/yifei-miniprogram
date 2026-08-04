@@ -1,52 +1,69 @@
 <view class="page">
-  <view class="card intro">
-    <view class="intro-title">🎯 今日任务 · 选科目生成</view>
-    <view class="muted">任务池更新于：{{poolUpdated || '—'}}</view>
-    <view class="chips">
-      <view class="chip {{selected[item.key] ? 'chip-on' : ''}}"
-            wx:for="{{options}}" wx:key="key"
-            bindtap="toggle" data-key="{{item.key}}">
-        {{item.name}} · {{item.count}}
+
+  <!-- 设置区：选考点（下拉）+ 题量（右） -->
+  <view class="card setup" wx:if="{{!showing}}">
+    <view class="intro-title">🎯 今日练习</view>
+    <view class="muted">选择考点与题量，从题库随机抽取练习</view>
+
+    <view class="row">
+      <view class="row-label">练习考点</view>
+      <picker class="picker" mode="selector" range="{{items}}" range-key="label" value="{{pickerIndex}}" bindchange="onPick">
+        <view class="picker-box">
+          <text>{{items[pickerIndex].label}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="row qty-row">
+      <view class="row-label">练习题量</view>
+      <view class="stepper">
+        <view class="step-btn" bindtap="dec">−</view>
+        <view class="step-num">{{quantity}}</view>
+        <view class="step-btn" bindtap="inc">＋</view>
+        <view class="step-unit">题（每科 2–10）</view>
       </view>
     </view>
-    <button class="btn-primary gen-btn" bindtap="generate" loading="{{generating}}">生成今日任务</button>
+
+    <button class="btn-primary gen-btn" bindtap="start">开始练习</button>
   </view>
 
-  <block wx:if="{{cards.length}}">
-    <view class="card task-card" wx:for="{{cards}}" wx:key="subject">
-      <view class="tc-badge">{{item.subjectName}}</view>
-      <view class="tc-title">{{item.card.title}}</view>
+  <!-- 练习区 -->
+  <block wx:if="{{showing}}">
+    <view class="practice-head">
+      <view class="ph-left">
+        <view class="ph-title">{{items[pickerIndex].label}}</view>
+        <view class="muted">共 {{questions.length}} 题 · 点击题目看答案</view>
+      </view>
+      <view class="ph-right">
+        <view class="ph-reveal" bindtap="revealAll">显示答案</view>
+        <view class="ph-back" bindtap="back">← 设置</view>
+      </view>
+    </view>
 
-      <view wx:if="{{item.card.word_from}}" class="tc-line">
-        <text class="tc-label">原词</text> <text class="tc-strong">{{item.card.word_from}}</text>
+    <view class="card qcard" wx:for="{{questions}}" wx:key="index" bindtap="toggleReveal" data-idx="{{index}}">
+      <view class="q-top">
+        <text class="q-num">第 {{index+1}} 题</text>
+        <text class="q-tip">{{reveal[index] ? '隐藏答案' : '看答案'}}</text>
       </view>
-      <view wx:if="{{item.card.word_from}}" class="tc-line">
-        <text class="tc-label">目标词</text> <text class="tc-strong">{{item.card.word_to}}</text>
-        <text wx:if="{{item.card.ipa}}" class="tc-ipa"> {{item.card.ipa}}</text>
+      <view class="q-stem">{{item.q}}</view>
+      <view class="q-opts">
+        <view class="q-opt {{reveal[index] && opt.correct ? 'opt-right' : ''}}"
+              wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l">
+          <text class="opt-l">{{opt.l}}</text>
+          <text class="opt-t">{{opt.t}}</text>
+        </view>
       </view>
-      <view wx:if="{{item.card.collocation}}" class="tc-line">
-        <text class="tc-label">搭配</text> {{item.card.collocation}}
+      <view class="q-answer" wx:if="{{reveal[index]}}">
+        <view class="ans-line"><text class="ans-tag">答案</text> {{item.answer}}</view>
+        <view class="ans-exp" wx:if="{{item.explain}}">{{item.explain}}</view>
       </view>
-      <view wx:if="{{item.card.point}}" class="tc-line">
-        <text class="tc-label">考点</text> {{item.card.point}}
-      </view>
-
-      <view class="tc-line"><text class="tc-label tc-label-red">规则</text> {{item.card.rule}}</view>
-      <view class="tc-line"><text class="tc-label">怎么学</text> {{item.card.how}}</view>
-      <view class="tc-line"><text class="tc-label tc-label-blue">为什么</text> {{item.card.why}}</view>
-
-      <button class="btn-ghost save-btn" data-idx="{{index}}" bindtap="saveCard">保存 / 打印图片</button>
     </view>
   </block>
 
-  <view wx:if="{{!cards.length && options.length}}" class="empty">
-    <view class="empty-emoji">🪄</view>
-    <view class="muted">勾选科目后点「生成今日任务」</view>
-  </view>
-  <view wx:if="{{!options.length}}" class="empty">
-    <view class="empty-emoji">📭</view>
-    <view class="muted">任务池暂无待出卡片，AI 在线时会自动补充</view>
+  <view wx:if="{{!items.length && !showing}}" class="empty">
+    <view class="empty-emoji">📚</view>
+    <view class="muted">暂无考点，请先在「掌握看板」上传作业生成考点</view>
   </view>
 
-  <canvas type="2d" id="cardCanvas" class="hidden-canvas"></canvas>
 </view>

@@ -27,16 +27,16 @@
     </view>
   </view>
 
-  <!-- 核心薄弱项（最后一栏）：红+黄，优先攻克 -->
+  <!-- 核心薄弱项（最后一栏）：只取最该先攻的一项 -->
   <view class="card" wx:if="{{core.length}}">
-    <view class="section-title">🚨 核心薄弱项（优先攻克）</view>
+    <view class="section-title">🚨 当前最该攻的一项</view>
     <view class="core" wx:for="{{core}}" wx:key="point">
       <view class="core-head">
         <text class="core-name">{{item.point}}</text>
         <text class="pill {{item.pill_class}}">{{item.pct_text}} · {{item.status_label}}</text>
       </view>
       <view class="muted core-why">{{item.why}}</view>
-      <view class="go-practice" bindtap="goPractice">去练习 →</view>
+      <view class="core-hint">→ 在「今日任务」下拉选择此考点即可针对性练习</view>
     </view>
   </view>
 
