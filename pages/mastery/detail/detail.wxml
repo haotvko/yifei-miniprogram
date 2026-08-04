@@ -40,6 +40,30 @@
     </view>
   </view>
 
+  <!-- 英语：词汇掌握（中考150分对照） -->
+  <view class="card" wx:if="{{vocab}}">
+    <view class="section-title">词汇掌握<text class="tag-150"> · 中考150分对照</text></view>
+    <view class="vocab-row">
+      <view class="big-num" style="color:{{vocab.color}}">{{vocab.pct_text}}</view>
+      <view class="vocab-right">
+        <view class="degree-pill" style="color:{{vocab.color}}">程度 · {{vocab.degree}}</view>
+        <view class="muted vocab-note">{{vocab.note}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数学：计算错误率（实时） -->
+  <view class="card" wx:if="{{calc}}">
+    <view class="section-title">计算错误率<text class="tag-live"> · 实时</text></view>
+    <view class="vocab-row">
+      <view class="big-num" style="color:{{calc.color}}">{{calc.rate_text}}</view>
+      <view class="vocab-right">
+        <view class="degree-pill" style="color:{{calc.color}}">错误 {{calc.wrong}} / 总量 {{calc.total}}</view>
+        <view class="muted vocab-note">{{calc.note}}</view>
+      </view>
+    </view>
+  </view>
+
   <view class="muted center foot">评分来自真实作业落笔 · 数据截至快照生成日</view>
 </view>
 <view wx:else class="loading">

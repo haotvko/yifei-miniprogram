@@ -43,3 +43,15 @@
 
 /* 空状态 */
 .empty-emoji { font-size: 56rpx; text-align: center; margin-bottom: 10rpx; }
+
+/* 词汇掌握 / 计算错误率 新增卡 */
+.tag-150 { font-size: 20rpx; font-weight: 500; color: #8a90a0; margin-left: 8rpx; }
+.tag-live { font-size: 20rpx; font-weight: 600; color: #22a44e; margin-left: 8rpx; }
+.vocab-row { display: flex; align-items: center; padding: 10rpx 0; }
+.big-num { font-size: 64rpx; font-weight: 800; min-width: 168rpx; text-align: center; line-height: 1.1; }
+.vocab-right { flex: 1; padding-left: 18rpx; }
+.degree-pill {
+  display: inline-block; font-size: 22rpx; font-weight: 600;
+  padding: 4rpx 16rpx; border: 1rpx solid; border-radius: 999rpx; margin-bottom: 10rpx;
+}
+.vocab-note { font-size: 22rpx; line-height: 1.5; }

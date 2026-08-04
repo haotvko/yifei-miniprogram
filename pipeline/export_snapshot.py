@@ -49,6 +49,40 @@ def color_of(mp):
     return "yellow"
 
 
+def load_reports():
+    """读取仓库根的 reports.json（AI 归因产出的逐考点 stats）。缺失/损坏返回 None。"""
+    try:
+        path = os.path.join(os.path.dirname(__file__), "..", "reports.json")
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def vocab_mastery_of(pts):
+    """英语词汇掌握度 = 真实作业里「词汇辨析 + 词性转换」类考点的掌握度均值。无数据返回 None。"""
+    vp = [p.get("mastery_pct") for p in (pts or [])
+          if isinstance(p, dict) and p.get("mastery_pct") is not None
+          and ("词汇" in (p.get("point") or "") or "词性转换" in (p.get("point") or ""))]
+    if not vp:
+        return None
+    return round(sum(vp) / len(vp), 3)
+
+
+def calc_error_of():
+    """数学计算错误率 = reports.json 全部计算类考点 wrong 之和 / total 之和。无数据返回 None。"""
+    try:
+        rep = load_reports() or {}
+        m = rep.get("math", {}) or {}
+        tot = sum((v.get("stats") or {}).get("total", 0) for v in m.values() if isinstance(v, dict))
+        wr = sum((v.get("stats") or {}).get("wrong", 0) for v in m.values() if isinstance(v, dict))
+        if not tot:
+            return None
+        return {"total": tot, "wrong": wr, "rate": round(wr / tot, 4)}
+    except Exception:
+        return None
+
+
 def build():
     subjects = []
     task_pool = {"updated_at": datetime.datetime.now().astimezone().isoformat()}
@@ -62,7 +96,8 @@ def build():
                 "key": key, "name": name, "status": "pending",
                 "mastery_pct": None, "color": "gray", "weak_count": 0,
                 "predicted_score_150": None, "key_hint": "待评估·未上传",
-                "points": [], "untested": []
+                "points": [], "untested": [],
+                "vocab_mastery_pct": None, "calc_error": None
             })
             task_pool[key] = []
             continue
@@ -77,12 +112,16 @@ def build():
         pred = d.get("predicted_score_150")
         pred_each[name] = pred
 
+        vocab_mastery_pct = vocab_mastery_of(pts) if key == "english" else None
+        calc_error = calc_error_of() if key == "math" else None
+
         subjects.append({
             "key": key, "name": name, "status": "active",
             "mastery_pct": mp, "color": color_of(mp), "weak_count": weak,
             "predicted_score_150": pred, "key_hint": d.get("key_hint", ""),
             "points": [p for p in pts if isinstance(p, dict)],
-            "untested": d.get("untested") or []
+            "untested": d.get("untested") or [],
+            "vocab_mastery_pct": vocab_mastery_pct, "calc_error": calc_error
         })
 
         tp = parse_block(read_block(path, "任务池候选"))

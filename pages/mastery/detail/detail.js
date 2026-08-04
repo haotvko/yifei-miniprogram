@@ -11,9 +11,25 @@ function pillClass(s) {
   return s === 'red' ? 'pill-red' : s === 'yellow' ? 'pill-yellow' : s === 'blue' ? 'pill-blue'
     : s === 'green' ? 'pill-green' : 'pill-gray';
 }
+// 词汇掌握度 -> 程度分级（越低越弱）
+function degreeOfVocab(p) {
+  if (p == null) return { label: '未测', color: COLOR.gray };
+  if (p >= 0.85) return { label: '扎实', color: COLOR.green };
+  if (p >= 0.70) return { label: '良好', color: COLOR.blue };
+  if (p >= 0.50) return { label: '起步', color: COLOR.yellow };
+  return { label: '薄弱', color: COLOR.red };
+}
+// 计算错误率 -> 颜色（越低越好）
+function rateColor(r) {
+  if (r == null) return COLOR.gray;
+  if (r <= 0.10) return COLOR.green;
+  if (r <= 0.22) return COLOR.blue;
+  if (r <= 0.35) return COLOR.yellow;
+  return COLOR.red;
+}
 
 Page({
-  data: { subject: null, items: [], core: [], loading: true },
+  data: { subject: null, items: [], core: [], vocab: null, calc: null, loading: true },
 
   onLoad(options) {
     this.key = options.key;
@@ -74,8 +90,38 @@ Page({
       },
       items,
       core,
+      vocab: this.buildVocab(subj),
+      calc: this.buildCalc(subj),
       loading: false
     });
+  },
+
+  // 英语：词汇掌握（中考150分对照）。vocab_mastery_pct 来自真实作业词汇类考点均值。
+  buildVocab(subj) {
+    const p = subj.vocab_mastery_pct;
+    if (p == null) return null;
+    const d = degreeOfVocab(p);
+    const pct = Math.round(p * 100);
+    return {
+      pct_text: pct + '%',
+      degree: d.label,
+      color: d.color,
+      note: '中考英语满分150：词汇是「词汇语法(30分)+读写(80分)」的底层支撑。当前词汇掌握≈'
+        + pct + '%，距满分要求仍有明确空间；具体折算分值需真题校准（低置信）。'
+    };
+  },
+
+  // 数学：计算错误率（实时）。calc_error = {total, wrong, rate}，来自 reports 全部计算类考点累计。
+  buildCalc(subj) {
+    const c = subj.calc_error;
+    if (!c || !c.total) return null;
+    return {
+      rate_text: Math.round(c.rate * 100) + '%',
+      total: c.total,
+      wrong: c.wrong,
+      color: rateColor(c.rate),
+      note: '所有计算类题（符号/指数/分配律/完全平方/多项式除法/分数系数）累计；实时随每次作业分析刷新。'
+    };
   },
 
   openReport(e) {
