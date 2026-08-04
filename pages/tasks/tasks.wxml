@@ -2,7 +2,7 @@
 
   <!-- 科目多选 -->
   <view class="subj-bar" wx:if="{{subjects.length}}">
-    <view class="subj-chip {{selectedSubjects.indexOf(s.key) > -1 ? 'on' : ''}}" wx:for="{{subjects}}" wx:key="key" wx:for-item="s" bindtap="toggleSubject" data-key="{{s.key}}">{{s.name}}</view>
+    <view class="subj-chip {{s.isSel ? 'on' : ''}}" wx:for="{{subjects}}" wx:key="key" wx:for-item="s" bindtap="toggleSubject" data-key="{{s.key}}">{{s.name}}</view>
   </view>
 
   <!-- 模式切换 -->

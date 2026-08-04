@@ -74,6 +74,10 @@ Page({
       if (s) { selected = [s.key]; this.lockPoint = { subjectKey: s.key, point: this.paramPoint }; }
     }
 
+    // 科目选中态：wxml 不支持 indexOf，用显式 isSel 字段（修复勾选看不出）
+    const selSet = new Set(selected);
+    subjects.forEach(s => { s.isSel = selSet.has(s.key); });
+
     this.setData({ subjects, selectedSubjects: selected });
     this.inited = true;
   },
@@ -84,7 +88,9 @@ Page({
     const sel = this.data.selectedSubjects.slice();
     const i = sel.indexOf(key);
     if (i > -1) sel.splice(i, 1); else sel.push(key);
-    this.setData({ selectedSubjects: sel, printSections: [] });
+    const selSet = new Set(sel);
+    const subjects = this.data.subjects.map(s => Object.assign({}, s, { isSel: selSet.has(s.key) }));
+    this.setData({ subjects, selectedSubjects: sel, printSections: [] });
   },
 
   // 模式切换：practice=智能提分练习 / roi=高价值任务卡
@@ -187,7 +193,14 @@ Page({
         });
         if (!pool.length) return;
         const n = Math.min(qty, pool.length);
-        const items = this.shuffle(pool).slice(0, n).map((p, i) => {
+        // 产出型 fill 优先抽取（写比认提分价值高，铁律 3.12），不足再补选择题
+        const fillPool = pool.filter(x => !x.q.options || x.q.type === 'fill');
+        const choicePool = pool.filter(x => x.q.options && x.q.type !== 'fill');
+        let picked = this.shuffle(fillPool).slice(0, Math.min(n, fillPool.length));
+        if (picked.length < n) {
+          picked = picked.concat(this.shuffle(choicePool).slice(0, n - picked.length));
+        }
+        const items = picked.map((p, i) => {
           const q = p.q;
           const isFill = !q.options || q.type === 'fill';
           return {
