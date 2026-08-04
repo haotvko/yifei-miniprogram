@@ -2,6 +2,7 @@
   "pages": [
     "pages/mastery/index/index",
     "pages/mastery/detail/detail",
+    "pages/mastery/report/report",
     "pages/tasks/tasks",
     "pages/upload/upload"
   ],

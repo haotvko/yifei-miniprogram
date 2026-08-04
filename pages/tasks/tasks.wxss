@@ -1,12 +1,34 @@
 .page { padding-bottom: 40rpx; }
 
-.intro { background: linear-gradient(180deg, #ffffff, #fbfcff); }
-.intro-title { font-size: 32rpx; font-weight: 800; }
+/* 科目切换条 */
+.subj-bar { display: flex; gap: 16rpx; padding: 22rpx 24rpx 4rpx; }
+.subj-chip {
+  flex: 1; text-align: center; padding: 16rpx 0; border-radius: 16rpx;
+  background: #eef1f7; color: #6b7280; font-size: 27rpx; font-weight: 700;
+}
+.subj-chip.on { background: linear-gradient(135deg, #5b8def, #6f6ef0); color: #fff; box-shadow: 0 6rpx 16rpx rgba(91,141,239,0.3); }
 
-/* 设置区行 */
+.intro-title { font-size: 32rpx; font-weight: 800; }
+.hl { color: #e04646; font-weight: 700; }
+
+/* 设置区 */
+.setup { padding: 26rpx 28rpx 30rpx; }
 .row { display: flex; align-items: center; margin: 22rpx 0; }
 .row-label { font-size: 28rpx; font-weight: 700; color: #2b2f38; width: 150rpx; flex: none; }
 .qty-row { justify-content: space-between; }
+
+/* 核心扣分项多选 chips */
+.core-chips { display: flex; flex-wrap: wrap; gap: 14rpx; margin: 18rpx 0 8rpx; }
+.core-chip {
+  display: flex; align-items: center; gap: 10rpx;
+  background: #f4f6fb; border: 2rpx solid #e6eaf2; border-radius: 16rpx;
+  padding: 14rpx 20rpx; font-size: 25rpx; color: #4a4f5a;
+}
+.core-chip.on { background: #eaf1ff; border-color: #5b6ef0; color: #2b2f38; }
+.cc-name { font-weight: 600; }
+.cc-pct { font-weight: 800; }
+.cc-check { width: 30rpx; height: 30rpx; line-height: 30rpx; text-align: center; font-weight: 800; color: #5b6ef0; }
+.core-chip.on .cc-check { background: #5b6ef0; color: #fff; border-radius: 50%; }
 
 /* 下拉选择 */
 .picker { flex: 1; }
@@ -17,6 +39,10 @@
 }
 .picker-arrow { color: #9aa1ad; font-size: 24rpx; }
 
+/* 手动区 */
+.manual { margin-top: 26rpx; padding-top: 22rpx; border-top: 2rpx dashed #e6eaf2; }
+.manual-title { font-size: 25rpx; color: #9aa1ad; margin-bottom: 12rpx; }
+
 /* 题量步进器 */
 .stepper { display: flex; align-items: center; }
 .step-btn {
@@ -24,12 +50,10 @@
   background: #eef2ff; color: #5b6ef0; border-radius: 50%;
   font-size: 40rpx; font-weight: 700; border: 2rpx solid #d9e0ff;
 }
-.step-num {
-  min-width: 64rpx; text-align: center; font-size: 38rpx; font-weight: 800; color: #2b2f38;
-}
+.step-num { min-width: 64rpx; text-align: center; font-size: 38rpx; font-weight: 800; color: #2b2f38; }
 .step-unit { font-size: 24rpx; color: #9aa1ad; margin-left: 14rpx; }
 
-.gen-btn { margin-top: 12rpx; }
+.gen-btn { margin-top: 24rpx; }
 .btn-primary {
   background: linear-gradient(135deg, #5b8def, #6f6ef0);
   color: #fff; border-radius: 16rpx; font-size: 30rpx; font-weight: 700; padding: 20rpx 0;
@@ -51,9 +75,10 @@
 
 /* 题目卡 */
 .qcard { border-left: 8rpx solid #5b6ef0; }
-.q-top { display: flex; justify-content: space-between; align-items: center; }
-.q-num { font-size: 26rpx; font-weight: 800; color: #5b6ef0; }
-.q-tip { font-size: 22rpx; color: #9aa1ad; }
+.q-top { display: flex; justify-content: space-between; align-items: center; gap: 12rpx; }
+.q-num { font-size: 26rpx; font-weight: 800; color: #5b6ef0; flex: none; }
+.q-tag { font-size: 21rpx; color: #9aa1ad; flex: 1; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.q-tip { font-size: 22rpx; color: #9aa1ad; flex: none; }
 .q-stem { font-size: 30rpx; color: #2b2f38; line-height: 1.5; margin: 14rpx 0 18rpx; white-space: pre-wrap; }
 
 .q-opts { display: flex; flex-direction: column; }

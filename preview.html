@@ -115,6 +115,39 @@
   .empty-emoji{font-size:48px;margin-bottom:12px;}
   .swatch{display:flex;gap:8px;justify-content:center;margin:30px 0 0;flex-wrap:wrap;}
   .sw{width:54px;height:54px;border-radius:14px;display:flex;align-items:flex-end;justify-content:center;font-size:10px;color:#fff;font-weight:700;padding-bottom:6px;}
+
+  /* 新增：今日任务-科目条 + 核心扣分项 chips */
+  .subj-bar{display:flex;gap:8px;padding:12px 12px 0;}
+  .subj-bar .chip{flex:1;text-align:center;}
+  .subj-bar .chip.on{background:linear-gradient(135deg,#5b8def,#7c6bff);color:#fff;border:none;}
+  .core-chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0;}
+  .core-chip{padding:7px 11px;background:#f4f6fb;border:1.5px solid #e6eaf2;border-radius:10px;font-size:12px;color:#4a4f5a;display:flex;align-items:center;gap:6px;}
+  .core-chip.on{background:#eaf1ff;border-color:#5b6ef0;color:#2b2f38;}
+  .core-chip .cc-pct{font-weight:800;}
+  .core-chip .cc-check{width:16px;height:16px;line-height:16px;text-align:center;font-weight:800;color:#5b6ef0;}
+  .core-chip.on .cc-check{background:#5b6ef0;color:#fff;border-radius:50%;}
+  .manual{margin-top:14px;padding-top:12px;border-top:1px dashed #e6eaf2;}
+  .manual .mt{font-size:11px;color:#9aa1ad;margin-bottom:6px;}
+
+  /* 新增：详细汇报页 */
+  .rep-hero{background:linear-gradient(135deg,#5b8def,#7c6bff);color:#fff;padding:16px 18px 18px;border-radius:0 0 22px 22px;display:flex;align-items:center;justify-content:space-between;}
+  .rep-sub{font-size:11px;opacity:.9;}
+  .rep-name{font-size:18px;font-weight:800;margin:3px 0 7px;}
+  .stat-row{display:flex;justify-content:space-between;margin-bottom:10px;}
+  .stat{flex:1;text-align:center;background:#f6f8fc;border-radius:12px;padding:10px 3px;margin:0 3px;}
+  .stat-num{font-size:20px;font-weight:800;color:#2b2f38;}
+  .stat-label{font-size:10px;color:#9aa1ad;margin-top:2px;}
+  .stat.ok .stat-num{color:#22a44e;} .stat.bad .stat-num{color:#e04646;} .stat.rate .stat-num{color:#5b6ef0;}
+  .para{font-size:12px;line-height:1.6;color:#4a4f5a;}
+  .bd{display:flex;padding:8px 0;border-bottom:1px solid #f1f2f6;}
+  .bd-bar{width:4px;border-radius:4px;background:#e04646;margin-right:9px;}
+  .bd-title{font-size:13px;font-weight:700;}
+  .bd-desc{font-size:11px;line-height:1.5;color:#5a606c;margin:3px 0 4px;}
+  .bd-from{font-size:10px;color:#9aa1ad;}
+  .strength{display:flex;align-items:center;padding:4px 0;}
+  .chk{width:18px;height:18px;line-height:18px;text-align:center;border-radius:50%;background:#e7f7ec;color:#22a44e;font-size:11px;font-weight:800;margin-right:8px;}
+  .st-text{font-size:12px;color:#4a4f5a;}
+  .rep-btn{background:linear-gradient(135deg,#5b8def,#7c6bff);color:#fff;text-align:center;font-weight:700;font-size:14px;padding:13px;border-radius:22px;margin:14px 12px 6px;box-shadow:0 8px 20px rgba(91,141,239,.35);}
 </style>
 </head>
 <body>
@@ -200,6 +233,7 @@
               <div class="si-tag" style="color:#ffa726">薄弱</div>
             </div></div>
           </div>
+          <div class="muted" style="text-align:center;margin-top:8px;color:#5b6ef0;">👆 点任意一项 → 查看该考点的详细掌握汇报</div>
         </div>
         <div class="card">
           <div class="section-title">🚨 当前最该攻的一项</div>
@@ -213,20 +247,23 @@
       </div>
     </div>
 
-    <!-- 今日任务 -->
+    <!-- 今日任务（智能提分练习：核心扣分项） -->
     <div class="phone">
-      <div class="phone-title">③ 今日任务（下拉选考点 + 题量）</div>
+      <div class="phone-title">③ 今日任务（智能提分 · 核心扣分项）</div>
       <div class="screen">
+        <div class="subj-bar">
+          <div class="chip on">英语</div><div class="chip">数学</div><div class="chip">语文</div>
+        </div>
         <div class="card">
-          <div class="section-title">🎯 今日练习</div>
-          <div class="muted">选择考点与题量，从题库随机抽取练习</div>
-          <div class="row">
-            <div class="row-label">练习考点</div>
-            <div class="picker-box" style="flex:1;display:flex;justify-content:space-between;background:#f4f6fb;border:1px solid #e2e7f0;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:600;">
-              <span>英语 · 完形填空·长语境</span><span style="color:#9aa1ad;">▾</span>
-            </div>
+          <div class="section-title">🎯 智能提分练习</div>
+          <div class="muted">题目来自当前科目 <span style="color:#e04646;font-weight:700;">最该补的核心扣分项</span>，目的就是最大程度提分。默认已勾选，可点掉不想练的。</div>
+          <div class="core-chips">
+            <div class="core-chip on"><span class="cc-name">完形填空·长语境</span><span class="cc-pct" style="color:#e04646;">20%</span><span class="cc-check">✓</span></div>
+            <div class="core-chip on"><span class="cc-name">词汇辨析/易混词</span><span class="cc-pct" style="color:#ffa726">46%</span><span class="cc-check">✓</span></div>
+            <div class="core-chip on"><span class="cc-name">词性转换·动→名</span><span class="cc-pct" style="color:#ffa726">52%</span><span class="cc-check">✓</span></div>
+            <div class="core-chip on"><span class="cc-name">词性转换·名→形</span><span class="cc-pct" style="color:#ffa726">58%</span><span class="cc-check">✓</span></div>
           </div>
-          <div class="row" style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="row" style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;">
             <div class="row-label">练习题量</div>
             <div style="display:flex;align-items:center;">
               <span style="display:inline-block;width:30px;height:30px;line-height:28px;text-align:center;background:#eef2ff;color:#5b6ef0;border-radius:50%;font-weight:700;">−</span>
@@ -235,21 +272,71 @@
               <span style="font-size:12px;color:#9aa1ad;margin-left:8px;">题（每科 2–10）</span>
             </div>
           </div>
-          <div class="btn" style="background:linear-gradient(135deg,#5b8def,#6f6ef0);color:#fff;border-radius:10px;font-weight:700;text-align:center;padding:12px 0;margin-top:6px;">开始练习</div>
+          <div class="btn" style="background:linear-gradient(135deg,#5b8def,#6f6ef0);color:#fff;border-radius:10px;font-weight:700;text-align:center;padding:12px 0;margin-top:10px;">开始练习（针对核心扣分项）</div>
+          <div class="manual">
+            <div class="mt">或手动选择其他考点</div>
+            <div class="picker-box" style="flex:1;display:flex;justify-content:space-between;background:#f4f6fb;border:1px solid #e2e7f0;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:600;">
+              <span>英语 · 阅读问答（开放题）</span><span style="color:#9aa1ad;">▾</span>
+            </div>
+          </div>
         </div>
         <div style="background:linear-gradient(135deg,#5b8def,#6f6ef0);border-radius:12px;padding:12px 14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;">
-          <div><div style="font-size:14px;font-weight:800;color:#fff;">英语 · 完形填空·长语境</div><div style="font-size:11px;color:rgba(255,255,255,0.9);">共 5 题 · 点击题目看答案</div></div>
+          <div><div style="font-size:14px;font-weight:800;color:#fff;">核心扣分项练习</div><div style="font-size:11px;color:rgba(255,255,255,0.9);">共 5 题 · 点击题目看答案</div></div>
           <div style="font-size:12px;color:#fff;background:rgba(255,255,255,0.22);padding:5px 10px;border-radius:14px;">显示答案</div>
         </div>
         <div class="card" style="border-left:5px solid #5b6ef0;">
-          <div style="display:flex;justify-content:space-between;"><span style="font-size:13px;font-weight:800;color:#5b6ef0;">第 1 题</span><span style="font-size:11px;color:#9aa1ad;">看答案</span></div>
-          <div style="font-size:14px;margin:6px 0 10px;">My mother _____ early every morning to make breakfast.</div>
-          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">A</span>gets up</div>
-          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">B</span>gets on</div>
-          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">C</span>gets off</div>
-          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">D</span>gets down</div>
+          <div style="display:flex;justify-content:space-between;"><span style="font-size:13px;font-weight:800;color:#5b6ef0;">第 1 题</span><span style="font-size:11px;color:#9aa1ad;">英语 · 完形填空·长语境</span></div>
+          <div style="font-size:14px;margin:6px 0 10px;">In the long passage, the boy felt _____ because he had no friends at school.</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">A</span>lonely</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">B</span>alone</div>
+          <div style="background:#e9f9ee;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#34c759;color:#fff;border-radius:5px;font-weight:700;margin-right:8px;">C</span>happy</div>
+          <div style="background:#f4f6fb;border-radius:8px;padding:8px 10px;margin:6px 0;"><span style="display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;background:#e2e7f0;color:#5b6ef0;border-radius:5px;font-weight:700;margin-right:8px;">D</span>tired</div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px dashed #e2e7f0;"><span style="font-size:12px;font-weight:700;color:#34c759;">答案 C</span><div style="font-size:11px;color:#6b7180;line-height:1.5;margin-top:4px;">long passage + no friends 提示情绪孤独，lonely 表『感到孤独』符合语境。</div></div>
         </div>
         <div class="empty"><div class="empty-emoji">📚</div><div class="muted">题库：每个考点 50–100 题，随机抽练</div></div>
+      </div>
+    </div>
+
+    <!-- 考点详细汇报 -->
+    <div class="phone">
+      <div class="phone-title">⑤ 考点详细汇报（点评分卡进入）</div>
+      <div class="screen">
+        <div class="rep-hero">
+          <div style="flex:1;padding-right:10px;">
+            <div class="rep-sub">英语 · 掌握情况详细汇报</div>
+            <div class="rep-name">完形填空·长语境</div>
+            <div class="pill pill-red" style="background:rgba(255,255,255,.92);">20% · 待补</div>
+          </div>
+          <div class="ring ring-md" style="--c:#e04646;--p:20"><div class="ring-mask"><span class="ring-num">20%</span></div></div>
+        </div>
+        <div class="card">
+          <div class="section-title">📊 评分由来</div>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-num">15</div><div class="stat-label">统计题数</div></div>
+            <div class="stat ok"><div class="stat-num">3</div><div class="stat-label">做对</div></div>
+            <div class="stat bad"><div class="stat-num">12</div><div class="stat-label">做错</div></div>
+            <div class="stat rate"><div class="stat-num">20%</div><div class="stat-label">正确率</div></div>
+          </div>
+          <div class="para">评分基于近 10 次作业与考试中『长语境类』完形题目的落笔记录：共统计 15 道，答对 3 道、答错 12 道，正确率 20%。约 70% 错误集中在 3 行以上长语境与语境中的固定搭配，而非单词不认识。该题型属上海新卷读写（80 分）板块，单题分值高，是确定性提分面。</div>
+        </div>
+        <div class="card">
+          <div class="section-title">🔍 具体扣分项（核心失分模式）</div>
+          <div class="bd"><div class="bd-bar"></div><div style="flex:1;"><div class="bd-title">长难句信息遗漏</div><div class="bd-desc">遇到 3 行以上语境时，忽略前后句逻辑衔接，错选语义接近的干扰项。</div><div class="bd-from">📌 2026-07 月考卷·完形</div></div></div>
+          <div class="bd"><div class="bd-bar"></div><div style="flex:1;"><div class="bd-title">固定搭配识别弱</div><div class="bd-desc">be different from / depend on 等在语境中不能快速识别，导致选错介词或动词。</div><div class="bd-from">📌 作业 #7·默写</div></div></div>
+          <div class="bd"><div class="bd-bar"></div><div style="flex:1;"><div class="bd-title">逻辑连接词误判</div><div class="bd-desc">however / therefore / instead 等转折、因果信号词抓不准，整体主旨偏移。</div><div class="bd-from">📌 2026-06 单元测</div></div></div>
+        </div>
+        <div class="card">
+          <div class="section-title">✅ 已稳定掌握</div>
+          <div class="strength"><span class="chk">✓</span><span class="st-text">短语境完形（<2 行）正确率尚可</span></div>
+          <div class="strength"><span class="chk">✓</span><span class="st-text">基础词汇识别基本过关</span></div>
+          <div class="strength"><span class="chk">✓</span><span class="st-text">已养成题干关键词圈画习惯</span></div>
+        </div>
+        <div class="card" style="background:linear-gradient(135deg,#f3f6ff,#eef2ff);border:1px solid #e2e8ff;">
+          <div class="section-title">🎯 提分建议</div>
+          <div class="para">每日用题库『完形填空·长语境』练 5 题，重点用『先通读抓主线 → 空前后找线索 → 排除明显错项』三步法；连续 7 天，目标把长语境正确率从 20% 提到 50%。</div>
+        </div>
+        <div class="rep-btn">去练习核心扣分项 →</div>
+        <div class="foot">汇报由 AI 基于真实作业落笔持续维护</div>
       </div>
     </div>
 

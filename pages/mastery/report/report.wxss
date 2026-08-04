@@ -1,0 +1,57 @@
+.page { padding-bottom: 40rpx; }
+
+/* 渐变 hero */
+.hero {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 0 8rpx; padding: 30rpx 32rpx 34rpx;
+  border-radius: 0 0 28rpx 28rpx; color: #fff;
+}
+.hero-left { flex: 1; padding-right: 20rpx; }
+.hero-sub { font-size: 22rpx; opacity: 0.9; }
+.hero-name { font-size: 38rpx; font-weight: 800; margin: 8rpx 0 14rpx; line-height: 1.3; }
+.hero-pill { display: inline-block; }
+.hero-pill-in { background: rgba(255,255,255,0.92); }
+
+/* 评分由来 · 统计块 */
+.stat-row { display: flex; justify-content: space-between; margin-bottom: 18rpx; }
+.stat {
+  flex: 1; text-align: center; background: #f6f8fc; border-radius: 18rpx;
+  padding: 18rpx 6rpx; margin: 0 6rpx;
+}
+.stat-num { font-size: 40rpx; font-weight: 800; color: #2b2f38; }
+.stat-label { font-size: 20rpx; color: #9aa1ad; margin-top: 4rpx; }
+.stat-ok .stat-num { color: #22a44e; }
+.stat-bad .stat-num { color: #e04646; }
+.stat-rate .stat-num { color: #5b6ef0; }
+
+.report-para { font-size: 26rpx; line-height: 1.7; color: #4a4f5a; }
+
+/* 具体扣分项 */
+.bd { display: flex; padding: 16rpx 0; border-bottom: 1rpx solid #f1f2f6; }
+.bd:last-child { border-bottom: none; }
+.bd-bar { width: 8rpx; border-radius: 6rpx; background: #e04646; margin-right: 18rpx; flex: none; }
+.bd-body { flex: 1; }
+.bd-title { font-size: 28rpx; font-weight: 700; color: #2b2f38; }
+.bd-desc { font-size: 25rpx; line-height: 1.6; color: #5a606c; margin: 6rpx 0 8rpx; }
+.bd-from { font-size: 21rpx; color: #9aa1ad; }
+
+/* 已稳定掌握 */
+.strength { display: flex; align-items: flex-start; padding: 8rpx 0; }
+.chk {
+  width: 34rpx; height: 34rpx; line-height: 34rpx; text-align: center;
+  border-radius: 50%; background: #e7f7ec; color: #22a44e;
+  font-size: 22rpx; font-weight: 800; margin-right: 14rpx; flex: none; margin-top: 2rpx;
+}
+.st-text { font-size: 26rpx; color: #4a4f5a; line-height: 1.5; }
+
+/* 提分建议卡：浅蓝高亮 */
+.tip-card { background: linear-gradient(135deg, #f3f6ff, #eef2ff); border: 1rpx solid #e2e8ff; }
+
+/* 去练习按钮 */
+.practice-btn {
+  margin: 24rpx 24rpx 8rpx; padding: 28rpx; border-radius: 44rpx;
+  color: #fff; font-size: 30rpx; font-weight: 700; text-align: center;
+  box-shadow: 0 10rpx 24rpx rgba(91, 141, 239, 0.35);
+}
+.practice-btn:active { opacity: 0.9; }
+.foot { margin: 10rpx 24rpx 8rpx; }

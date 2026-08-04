@@ -1,19 +1,24 @@
 <view class="page">
 
-  <!-- 设置区：选考点（下拉）+ 题量（右） -->
-  <view class="card setup" wx:if="{{!showing}}">
-    <view class="intro-title">🎯 今日练习</view>
-    <view class="muted">选择考点与题量，从题库随机抽取练习</view>
+  <!-- 科目切换 -->
+  <view class="subj-bar" wx:if="{{subjects.length}}">
+    <view class="subj-chip {{currentSubject===s.key ? 'on' : ''}}" wx:for="{{subjects}}" wx:key="key" wx:for-item="s" bindtap="switchSubject" data-key="{{s.key}}">{{s.name}}</view>
+  </view>
 
-    <view class="row">
-      <view class="row-label">练习考点</view>
-      <picker class="picker" mode="selector" range="{{items}}" range-key="label" value="{{pickerIndex}}" bindchange="onPick">
-        <view class="picker-box">
-          <text>{{items[pickerIndex].label}}</text>
-          <text class="picker-arrow">▾</text>
-        </view>
-      </picker>
+  <!-- 设置区 -->
+  <view class="card setup" wx:if="{{!showing}}">
+    <view class="intro-title">🎯 智能提分练习</view>
+    <view class="muted">题目来自当前科目 <text class="hl">最该补的核心扣分项</text>，目的就是最大程度提分。默认已勾选，可点掉不想练的。</view>
+
+    <!-- 核心扣分项（多选） -->
+    <view class="core-chips" wx:if="{{corePoints.length}}">
+      <view class="core-chip {{c.picked ? 'on' : ''}}" wx:for="{{corePoints}}" wx:key="point" wx:for-item="c" bindtap="toggleCore" data-point="{{c.point}}">
+        <text class="cc-name">{{c.point}}</text>
+        <text class="cc-pct" style="color:{{c.color}}">{{c.pct_text}}</text>
+        <text class="cc-check">{{c.picked ? '✓' : ''}}</text>
+      </view>
     </view>
+    <view wx:else class="muted" style="margin:10rpx 0;">该科目暂无考点，请先上传作业。</view>
 
     <view class="row qty-row">
       <view class="row-label">练习题量</view>
@@ -25,14 +30,25 @@
       </view>
     </view>
 
-    <button class="btn-primary gen-btn" bindtap="start">开始练习</button>
+    <button class="btn-primary gen-btn" bindtap="start">开始练习（针对核心扣分项）</button>
+
+    <!-- 手动选其他考点 -->
+    <view class="manual">
+      <view class="manual-title">或手动选择其他考点</view>
+      <picker class="picker" mode="selector" range="{{items}}" range-key="label" value="{{manualIndex}}" bindchange="onPick">
+        <view class="picker-box">
+          <text>{{items[manualIndex].label}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
   </view>
 
   <!-- 练习区 -->
   <block wx:if="{{showing}}">
     <view class="practice-head">
       <view class="ph-left">
-        <view class="ph-title">{{items[pickerIndex].label}}</view>
+        <view class="ph-title">核心扣分项练习</view>
         <view class="muted">共 {{questions.length}} 题 · 点击题目看答案</view>
       </view>
       <view class="ph-right">
@@ -44,6 +60,7 @@
     <view class="card qcard" wx:for="{{questions}}" wx:key="index" bindtap="toggleReveal" data-idx="{{index}}">
       <view class="q-top">
         <text class="q-num">第 {{index+1}} 题</text>
+        <text class="q-tag">{{item.tag}}</text>
         <text class="q-tip">{{reveal[index] ? '隐藏答案' : '看答案'}}</text>
       </view>
       <view class="q-stem">{{item.q}}</view>
@@ -63,7 +80,7 @@
 
   <view wx:if="{{!items.length && !showing}}" class="empty">
     <view class="empty-emoji">📚</view>
-    <view class="muted">暂无考点，请先在「掌握看板」上传作业生成考点</view>
+    <view class="muted">暂无考点，请先在「掌握情况」上传作业生成考点</view>
   </view>
 
 </view>

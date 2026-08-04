@@ -76,5 +76,11 @@ Page({
       core,
       loading: false
     });
+  },
+
+  openReport(e) {
+    const point = e.currentTarget.dataset.point;
+    if (!point || !this.key) return;
+    wx.navigateTo({ url: '/pages/mastery/report/report?key=' + this.key + '&point=' + encodeURIComponent(point) });
   }
 });

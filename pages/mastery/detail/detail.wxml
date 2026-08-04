@@ -16,7 +16,7 @@
   <view class="card">
     <view class="section-title">📋 现阶段掌握内容</view>
     <view class="score-grid">
-      <view class="score-item" wx:for="{{items}}" wx:key="point">
+      <view class="score-item" wx:for="{{items}}" wx:key="point" bindtap="openReport" data-point="{{item.point}}">
         <view class="si-inner">
           <view class="si-name">{{item.point}}</view>
           <view class="si-score" style="color:{{item.color}}">{{item.pct_text}}</view>
