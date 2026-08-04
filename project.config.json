@@ -63,6 +63,14 @@
       {
         "type": "file",
         "value": "reports.json"
+      },
+      {
+        "type": "folder",
+        "value": "archive_inbox"
+      },
+      {
+        "type": "folder",
+        "value": ".workbuddy"
       }
     ],
     "include": []
