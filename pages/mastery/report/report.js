@@ -1,6 +1,10 @@
 const app = getApp();
 const { callFunction } = require('../../../utils/api.js');
-const reports = require('../../../reports.js');
+// 本地汇报仅作离线兜底；优先使用云端下发的 getAssets 缓存
+const localReports = require('../../../reports.js');
+function getReports() {
+  return app.globalData.reports || wx.getStorageSync('reports') || localReports;
+}
 
 const COLOR = { red: '#e04646', yellow: '#ffa726', blue: '#5b8def', green: '#34c759', gray: '#c7ccd4' };
 function colorOf(c) { return COLOR[c] || COLOR.gray; }
@@ -53,7 +57,7 @@ Page({
       }
     }
 
-    const r = (reports[this.key] && reports[this.key][this.pointName]) || null;
+    const r = (getReports()[this.key] && getReports()[this.key][this.pointName]) || null;
 
     wx.setNavigationBarTitle({ title: (this.pointName || '考点') + ' · 详细汇报' });
     this.setData({

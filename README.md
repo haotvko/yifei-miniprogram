@@ -21,7 +21,8 @@ yifei-miniprogram/
 │   ├── getSnapshot     读快照
 │   ├── drawTask        任务池抽卡
 │   ├── getUploads      读上传记录
-│   └── correctSubject  纠正学科误判
+│   ├── correctSubject  纠正学科误判
+│   └── getAssets       读云存储题库/汇报（内容实时更新，无需重发小程序）
 ├── pipeline/           本地 WorkBuddy 管道（分析+导出+推送）
 │   ├── init_subject_blocks.py  初始化 Obsidian YAML 契约块
 │   ├── export_snapshot.py      Obsidian -> 快照 JSON
@@ -39,7 +40,8 @@ yifei-miniprogram/
 3. 把 `project.config.json` 的 `appid` 改成你的 AppID；`app.js` 的 `envId` 改成环境 ID。
 4. 右键 `cloudfunctions/` 下每个函数「上传并部署（云端安装依赖）」。
 5. 在云开发控制台建两个集合：`snapshot`（插入一条 `_id: current` 的空文档）、`uploads`。
-6. 本地管道：`pipeline/config.sample.json` 复制为 `config.json`，填 `appid/secret/env`，`dry_run` 设 false。
+6. **题库/汇报内容（云存储下发）**：在云存储建 `assets/` 目录，上传 `questionbank.json` 与 `reports.json`；在数据库建 `assets` 集合并插入 `_id: assets_meta` 文档，含 `qb`/`rp` 两个 fileID 字段指向上述两个文件。小程序启动即经 `getAssets` 拉取并缓存；**后续只改云存储文件即可实时更新内容，无需重新发布小程序**（根目录 `questionbank.js`/`reports.js` 仅为联网失败时的离线兜底）。
+7. 本地管道：`pipeline/config.sample.json` 复制为 `config.json`，填 `appid/secret/env`，`dry_run` 设 false。
    - `secret` = 公众平台「开发管理-开发设置-开发者密码(AppSecret)」；仅留本地，绝不入 git。
 
 ## 三、本地管道（AI 维护用）

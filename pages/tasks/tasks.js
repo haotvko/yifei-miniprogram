@@ -1,6 +1,10 @@
 const app = getApp();
 const { callFunction } = require('../../utils/api.js');
-const bank = require('../../questionbank.js');
+// 本地题库仅作离线兜底；优先使用云端下发的 getAssets 缓存
+const localBank = require('../../questionbank.js');
+function getBank() {
+  return app.globalData.bank || wx.getStorageSync('questionbank') || localBank;
+}
 
 const COLOR = { red: '#e04646', yellow: '#ffa726', blue: '#5b8def', green: '#34c759', gray: '#c7ccd4' };
 function colorOf(c) { return COLOR[c] || COLOR.gray; }
@@ -45,7 +49,7 @@ Page({
       snap.subjects.forEach(s => {
         subjects.push({ key: s.key, name: s.name });
         (s.points || []).forEach(p => {
-          const hasBank = !!(bank[s.key] && bank[s.key][p.point]);
+          const hasBank = !!(getBank()[s.key] && getBank()[s.key][p.point]);
           items.push({
             subjectKey: s.key,
             subjectName: s.name,
@@ -94,7 +98,7 @@ Page({
             point: p.point,
             pct_text: pctText(p.mastery_pct),
             color: colorOf(p.status),
-            hasBank: !!(bank[subjectKey] && bank[subjectKey][p.point]),
+            hasBank: !!(getBank()[subjectKey] && getBank()[subjectKey][p.point]),
             picked: true
           }));
       }
@@ -138,7 +142,7 @@ Page({
     // 合并所有目标考点的题库，洗牌后抽 N 题
     const pool = [];
     targets.forEach(t => {
-      const arr = (bank[t.subjectKey] && bank[t.subjectKey][t.point]) || [];
+      const arr = (getBank()[t.subjectKey] && getBank()[t.subjectKey][t.point]) || [];
       arr.forEach(q => pool.push({ q, subjectName: t.subjectName, point: t.point }));
     });
     if (!pool.length) { wx.showToast({ title: '题库为空', icon: 'none' }); return; }

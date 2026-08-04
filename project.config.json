@@ -36,10 +36,34 @@
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [
-      { "type": "folder", "value": "pipeline" },
-      { "type": "folder", "value": "docs" },
-      { "type": "file", "value": "README.md" },
-      { "type": "file", "value": "preview.html" }
+      {
+        "value": "pipeline",
+        "type": "folder"
+      },
+      {
+        "value": "docs",
+        "type": "folder"
+      },
+      {
+        "value": "README.md",
+        "type": "file"
+      },
+      {
+        "value": "preview.html",
+        "type": "file"
+      },
+      {
+        "type": "folder",
+        "value": "/minitest"
+      },
+      {
+        "type": "file",
+        "value": "questionbank.json"
+      },
+      {
+        "type": "file",
+        "value": "reports.json"
+      }
     ],
     "include": []
   },

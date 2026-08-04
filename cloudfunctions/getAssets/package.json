@@ -1,0 +1,9 @@
+{
+  "name": "getAssets",
+  "version": "1.0.0",
+  "description": "下发题库与汇报（云端实时）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -6,6 +6,7 @@
     { "name": "getSnapshot" },
     { "name": "drawTask" },
     { "name": "getUploads" },
-    { "name": "correctSubject" }
+    { "name": "correctSubject" },
+    { "name": "getAssets" }
   ]
 }
