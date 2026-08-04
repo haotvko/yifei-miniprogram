@@ -225,18 +225,12 @@ Page({
             y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
             y += 2;
             (q.choices || []).forEach(o => {
-              ctx.fillStyle = o.correct ? '#1a8f4c' : '#2b2f38';
-              ctx.font = (o.correct ? 'bold ' : '') + '12px sans-serif';
+              // 发布内容不带答案：选项不做正确项高亮/加粗（铁律 3.11）
+              ctx.fillStyle = '#2b2f38';
+              ctx.font = '12px sans-serif';
               y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
             });
-            ctx.fillStyle = '#1a8f4c';
-            ctx.font = 'bold 12px sans-serif';
-            y = this.drawWrapped(ctx, '答案：' + q.answer, M, y + 15, W - 2 * M, 16);
-            if (q.explain) {
-              ctx.fillStyle = '#6b7180';
-              ctx.font = '12px sans-serif';
-              y = this.drawWrapped(ctx, '解析：' + q.explain, M + 8, y + 14, W - 2 * M - 8, 16);
-            }
+            // 答案/解析不渲染到发布图（铁律 3.11：练习后由家长核对）
             ctx.strokeStyle = '#eef1f7';
             ctx.lineWidth = 1;
             if (!this._dry) { ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke(); }
