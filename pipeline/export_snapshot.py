@@ -85,7 +85,7 @@ def calc_error_of():
 
 def build():
     subjects = []
-    task_pool = {"updated_at": datetime.datetime.now().astimezone().isoformat()}
+    task_pool = {}  # 只放科目键（english/math/chinese），时间戳放顶层
     pred_each = {}
     mastery_vals = []
 
@@ -139,6 +139,7 @@ def build():
     return {
         "generated_at": datetime.datetime.now().astimezone().isoformat(),
         "data_as_of": datetime.date.today().isoformat(),
+        "task_pool_updated_at": datetime.datetime.now().astimezone().isoformat(),
         "evidence_level_note": "🟢真题/🟡样卷/🔴未测 仅后台记录",
         "summary": summary,
         "subjects": subjects,

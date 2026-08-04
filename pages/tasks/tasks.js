@@ -2,6 +2,8 @@ const app = getApp();
 const { callFunction } = require('../../utils/api.js');
 // 本地题库仅作离线兜底；优先使用云端下发的 getAssets 缓存
 const localBank = require('../../questionbank.js');
+// 本地任务池兜底：云端 snapshot.task_pool 不可用 / 未刷新时，高价值任务卡仍可见
+const localPool = require('../../taskpool.js');
 function getBank() {
   return app.globalData.bank || wx.getStorageSync('questionbank') || localBank;
 }
@@ -125,10 +127,10 @@ Page({
     this.setData({ mode, showing: false, questions: [], reveal: [] });
   },
 
-  // 构建当前科目的 ROI 排序高价值任务卡（来自 snapshot.task_pool）
+  // 构建当前科目的 ROI 排序高价值任务卡（来自 snapshot.task_pool，缺失时回退本地 taskpool.js）
   buildRoi(subjectKey, snap) {
     let tasks = [];
-    const pool = (snap && snap.task_pool && snap.task_pool[subjectKey]) || [];
+    const pool = (snap && snap.task_pool && snap.task_pool[subjectKey]) || localPool[subjectKey] || [];
     tasks = pool.filter(t => t && t.card)
       .sort((a, b) => (b.roi || 0) - (a.roi || 0))
       .map(t => {
