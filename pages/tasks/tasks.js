@@ -125,6 +125,42 @@ Page({
     return pts;
   },
 
+  // 抽练习题：按该科最该补考点（红/黄优先），fill 优先取题（写比认提分价值高，铁律 3.12）
+  buildPracticeItems(subjectKey, subj, snap, qty) {
+    let core = this.coreForSubject(subjectKey, snap);
+    if (this.lockPoint && this.lockPoint.subjectKey === subjectKey) {
+      core = core.filter(c => c.point === this.lockPoint.point);
+    }
+    const targets = core.filter(c => c.hasBank);
+    if (!targets.length) return [];
+    const pool = [];
+    targets.forEach(t => {
+      const arr = (getBank()[subjectKey] && getBank()[subjectKey][t.point]) || [];
+      arr.forEach(q => pool.push({ q, point: t.point }));
+    });
+    if (!pool.length) return [];
+    const n = Math.min(qty, pool.length);
+    const fillPool = pool.filter(x => !x.q.options || x.q.type === 'fill');
+    const choicePool = pool.filter(x => x.q.options && x.q.type !== 'fill');
+    let picked = this.shuffle(fillPool).slice(0, Math.min(n, fillPool.length));
+    if (picked.length < n) picked = picked.concat(this.shuffle(choicePool).slice(0, n - picked.length));
+    return picked.map((p, i) => {
+      const q = p.q;
+      const isFill = !q.options || q.type === 'fill';
+      return {
+        id: subjectKey + '-q' + i,
+        q: q.q,
+        tag: subj.name + ' · ' + p.point,
+        isFill,
+        type: q.type || (q.options ? 'choice' : 'fill'),
+        match: q.match || 'exact',
+        choices: isFill ? [] : q.options.map((o, i2) => ({ l: String.fromCharCode(65 + i2), t: o, correct: o === q.answer })),
+        answer: q.answer,
+        explain: q.explain
+      };
+    });
+  },
+
   // ROI 任务卡条目（来自 task_pool，缺失回退本地 taskpool.js）
   roiItemsOf(subjectKey, snap) {
     const pool = (snap && snap.task_pool && snap.task_pool[subjectKey]) || localPool[subjectKey] || [];
@@ -180,50 +216,19 @@ Page({
       sel.forEach(k => {
         const subj = subjects.find(s => s.key === k);
         if (!subj) return;
-        let core = this.coreForSubject(k, snap);
-        if (this.lockPoint && this.lockPoint.subjectKey === k) {
-          core = core.filter(c => c.point === this.lockPoint.point);
-        }
-        const targets = core.filter(c => c.hasBank);
-        if (!targets.length) return;
-        const pool = [];
-        targets.forEach(t => {
-          const arr = (getBank()[k] && getBank()[k][t.point]) || [];
-          arr.forEach(q => pool.push({ q, point: t.point }));
-        });
-        if (!pool.length) return;
-        const n = Math.min(qty, pool.length);
-        // 产出型 fill 优先抽取（写比认提分价值高，铁律 3.12），不足再补选择题
-        const fillPool = pool.filter(x => !x.q.options || x.q.type === 'fill');
-        const choicePool = pool.filter(x => x.q.options && x.q.type !== 'fill');
-        let picked = this.shuffle(fillPool).slice(0, Math.min(n, fillPool.length));
-        if (picked.length < n) {
-          picked = picked.concat(this.shuffle(choicePool).slice(0, n - picked.length));
-        }
-        const items = picked.map((p, i) => {
-          const q = p.q;
-          const isFill = !q.options || q.type === 'fill';
-          return {
-            id: k + '-' + i,
-            q: q.q,
-            tag: subj.name + ' · ' + p.point,
-            isFill,
-            type: q.type || (q.options ? 'choice' : 'fill'),
-            match: q.match || 'exact',
-            choices: isFill ? [] : q.options.map((o, i2) => ({ l: String.fromCharCode(65 + i2), t: o, correct: o === q.answer })),
-            answer: q.answer,
-            explain: q.explain
-          };
-        });
-        sections.push({ subjectKey: k, subjectName: subj.name, kind: 'practice', items });
+        const items = this.buildPracticeItems(k, subj, snap, qty);
+        if (items.length) sections.push({ subjectKey: k, subjectName: subj.name, kind: 'practice', items });
       });
       if (!sections.length) { wx.showToast({ title: '所选科目题库建设中', icon: 'none' }); return; }
     } else {
       sel.forEach(k => {
         const subj = subjects.find(s => s.key === k);
         if (!subj) return;
-        const tasks = this.roiItemsOf(k, snap);
-        if (tasks.length) sections.push({ subjectKey: k, subjectName: subj.name, kind: 'roi', items: tasks });
+        // 高价值任务卡 = 任务卡卡面（教）+ 配套练习（练，屏幕内可答）
+        const cards = this.roiItemsOf(k, snap).map((t, i) => Object.assign({}, t, { kind: 'card', id: k + '-c' + i }));
+        const practices = this.buildPracticeItems(k, subj, snap, qty).map(q => Object.assign({}, q, { kind: 'q' }));
+        const items = cards.concat(practices);
+        if (items.length) sections.push({ subjectKey: k, subjectName: subj.name, kind: 'roi', items });
       });
       if (!sections.length) { wx.showToast({ title: '所选科目暂无高价值任务', icon: 'none' }); return; }
     }
@@ -250,34 +255,16 @@ Page({
 
         if (sec.kind === 'practice') {
           sec.items.forEach((q, qi) => {
-            ctx.fillStyle = '#1f6feb';
-            ctx.font = 'bold 15px sans-serif';
-            y = this.drawWrapped(ctx, '第 ' + (qi + 1) + ' 题 · ' + q.tag, M, y + 16, W - 2 * M, 20);
-            ctx.fillStyle = '#2b2f38';
-            ctx.font = '13px sans-serif';
-            y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
-            y += 2;
-            if (q.isFill) {
-              // fill（产出型）：打印图只画答题空，答案/解析不渲染（铁律 3.11）
-              ctx.fillStyle = '#6b7180';
-              ctx.font = '12px sans-serif';
-              y = this.drawWrapped(ctx, '答：____________________', M + 8, y + 15, W - 2 * M - 8, 16);
-            } else {
-              (q.choices || []).forEach(o => {
-                // 发布内容不带答案：选项不做正确项高亮/加粗（铁律 3.11）
-                ctx.fillStyle = '#2b2f38';
-                ctx.font = '12px sans-serif';
-                y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
-              });
-            }
-            // 答案/解析不渲染到发布图（铁律 3.11：练习后由家长核对）
-            ctx.strokeStyle = '#eef1f7';
-            ctx.lineWidth = 1;
-            if (!this._dry) { ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke(); }
-            y += 14;
+            y = this.drawQuestion(ctx, q, M, W, y, '第 ' + (qi + 1) + ' 题 · ');
           });
         } else {
           sec.items.forEach(t => {
+            if (t.kind === 'q') {
+              // 配套练习（题目）
+              y = this.drawQuestion(ctx, t, M, W, y, '练习 · ');
+              return;
+            }
+            // 任务卡卡面（教）
             ctx.fillStyle = '#1f6feb';
             ctx.font = 'bold 16px sans-serif';
             y = this.drawWrapped(ctx, t.title, M, y + 16, W - 2 * M, 22);
@@ -305,6 +292,34 @@ Page({
       });
       return y;
     });
+  },
+
+  // 画一道题（practice 与 roi 配套练习共用；发布图无答案，铁律 3.11）
+  drawQuestion(ctx, q, M, W, y, prefix) {
+    ctx.fillStyle = '#1f6feb';
+    ctx.font = 'bold 15px sans-serif';
+    y = this.drawWrapped(ctx, prefix + q.tag, M, y + 16, W - 2 * M, 20);
+    ctx.fillStyle = '#2b2f38';
+    ctx.font = '13px sans-serif';
+    y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
+    y += 2;
+    if (q.isFill) {
+      // fill（产出型）：打印图只画答题空，答案/解析不渲染（铁律 3.11）
+      ctx.fillStyle = '#6b7180';
+      ctx.font = '12px sans-serif';
+      y = this.drawWrapped(ctx, '答：____________________', M + 8, y + 15, W - 2 * M - 8, 16);
+    } else {
+      (q.choices || []).forEach(o => {
+        // 发布内容不带答案：选项不做正确项高亮/加粗（铁律 3.11）
+        ctx.fillStyle = '#2b2f38';
+        ctx.font = '12px sans-serif';
+        y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
+      });
+    }
+    ctx.strokeStyle = '#eef1f7';
+    ctx.lineWidth = 1;
+    if (!this._dry) { ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke(); }
+    return y + 14;
   },
 
   // 通用：初始化 A4 离屏画布，先 dry-run 量出内容高度（自适应），再白底绘制并自动存图

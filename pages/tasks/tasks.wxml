@@ -70,16 +70,47 @@
         </view>
       </block>
 
-      <!-- ROI 模式 -->
+      <!-- ROI 模式：任务卡卡面（教）+ 配套练习（练，屏幕内可答） -->
       <block wx:if="{{sec.kind==='roi'}}">
-        <view class="card roi-card" wx:for="{{sec.items}}" wx:key="id" wx:for-item="t">
-          <view class="roi-head">
-            <text class="roi-title">{{t.title}}</text>
-            <text class="roi-tag">{{t.typeLabel}}{{t.roi != null ? ' · ROI ' + t.roi : ''}}</text>
-          </view>
-          <view class="roi-line" wx:for="{{t.lines}}" wx:key="label" wx:for-item="l">
-            <text class="roi-label">{{l.label}}：</text><text class="roi-text">{{l.text}}</text>
-          </view>
+        <view class="card qcard" wx:for="{{sec.items}}" wx:key="id" wx:for-item="t">
+          <!-- 任务卡卡面 -->
+          <block wx:if="{{t.kind==='card'}}">
+            <view class="roi-head">
+              <text class="roi-title">{{t.title}}</text>
+              <text class="roi-tag">{{t.typeLabel}}{{t.roi != null ? ' · ROI ' + t.roi : ''}}</text>
+            </view>
+            <view class="roi-line" wx:for="{{t.lines}}" wx:key="label" wx:for-item="l">
+              <text class="roi-label">{{l.label}}：</text><text class="roi-text">{{l.text}}</text>
+            </view>
+          </block>
+          <!-- 配套练习（题目） -->
+          <block wx:else>
+            <view class="q-top">
+              <text class="q-num">练习</text>
+              <text class="q-tag">{{t.tag}}</text>
+            </view>
+            <view class="q-stem">{{t.q}}</view>
+            <view class="q-opts" wx:if="{{!t.isFill}}">
+              <view class="q-opt {{results[t.id] && results[t.id].show ? (opt.correct ? 'opt-right' : (opt.l === results[t.id].picked ? 'opt-wrong' : 'opt-dim')) : ''}}"
+                    wx:for="{{t.choices}}" wx:for-item="opt" wx:key="l"
+                    bindtap="onPickOption" data-id="{{t.id}}" data-val="{{opt.l}}">
+                <text class="opt-l">{{opt.l}}</text>
+                <text class="opt-t">{{opt.t}}</text>
+              </view>
+            </view>
+            <view class="q-fill" wx:else>
+              <input class="fill-input" value="{{answers[t.id]}}" bindinput="onInputFill"
+                     data-id="{{t.id}}" placeholder="输入答案" confirm-type="done" maxlength="50" />
+              <button class="fill-btn" size="mini" bindtap="onSubmitFill" data-id="{{t.id}}">判分</button>
+            </view>
+            <view wx:if="{{results[t.id] && results[t.id].show}}" class="q-result {{results[t.id].correct ? 'r-ok' : 'r-no'}}">
+              <view class="r-line">
+                <text class="r-tag">{{results[t.id].correct ? '答对' : '答错'}}</text>
+                <text class="r-ans" wx:if="{{!results[t.id].correct}}">参考答案：{{t.answer}}</text>
+              </view>
+              <view class="r-exp" wx:if="{{t.explain}}">{{t.explain}}</view>
+            </view>
+          </block>
         </view>
       </block>
     </view>
