@@ -1,5 +1,7 @@
 const app = getApp();
 const { callFunction } = require('../../../utils/api.js');
+// 本地兜底派生字段（词汇掌握 / 计算错误率），云端旧快照可能缺失
+const localDerived = require('../../../snapshotfallback.js');
 
 const COLOR = { red: '#e04646', yellow: '#ffa726', blue: '#5b8def', green: '#34c759', gray: '#c7ccd4' };
 function colorOf(c) { return COLOR[c] || COLOR.gray; }
@@ -49,6 +51,17 @@ Page({
 
     const subj = snap.subjects.find(s => s.key === this.key);
     if (!subj) { this.setData({ loading: false }); return; }
+
+    // 本地兜底合并派生字段：云端旧快照可能未含 vocab_mastery_pct / calc_error
+    const der = localDerived[this.key];
+    if (der) {
+      if (subj.vocab_mastery_pct == null && der.vocab_mastery_pct != null) {
+        subj.vocab_mastery_pct = der.vocab_mastery_pct;
+      }
+      if ((!subj.calc_error || !subj.calc_error.total) && der.calc_error) {
+        subj.calc_error = der.calc_error;
+      }
+    }
 
     // 全项评分卡：每一项都有掌握度评分（未测排最后）
     const items = (subj.points || []).slice().sort((a, b) => {
