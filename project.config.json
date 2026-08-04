@@ -35,7 +35,12 @@
   "condition": {},
   "simulatorPluginLibVersion": {},
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "pipeline" },
+      { "type": "folder", "value": "docs" },
+      { "type": "file", "value": "README.md" },
+      { "type": "file", "value": "preview.html" }
+    ],
     "include": []
   },
   "editorSetting": {}
