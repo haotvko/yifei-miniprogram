@@ -26,3 +26,6 @@ private/
 pipeline/snapshot.json
 pipeline/snapshot.push.json
 archive_inbox/
+
+# ===== agent runtime cache =====
+.workbuddy/
