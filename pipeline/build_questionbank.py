@@ -455,9 +455,9 @@ def _sign_q(t, n, b):
     if t == "par":
         return f"化简：-( {n} - {b} ) = ?"
     if t == "pow_pos":
-        return f"计算：(-{n})² = ?"
+        return f"计算：(-{n})^2 = ?"
     if t == "pow_neg":
-        return f"计算：-{n}² = ?（注意：先平方再加负号）"
+        return f"计算：-{n}^2 = ?（注意：先平方再加负号）"
     return f"当 x = -{n} 时，求 -x = ?"
 
 
@@ -486,7 +486,7 @@ def gen_exp():
             base = random.choice([2, 3, 5, 7, 10])
             ans = "1"
             opts = ["1", "0", str(base), f"{base}0"]
-            q = f"计算：{base}⁰ = ?"
+            q = f"计算：{base}^0 = ?"
         elif t == "neg":
             ans = f"1/2^{n}"
             opts = [ans, f"2^{n}", f"-2^{n}", f"1/{n}"]
@@ -498,7 +498,7 @@ def gen_exp():
         opts = list(dict.fromkeys(opts))
         random.shuffle(opts)
         qs.append({"q": q, "options": opts, "answer": ans,
-                   "explain": "同底数幂相乘指数相加；幂的乘方指数相乘；(ab)ⁿ=aⁿbⁿ；a⁰=1；a⁻ⁿ=1/aⁿ。"})
+                   "explain": "同底数幂相乘指数相加；幂的乘方指数相乘；(ab)^n=a^n b^n；a^0=1；a^(-n)=1/a^n。"})
     return qs
 
 
@@ -539,23 +539,23 @@ def gen_square():
         a = random.randint(2, 9)
         if random.random() < 0.4:
             ans = f"(x-{a})(x+{a})"
-            wrong = [f"(x-{a})²", f"x(x-{a})", f"(x+{a})²"]
-            q = f"因式分解：x² - {a*a} = ?"
+            wrong = [f"(x-{a})^2", f"x(x-{a})", f"(x+{a})^2"]
+            q = f"因式分解：x^2 - {a*a} = ?"
         elif random.random() < 0.7:
-            ans = f"x²+{2*a}x+{a*a}"
-            wrong = [f"x²+{a}x+{a*a}", f"x²+{a*a}", f"x²+{a}x+{a}"]
-            q = f"展开：(x+{a})² = ?"
+            ans = f"x^2+{2*a}x+{a*a}"
+            wrong = [f"x^2+{a}x+{a*a}", f"x^2+{a*a}", f"x^2+{a}x+{a}"]
+            q = f"展开：(x+{a})^2 = ?"
         else:
-            ans = f"x²-{2*a}x+{a*a}"
-            wrong = [f"x²-{a}x+{a*a}", f"x²-{a*a}", f"x²-{a}x+{a}"]
-            q = f"展开：(x-{a})² = ?"
+            ans = f"x^2-{2*a}x+{a*a}"
+            wrong = [f"x^2-{a}x+{a*a}", f"x^2-{a*a}", f"x^2-{a}x+{a}"]
+            q = f"展开：(x-{a})^2 = ?"
         opts = [ans] + [w for w in wrong if w != ans]
         while len(opts) < 4:
-            opts.append(f"x²+{a+len(opts)}x+{a*a}")
+            opts.append(f"x^2+{a+len(opts)}x+{a*a}")
         opts = list(dict.fromkeys(opts))
         random.shuffle(opts)
         qs.append({"q": q, "options": opts, "answer": ans,
-                   "explain": "(a±b)²=a²±2ab+b²；a²−b²=(a−b)(a+b)。"})
+                   "explain": "(a±b)^2=a^2±2ab+b^2；a^2-b^2=(a-b)(a+b)。"})
     return qs
 
 
@@ -572,11 +572,11 @@ def gen_divpoly():
         if random.random() < 0.5:
             ans = f"{a//c}x+{b//c}"
             wrong = [f"{a//c}x+{b}x", f"{a}x+{b//c}", f"{a//c}x{b//c}"]
-            q = f"化简：({a}x²+{b}x) ÷ {c}x = ?"
+            q = f"化简：({a}x^2+{b}x) ÷ {c}x = ?"
         else:
             ans = f"{a//c}x-{b//c}"
             wrong = [f"{a//c}x+{b//c}", f"{a}x-{b//c}", f"{a//c}x-{b}x"]
-            q = f"化简：({a}x²-{b}x) ÷ {c}x = ?"
+            q = f"化简：({a}x^2-{b}x) ÷ {c}x = ?"
         opts = [ans] + [w for w in wrong if w != ans]
         while len(opts) < 4:
             opts.append(f"{a//c+len(opts)}x+{b//c}")
@@ -742,7 +742,7 @@ def main():
         for point, qs in pts.items():
             report.append((subj, point, len(qs)))
             if len(qs) < 50:
-                print(f"⚠️ 不足 50: {subj} / {point} = {len(qs)}")
+                print(f"[WARN] 不足 50: {subj} / {point} = {len(qs)}")
     total = sum(r[2] for r in report)
     print("题库统计：")
     for subj, point, n in report:
