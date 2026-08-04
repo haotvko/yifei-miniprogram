@@ -54,6 +54,7 @@ Page({
           ...snap.summary,
           mastery_pct_text: pctText(snap.summary.mastery_pct),
           predicted_text: hasAny ? (total + ' / 450') : '待测',
+          predicted_note: hasAny ? '下限口径：仅计已测板块' : '',
           totalPct: snap.summary.mastery_pct == null ? 0 : Math.round(snap.summary.mastery_pct * 100),
           totalColor: totalColorOf(snap.summary.mastery_pct)
         };

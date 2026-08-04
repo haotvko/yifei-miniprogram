@@ -15,6 +15,7 @@
 }
 .hs-num { font-size: 34rpx; font-weight: 800; }
 .hs-label { font-size: 20rpx; opacity: 0.9; margin-left: 10rpx; }
+.hs-note { font-size: 20rpx; opacity: 0.85; margin-top: 8rpx; }
 
 .upd { margin: 16rpx 24rpx 0; text-align: center; }
 

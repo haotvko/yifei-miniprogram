@@ -14,6 +14,7 @@
           <text class="hs-num">{{summary.predicted_text}}</text>
           <text class="hs-label">语数英预测分 / 450</text>
         </view>
+        <view class="hs-note" wx:if="{{summary.predicted_note}}">{{summary.predicted_note}}</view>
       </view>
       <view class="ring ring-md" style="background: conic-gradient({{summary.totalColor}} {{summary.totalPct}}%, rgba(255,255,255,0.22) 0);">
         <view class="ring-mask ring-mask-md">

@@ -1,5 +1,7 @@
 // 云函数 drawTask：从 task_pool 按科目抽「未交付 / 最高 ROI」的卡，并标记 delivered_at
 // 纯读快照，不依赖 AI 在线（v1.4 任务池模式）
+// 注意：前端当前不调用本函数（主链路 = pages/tasks/tasks.js 本地 taskpool.js 派生）。
+// delivered_at 交付标记闭环未启用；本函数保留作云端备用（启用需前端改调 drawTask 并按 delivered_at 过滤渲染）。
 const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
