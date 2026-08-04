@@ -6,6 +6,8 @@
  *
  * 用法：node pipeline/seed_db.js
  * 依赖：tcb CLI 已登录（tcb login），且 cloudbaserc.json 的 envId 正确。
+ *
+ * 幂等：先按 _id 删除旧文档再插入，故可反复运行（日常更新看板数据 = 重跑本脚本）。
  */
 const { execFileSync } = require('child_process');
 const fs = require('fs');
@@ -32,13 +34,28 @@ function createColl(name) {
   }
 }
 
+function deleteDoc(name, filter) {
+  try {
+    tcbDb({ TableName: name, CommandType: 'DELETE', Command: JSON.stringify({ delete: name, query: filter }) });
+    console.log(`· 已删除 ${name} 旧文档 ${JSON.stringify(filter)}`);
+  } catch (e) {
+    const msg = (e.stderr || e.stdout || e.message || '').split('\n')[0];
+    console.log(`· ${name} 删除跳过（可能本就不存在）：${msg.slice(0, 80)}`);
+  }
+}
+
 function insertDoc(name, doc) {
-  tcbDb({
-    TableName: name,
-    CommandType: 'INSERT',
-    Command: JSON.stringify({ insert: name, documents: [doc] }),
-  });
-  console.log(`✓ 已写入 ${name} 文档（_id=${doc._id}）`);
+  try {
+    tcbDb({
+      TableName: name,
+      CommandType: 'INSERT',
+      Command: JSON.stringify({ insert: name, documents: [doc] }),
+    });
+    console.log(`✓ 已写入 ${name} 文档（_id=${doc._id}）`);
+  } catch (e) {
+    const msg = (e.stderr || e.stdout || e.message || '').split('\n')[0];
+    console.log(`✗ ${name} 写入失败（请检查云端是否仍有旧文档）：${msg.slice(0, 120)}`);
+  }
 }
 
 const snapPath = path.join(__dirname, 'snapshot.json');
@@ -48,13 +65,15 @@ if (!fs.existsSync(snapPath)) {
 }
 const snap = JSON.parse(fs.readFileSync(snapPath, 'utf8'));
 
-// 1) snapshot 集合 + current 文档
+// 1) snapshot 集合 + current 文档（幂等：先删后插）
 createColl('snapshot');
+deleteDoc('snapshot', { _id: 'current' });
 const snapDoc = Object.assign({ _id: 'current' }, snap);
 insertDoc('snapshot', snapDoc);
 
 // 2) uploads 集合（占位文档，确保集合存在；真实上传由小程序写）
 createColl('uploads');
+deleteDoc('uploads', { _id: '_init' });
 insertDoc('uploads', { _id: '_init', note: 'init', created_at: new Date().toISOString() });
 
-console.log('\n完成：云端 snapshot/uploads 已就绪。');
+console.log('\n完成：云端 snapshot/uploads 已就绪（可反复运行以刷新看板数据）。');
