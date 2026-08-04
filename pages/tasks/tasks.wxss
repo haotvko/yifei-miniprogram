@@ -11,6 +11,31 @@
 .intro-title { font-size: 32rpx; font-weight: 800; }
 .hl { color: #e04646; font-weight: 700; }
 
+/* 模式切换条 */
+.mode-bar { display: flex; gap: 16rpx; padding: 8rpx 24rpx 12rpx; }
+.mode-chip {
+  flex: 1; text-align: center; padding: 18rpx 0; border-radius: 16rpx;
+  background: #eef1f7; color: #6b7280; font-size: 27rpx; font-weight: 700;
+}
+.mode-chip.on { background: linear-gradient(135deg, #5b8def, #6f6ef0); color: #fff; box-shadow: 0 6rpx 16rpx rgba(91,141,239,0.3); }
+
+/* ROI 高价值任务卡 */
+.roi-intro { padding: 24rpx 28rpx 26rpx; margin-bottom: 4rpx; }
+.roi-card { padding: 22rpx 26rpx 24rpx; margin-bottom: 14rpx; }
+.roi-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12rpx; }
+.roi-title { font-size: 30rpx; font-weight: 800; color: #2b2f38; flex: 1; padding-right: 14rpx; }
+.roi-tag {
+  flex: none; font-size: 21rpx; font-weight: 700; color: #5b6ef0;
+  background: #eaf1ff; border-radius: 999rpx; padding: 4rpx 16rpx;
+}
+.roi-line { font-size: 25rpx; line-height: 1.55; margin: 8rpx 0; color: #2b2f38; }
+.roi-label { color: #5b6ef0; font-weight: 700; }
+.roi-text { color: #4a4f5a; }
+.roi-save { margin: 8rpx 24rpx 4rpx; }
+
+/* 离屏打印画布（A4） */
+.print-canvas { position: fixed; left: -3000rpx; top: 0; width: 595px; height: 842px; }
+
 /* 设置区 */
 .setup { padding: 26rpx 28rpx 30rpx; }
 .row { display: flex; align-items: center; margin: 22rpx 0; }

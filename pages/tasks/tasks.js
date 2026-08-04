@@ -14,13 +14,16 @@ Page({
   data: {
     subjects: [],        // [{key, name}]
     currentSubject: '',  // 当前选中的科目 key
+    mode: 'practice',    // practice=智能提分练习 / roi=高价值任务卡
     corePoints: [],      // 当前科目的核心扣分项（红/黄优先，默认选中）= 智能提分目标
     items: [],           // 全部考点（手动下拉用）
     manualIndex: 0,
     quantity: 5,
     questions: [],
     showing: false,
-    reveal: []
+    reveal: [],
+    roiTasks: [],        // 当前科目的 ROI 排序高价值任务卡（错题提炼/今日单词）
+    saving: false
   },
 
   onLoad(options) {
@@ -72,6 +75,7 @@ Page({
 
     this.buildCore(cur, snap);
     this.setData({ subjects, items, currentSubject: cur, manualIndex: 0 });
+    this.buildRoi(cur, snap);
     this.inited = true;
 
     // 从「详细汇报-去练习」进来：精确锁定该考点并自动开始
@@ -110,7 +114,47 @@ Page({
     const key = e.currentTarget.dataset.key;
     if (key === this.data.currentSubject) return;
     this.buildCore(key, app.globalData.snapshot);
+    this.buildRoi(key, app.globalData.snapshot);
     this.setData({ currentSubject: key, showing: false, questions: [], reveal: [] });
+  },
+
+  // 模式切换：practice=智能提分练习 / roi=高价值任务卡
+  switchMode(e) {
+    const mode = e.currentTarget.dataset.mode;
+    if (mode === this.data.mode) return;
+    this.setData({ mode, showing: false, questions: [], reveal: [] });
+  },
+
+  // 构建当前科目的 ROI 排序高价值任务卡（来自 snapshot.task_pool）
+  buildRoi(subjectKey, snap) {
+    let tasks = [];
+    const pool = (snap && snap.task_pool && snap.task_pool[subjectKey]) || [];
+    tasks = pool.filter(t => t && t.card)
+      .sort((a, b) => (b.roi || 0) - (a.roi || 0))
+      .map(t => {
+        const c = t.card;
+        const isWord = t.type === 'word';
+        const title = isWord
+          ? (c.word_from + ' → ' + c.word_to)
+          : (c.title || c.point || t.title || '任务');
+        const lines = [];
+        if (isWord) {
+          if (c.ipa) lines.push({ label: '音标', text: c.ipa });
+          if (c.collocation) lines.push({ label: '搭配', text: c.collocation });
+        }
+        if (c.rule) lines.push({ label: '规则', text: c.rule });
+        if (c.how) lines.push({ label: '怎么练', text: c.how });
+        if (c.why) lines.push({ label: '为什么', text: c.why });
+        return {
+          id: t.id,
+          type: t.type,
+          typeLabel: isWord ? '今日单词' : '错题提炼',
+          roi: (t.roi == null ? null : Math.round(t.roi * 100) / 100),
+          title,
+          lines
+        };
+      });
+    this.setData({ roiTasks: tasks });
   },
 
   toggleCore(e) {
@@ -173,5 +217,101 @@ Page({
     this.setData({ reveal: r });
   },
   revealAll() { this.setData({ reveal: this.data.questions.map(() => true) }); },
-  back() { this.setData({ showing: false, questions: [], reveal: [] }); }
+  back() { this.setData({ showing: false, questions: [], reveal: [] }); },
+
+  // 按 A4 比例把高价值任务卡绘成图片并保存到相册（一页可打印）
+  saveImage() {
+    if (!this.data.roiTasks.length || this.data.saving) return;
+    this.setData({ saving: true });
+    const tasks = this.data.roiTasks;
+    const subj = this.data.subjects.find(s => s.key === this.data.currentSubject);
+    const subjName = subj ? subj.name : '';
+    const dpr = ((wx.getWindowInfo && wx.getWindowInfo().pixelRatio)
+      || (wx.getSystemInfoSync && wx.getSystemInfoSync().pixelRatio) || 2);
+    const W = 595, H = 842; // A4 @72dpi
+
+    wx.createSelectorQuery().select('#printCanvas').fields({ node: true, size: true }).exec(res => {
+      if (!res || !res[0] || !res[0].node) {
+        wx.showToast({ title: '画布初始化失败', icon: 'none' });
+        this.setData({ saving: false });
+        return;
+      }
+      const canvas = res[0].node;
+      const ctx = canvas.getContext('2d');
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, W, H);
+
+      const M = 36;
+      let y = M;
+      ctx.fillStyle = '#2b2f38';
+      ctx.font = 'bold 22px sans-serif';
+      y = this.drawWrapped(ctx, '伊菲学习 · 高价值任务卡（' + subjName + '）', M, y + 18, W - 2 * M, 28);
+      ctx.strokeStyle = '#e2e7f0';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(M, y + 4); ctx.lineTo(W - M, y + 4); ctx.stroke();
+      y += 22;
+
+      tasks.forEach(t => {
+        ctx.fillStyle = '#1f6feb';
+        ctx.font = 'bold 16px sans-serif';
+        y = this.drawWrapped(ctx, t.title, M, y + 16, W - 2 * M, 22);
+        ctx.fillStyle = '#888888';
+        ctx.font = '12px sans-serif';
+        const roiTxt = (t.roi != null ? (' · ROI ' + t.roi.toFixed(2)) : '');
+        y = this.drawWrapped(ctx, t.typeLabel + roiTxt, M, y + 14, W - 2 * M, 16);
+        y += 6;
+        (t.lines || []).forEach(l => {
+          ctx.fillStyle = '#5b6ef0';
+          ctx.font = 'bold 13px sans-serif';
+          y = this.drawWrapped(ctx, l.label + '：', M, y + 15, W - 2 * M, 17);
+          ctx.fillStyle = '#2b2f38';
+          ctx.font = '13px sans-serif';
+          y = this.drawWrapped(ctx, l.text, M + 16, y + 15, W - 2 * M - 16, 17);
+          y += 4;
+        });
+        ctx.strokeStyle = '#eef1f7';
+        ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke();
+        y += 16;
+      });
+
+      wx.canvasToTempFilePath({
+        canvas,
+        success: r => {
+          wx.saveImageToPhotosAlbum({
+            filePath: r.tempFilePath,
+            success: () => wx.showToast({ title: '已保存到相册' }),
+            fail: e => wx.showToast({ title: '保存失败：' + (e.errMsg || ''), icon: 'none' }),
+            complete: () => this.setData({ saving: false })
+          });
+        },
+        fail: () => {
+          wx.showToast({ title: '生成图片失败', icon: 'none' });
+          this.setData({ saving: false });
+        }
+      });
+    });
+  },
+
+  // 按宽度换行绘制文本，返回绘制后的 y
+  drawWrapped(ctx, text, x, y, maxWidth, lineHeight) {
+    if (text == null || text === '') return y;
+    const chars = String(text).split('');
+    let line = '';
+    let yy = y;
+    for (let i = 0; i < chars.length; i++) {
+      const test = line + chars[i];
+      if (ctx.measureText(test).width > maxWidth && line) {
+        ctx.fillText(line, x, yy);
+        line = chars[i];
+        yy += lineHeight;
+      } else {
+        line = test;
+      }
+    }
+    if (line) { ctx.fillText(line, x, yy); yy += lineHeight; }
+    return yy;
+  }
 });
