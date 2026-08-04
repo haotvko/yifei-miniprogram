@@ -16,14 +16,14 @@
 
   <!-- 暂无汇报（如语文暂无作业） -->
   <view class="card" wx:if="{{!hasReport}}">
-    <view class="section-title">📝 详细汇报</view>
+    <view class="section-title">详细汇报</view>
     <view class="muted">该考点暂无详细汇报。上传相关作业并分析后，系统会自动生成「评分由来 / 具体扣分项 / 提分建议」。</view>
   </view>
 
   <block wx:if="{{hasReport}}">
     <!-- 评分由来：统计 + 说明 -->
     <view class="card">
-      <view class="section-title">📊 评分由来</view>
+      <view class="section-title">评分由来</view>
       <view class="stat-row">
         <view class="stat"><view class="stat-num">{{report.stats.total}}</view><view class="stat-label">统计题数</view></view>
         <view class="stat stat-ok"><view class="stat-num">{{report.stats.correct}}</view><view class="stat-label">做对</view></view>
@@ -35,28 +35,28 @@
 
     <!-- 具体扣分项 -->
     <view class="card" wx:if="{{report.breakdown.length}}">
-      <view class="section-title">🔍 具体扣分项（核心失分模式）</view>
+      <view class="section-title">具体扣分项（核心失分模式）</view>
       <view class="bd" wx:for="{{report.breakdown}}" wx:key="title">
         <view class="bd-bar"></view>
         <view class="bd-body">
           <view class="bd-title">{{item.title}}</view>
           <view class="bd-desc">{{item.desc}}</view>
-          <view class="bd-from">📌 {{item.from}}</view>
+          <view class="bd-from">注：{{item.from}}</view>
         </view>
       </view>
     </view>
 
     <!-- 已稳定掌握 -->
     <view class="card" wx:if="{{report.strengths.length}}">
-      <view class="section-title">✅ 已稳定掌握</view>
+      <view class="section-title">已稳定掌握</view>
       <view class="strength" wx:for="{{report.strengths}}" wx:key="*this">
-        <text class="chk">✓</text><text class="st-text">{{item}}</text>
+        <text class="chk">·</text><text class="st-text">{{item}}</text>
       </view>
     </view>
 
     <!-- 提分建议 -->
     <view class="card tip-card">
-      <view class="section-title">🎯 提分建议</view>
+      <view class="section-title">提分建议</view>
       <view class="report-para">{{report.next_step}}</view>
     </view>
 

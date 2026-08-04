@@ -3,7 +3,7 @@ const { callFunction } = require('../../../utils/api.js');
 
 // 状态色：绿=好 蓝=中上 橙=中 灰=未测
 const COLOR = { green: '#34c759', blue: '#5b8def', yellow: '#ffa726', gray: '#c7ccd4' };
-const EMOJI = { english: '📘', math: '📐', chinese: '📖' };
+const EMOJI = { english: '英', math: '数', chinese: '语' };
 
 function pctText(p) {
   return p == null ? '待测' : Math.round(p * 100) + '%';
@@ -40,7 +40,7 @@ Page({
         mastery_text: pctText(s.mastery_pct),
         ringPct: s.mastery_pct == null ? 0 : Math.round(s.mastery_pct * 100),
         ringColor: colorOf(s.color),
-        emoji: EMOJI[s.key] || '📚'
+        emoji: EMOJI[s.key] || '·'
       }));
 
       let summary = null;

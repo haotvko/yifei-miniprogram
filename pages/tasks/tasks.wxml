@@ -7,7 +7,7 @@
 
   <!-- 设置区 -->
   <view class="card setup" wx:if="{{!showing}}">
-    <view class="intro-title">🎯 智能提分练习</view>
+    <view class="intro-title">智能提分练习</view>
     <view class="muted">题目来自当前科目 <text class="hl">最该补的核心扣分项</text>，目的就是最大程度提分。默认已勾选，可点掉不想练的。</view>
 
     <!-- 核心扣分项（多选） -->
@@ -15,7 +15,7 @@
       <view class="core-chip {{c.picked ? 'on' : ''}}" wx:for="{{corePoints}}" wx:key="point" wx:for-item="c" bindtap="toggleCore" data-point="{{c.point}}">
         <text class="cc-name">{{c.point}}</text>
         <text class="cc-pct" style="color:{{c.color}}">{{c.pct_text}}</text>
-        <text class="cc-check">{{c.picked ? '✓' : ''}}</text>
+        <text class="cc-check">{{c.picked ? '●' : ''}}</text>
       </view>
     </view>
     <view wx:else class="muted" style="margin:10rpx 0;">该科目暂无考点，请先上传作业。</view>
@@ -23,7 +23,7 @@
     <view class="row qty-row">
       <view class="row-label">练习题量</view>
       <view class="stepper">
-        <view class="step-btn" bindtap="dec">−</view>
+        <view class="step-btn" bindtap="dec">-</view>
         <view class="step-num">{{quantity}}</view>
         <view class="step-btn" bindtap="inc">＋</view>
         <view class="step-unit">题（每科 2–10）</view>
@@ -38,7 +38,7 @@
       <picker class="picker" mode="selector" range="{{items}}" range-key="label" value="{{manualIndex}}" bindchange="onPick">
         <view class="picker-box">
           <text>{{items[manualIndex].label}}</text>
-          <text class="picker-arrow">▾</text>
+          <text class="picker-arrow"></text>
         </view>
       </picker>
     </view>
@@ -79,7 +79,7 @@
   </block>
 
   <view wx:if="{{!items.length && !showing}}" class="empty">
-    <view class="empty-emoji">📚</view>
+    <view class="empty-emoji"></view>
     <view class="muted">暂无考点，请先在「掌握情况」上传作业生成考点</view>
   </view>
 

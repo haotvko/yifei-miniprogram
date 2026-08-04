@@ -14,7 +14,7 @@
 
   <!-- 现阶段掌握内容：每项一个掌握度评分 -->
   <view class="card">
-    <view class="section-title">📋 现阶段掌握内容</view>
+    <view class="section-title">现阶段掌握内容</view>
     <view class="score-grid">
       <view class="score-item" wx:for="{{items}}" wx:key="point" bindtap="openReport" data-point="{{item.point}}">
         <view class="si-inner">
@@ -29,7 +29,7 @@
 
   <!-- 核心薄弱项（最后一栏）：只取最该先攻的一项 -->
   <view class="card" wx:if="{{core.length}}">
-    <view class="section-title">🚨 当前最该攻的一项</view>
+    <view class="section-title">当前最该攻的一项</view>
     <view class="core" wx:for="{{core}}" wx:key="point">
       <view class="core-head">
         <text class="core-name">{{item.point}}</text>

@@ -8,7 +8,7 @@
     <!-- 渐变 hero（横向紧凑）：问候 + 预测分 + 总掌握度环 -->
     <view class="hero grad-primary">
       <view class="hero-left">
-        <view class="hero-hi">伊菲的学习看板 👋</view>
+        <view class="hero-hi">伊菲的学习看板</view>
         <view class="hero-sub">语数英一起，稳步提分</view>
         <view class="hero-stat">
           <text class="hs-num">{{summary.predicted_text}}</text>
@@ -36,7 +36,7 @@
       <view class="ring" style="background: conic-gradient({{item.ringColor}} {{item.ringPct}}%, #eceef3 0);">
         <view class="ring-mask"><text class="ring-num">{{item.mastery_text}}</text></view>
       </view>
-      <view class="subj-arrow">›</view>
+      <view class="subj-arrow">></view>
     </view>
 
     <view class="muted foot">点科目查看薄弱知识点 · 数据来自伊菲真实作业</view>
