@@ -28,8 +28,8 @@ Page({
   },
 
   onLoad(options) {
-    this.key = options.key;
-    this.pointName = options.point;
+    this.key = options.key || '';
+    this.pointName = options.point ? decodeURIComponent(options.point) : '';
     this.load();
   },
 
