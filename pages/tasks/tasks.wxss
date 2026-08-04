@@ -1,12 +1,13 @@
 .page { padding-bottom: 40rpx; }
 
-/* 科目切换条 */
-.subj-bar { display: flex; gap: 16rpx; padding: 22rpx 24rpx 4rpx; }
+/* 科目多选条 */
+.subj-bar { display: flex; flex-wrap: wrap; gap: 16rpx; padding: 22rpx 24rpx 4rpx; }
 .subj-chip {
-  flex: 1; text-align: center; padding: 16rpx 0; border-radius: 16rpx;
+  padding: 16rpx 30rpx; border-radius: 16rpx;
   background: #eef1f7; color: #6b7280; font-size: 27rpx; font-weight: 700;
+  border: 2rpx solid transparent;
 }
-.subj-chip.on { background: linear-gradient(135deg, #5b8def, #6f6ef0); color: #fff; box-shadow: 0 6rpx 16rpx rgba(91,141,239,0.3); }
+.subj-chip.on { background: #eaf1ff; border-color: #5b6ef0; color: #2b2f38; box-shadow: 0 6rpx 16rpx rgba(91,141,239,0.18); }
 
 .intro-title { font-size: 32rpx; font-weight: 800; }
 .hl { color: #e04646; font-weight: 700; }
@@ -20,7 +21,6 @@
 .mode-chip.on { background: linear-gradient(135deg, #5b8def, #6f6ef0); color: #fff; box-shadow: 0 6rpx 16rpx rgba(91,141,239,0.3); }
 
 /* ROI 高价值任务卡 */
-.roi-intro { padding: 24rpx 28rpx 26rpx; margin-bottom: 4rpx; }
 .roi-card { padding: 22rpx 26rpx 24rpx; margin-bottom: 14rpx; }
 .roi-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12rpx; }
 .roi-title { font-size: 30rpx; font-weight: 800; color: #2b2f38; flex: 1; padding-right: 14rpx; }
@@ -31,9 +31,8 @@
 .roi-line { font-size: 25rpx; line-height: 1.55; margin: 8rpx 0; color: #2b2f38; }
 .roi-label { color: #5b6ef0; font-weight: 700; }
 .roi-text { color: #4a4f5a; }
-.roi-save { margin: 8rpx 24rpx 4rpx; }
 
-/* 离屏打印画布（A4） */
+/* 离屏打印画布（A4，高度随内容自适应） */
 .print-canvas { position: fixed; left: -3000rpx; top: 0; width: 595px; height: 842px; }
 
 /* 设置区 */
@@ -41,32 +40,6 @@
 .row { display: flex; align-items: center; margin: 22rpx 0; }
 .row-label { font-size: 28rpx; font-weight: 700; color: #2b2f38; width: 150rpx; flex: none; }
 .qty-row { justify-content: space-between; }
-
-/* 核心扣分项多选 chips */
-.core-chips { display: flex; flex-wrap: wrap; gap: 14rpx; margin: 18rpx 0 8rpx; }
-.core-chip {
-  display: flex; align-items: center; gap: 10rpx;
-  background: #f4f6fb; border: 2rpx solid #e6eaf2; border-radius: 16rpx;
-  padding: 14rpx 20rpx; font-size: 25rpx; color: #4a4f5a;
-}
-.core-chip.on { background: #eaf1ff; border-color: #5b6ef0; color: #2b2f38; }
-.cc-name { font-weight: 600; }
-.cc-pct { font-weight: 800; }
-.cc-check { width: 30rpx; height: 30rpx; line-height: 30rpx; text-align: center; font-weight: 800; color: #5b6ef0; }
-.core-chip.on .cc-check { background: #5b6ef0; color: #fff; border-radius: 50%; }
-
-/* 下拉选择 */
-.picker { flex: 1; }
-.picker-box {
-  display: flex; align-items: center; justify-content: space-between;
-  background: #f4f6fb; border: 2rpx solid #e2e7f0; border-radius: 16rpx;
-  padding: 22rpx 24rpx; font-size: 27rpx; color: #2b2f38; font-weight: 600;
-}
-.picker-arrow { color: #9aa1ad; font-size: 24rpx; }
-
-/* 手动区 */
-.manual { margin-top: 26rpx; padding-top: 22rpx; border-top: 2rpx dashed #e6eaf2; }
-.manual-title { font-size: 25rpx; color: #9aa1ad; margin-bottom: 12rpx; }
 
 /* 题量步进器 */
 .stepper { display: flex; align-items: center; }
@@ -80,6 +53,11 @@
 
 .gen-btn { margin-top: 24rpx; }
 .prev-title { font-size: 26rpx; font-weight: 800; color: #6b7280; padding: 26rpx 24rpx 6rpx; }
+.sec-head {
+  font-size: 30rpx; font-weight: 800; color: #5b6ef0;
+  padding: 22rpx 24rpx 10rpx; border-left: 8rpx solid #5b6ef0; margin: 14rpx 0 4rpx;
+  background: #f6f9ff;
+}
 .btn-primary {
   background: linear-gradient(135deg, #5b8def, #6f6ef0);
   color: #fff; border-radius: 16rpx; font-size: 30rpx; font-weight: 700; padding: 20rpx 0;

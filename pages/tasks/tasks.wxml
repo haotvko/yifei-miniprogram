@@ -1,8 +1,8 @@
 <view class="page">
 
-  <!-- 科目切换 -->
+  <!-- 科目多选 -->
   <view class="subj-bar" wx:if="{{subjects.length}}">
-    <view class="subj-chip {{currentSubject===s.key ? 'on' : ''}}" wx:for="{{subjects}}" wx:key="key" wx:for-item="s" bindtap="switchSubject" data-key="{{s.key}}">{{s.name}}</view>
+    <view class="subj-chip {{selectedSubjects.indexOf(s.key) > -1 ? 'on' : ''}}" wx:for="{{subjects}}" wx:key="key" wx:for-item="s" bindtap="toggleSubject" data-key="{{s.key}}">{{s.name}}</view>
   </view>
 
   <!-- 模式切换 -->
@@ -11,102 +11,70 @@
     <view class="mode-chip {{mode==='roi' ? 'on' : ''}}" bindtap="switchMode" data-mode="roi">高价值任务卡</view>
   </view>
 
-  <!-- 练习模式 -->
-  <block wx:if="{{mode==='practice'}}">
+  <!-- 设置区 -->
+  <view class="card setup">
+    <view class="intro-title">{{mode==='practice' ? '智能提分练习' : '高价值任务卡'}}</view>
+    <view class="muted">已选 <text class="hl">{{selectedSubjects.length}}</text> 科：内容来自所选科目最该补的项，选完一键生成可打印 A4 图（含答案）。</view>
 
-    <!-- 设置区 -->
-    <view class="card setup">
-      <view class="intro-title">智能提分练习</view>
-      <view class="muted">题目来自当前科目 <text class="hl">最该补的核心扣分项</text>，一键生成可打印 A4 图，纸上一练、家长对照答案都方便。默认已勾选，可点掉不想练的。</view>
-
-      <!-- 核心扣分项（多选） -->
-      <view class="core-chips" wx:if="{{corePoints.length}}">
-        <view class="core-chip {{c.picked ? 'on' : ''}}" wx:for="{{corePoints}}" wx:key="point" wx:for-item="c" bindtap="toggleCore" data-point="{{c.point}}">
-          <text class="cc-name">{{c.point}}</text>
-          <text class="cc-pct" style="color:{{c.color}}">{{c.pct_text}}</text>
-          <text class="cc-check">{{c.picked ? '●' : ''}}</text>
-        </view>
-      </view>
-      <view wx:else class="muted" style="margin:10rpx 0;">该科目暂无考点，请先上传作业。</view>
-
-      <view class="row qty-row">
-        <view class="row-label">练习题量</view>
-        <view class="stepper">
-          <view class="step-btn" bindtap="dec">-</view>
-          <view class="step-num">{{quantity}}</view>
-          <view class="step-btn" bindtap="inc">＋</view>
-          <view class="step-unit">题（每科 2–10）</view>
-        </view>
-      </view>
-
-      <button class="btn-primary gen-btn" wx:if="{{!saving}}" bindtap="savePracticeImage">生成可打印图片（一页A4·可打印）</button>
-      <view wx:if="{{saving}}" class="muted center" style="margin:14rpx 0;">生成中…</view>
-
-      <!-- 手动选其他考点 -->
-      <view class="manual">
-        <view class="manual-title">或手动选择其他考点</view>
-        <picker class="picker" mode="selector" range="{{items}}" range-key="label" value="{{manualIndex}}" bindchange="onPick">
-          <view class="picker-box">
-            <text>{{items[manualIndex].label}}</text>
-            <text class="picker-arrow"></text>
-          </view>
-        </picker>
+    <view class="row qty-row" wx:if="{{mode==='practice'}}">
+      <view class="row-label">每科题量</view>
+      <view class="stepper">
+        <view class="step-btn" bindtap="dec">-</view>
+        <view class="step-num">{{quantity}}</view>
+        <view class="step-btn" bindtap="inc">＋</view>
+        <view class="step-unit">题（每科 2–10）</view>
       </view>
     </view>
 
-    <!-- 预览（与打印内容一致，含答案） -->
-    <view wx:if="{{questions.length}}">
-      <view class="prev-title">预览（与打印内容一致 · 含答案）</view>
-      <view class="card qcard" wx:for="{{questions}}" wx:key="index" wx:for-item="item">
-        <view class="q-top">
-          <text class="q-num">第 {{index+1}} 题</text>
-          <text class="q-tag">{{item.tag}}</text>
-        </view>
-        <view class="q-stem">{{item.q}}</view>
-        <view class="q-opts">
-          <view class="q-opt {{opt.correct ? 'opt-right' : ''}}" wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l">
-            <text class="opt-l">{{opt.l}}</text>
-            <text class="opt-t">{{opt.t}}</text>
-          </view>
-        </view>
-        <view class="q-answer">
-          <view class="ans-line"><text class="ans-tag">答案</text> {{item.answer}}</view>
-          <view class="ans-exp" wx:if="{{item.explain}}">{{item.explain}}</view>
-        </view>
-      </view>
-    </view>
-
-    <view wx:if="{{!items.length}}" class="empty">
-      <view class="empty-emoji"></view>
-      <view class="muted">暂无考点，请先在「掌握情况」上传作业生成考点</view>
-    </view>
-
-  </block>
-
-  <!-- ROI 模式：高价值任务卡 -->
-  <block wx:if="{{mode==='roi'}}">
-    <view class="card roi-intro">
-      <view class="intro-title">高价值任务卡</view>
-      <view class="muted">按 ROI（频率 × 未覆盖 × 确定性）排序，主任务来自真实错题提炼，目的=用最少时间换最多分。下方可保存为一页 A4 图片打印。</view>
-    </view>
-
-    <view class="card roi-card" wx:for="{{roiTasks}}" wx:key="id" wx:for-item="t">
-      <view class="roi-head">
-        <text class="roi-title">{{t.title}}</text>
-        <text class="roi-tag">{{t.typeLabel}}{{t.roi != null ? ' · ROI ' + t.roi : ''}}</text>
-      </view>
-      <view class="roi-line" wx:for="{{t.lines}}" wx:key="label" wx:for-item="l">
-        <text class="roi-label">{{l.label}}：</text><text class="roi-text">{{l.text}}</text>
-      </view>
-    </view>
-
-    <button class="btn-primary roi-save" wx:if="{{roiTasks.length && !saving}}" bindtap="saveImage">保存为图片（一页A4·可打印）</button>
+    <button class="btn-primary gen-btn" wx:if="{{!saving}}" bindtap="generate">一键生成可打印图片（{{selectedSubjects.length}}科 · 一页A4）</button>
     <view wx:if="{{saving}}" class="muted center" style="margin:14rpx 0;">生成中…</view>
-    <view wx:if="{{!roiTasks.length}}" class="empty">
-      <view class="empty-emoji"></view>
-      <view class="muted">该科目暂无高价值任务，请先上传作业生成。</view>
+  </view>
+
+  <!-- 预览（与打印内容一致，含答案） -->
+  <view wx:if="{{printSections.length}}">
+    <view class="prev-title">预览（与打印内容一致 · 含答案）</view>
+    <view wx:for="{{printSections}}" wx:key="subjectKey" wx:for-item="sec">
+      <view class="sec-head">【{{sec.subjectName}}】</view>
+
+      <!-- 练习模式 -->
+      <block wx:if="{{sec.kind==='practice'}}">
+        <view class="card qcard" wx:for="{{sec.items}}" wx:key="index" wx:for-item="item">
+          <view class="q-top">
+            <text class="q-num">第 {{index+1}} 题</text>
+            <text class="q-tag">{{item.tag}}</text>
+          </view>
+          <view class="q-stem">{{item.q}}</view>
+          <view class="q-opts">
+            <view class="q-opt {{opt.correct ? 'opt-right' : ''}}" wx:for="{{item.choices}}" wx:for-item="opt" wx:key="l">
+              <text class="opt-l">{{opt.l}}</text>
+              <text class="opt-t">{{opt.t}}</text>
+            </view>
+          </view>
+          <view class="q-answer">
+            <view class="ans-line"><text class="ans-tag">答案</text> {{item.answer}}</view>
+            <view class="ans-exp" wx:if="{{item.explain}}">{{item.explain}}</view>
+          </view>
+        </view>
+      </block>
+
+      <!-- ROI 模式 -->
+      <block wx:if="{{sec.kind==='roi'}}">
+        <view class="card roi-card" wx:for="{{sec.items}}" wx:key="id" wx:for-item="t">
+          <view class="roi-head">
+            <text class="roi-title">{{t.title}}</text>
+            <text class="roi-tag">{{t.typeLabel}}{{t.roi != null ? ' · ROI ' + t.roi : ''}}</text>
+          </view>
+          <view class="roi-line" wx:for="{{t.lines}}" wx:key="label" wx:for-item="l">
+            <text class="roi-label">{{l.label}}：</text><text class="roi-text">{{l.text}}</text>
+          </view>
+        </view>
+      </block>
     </view>
-  </block>
+  </view>
+
+  <view wx:if="{{!subjects.length}}" class="empty">
+    <view class="muted">暂无科目，请先在「掌握情况」上传作业生成考点</view>
+  </view>
 
   <canvas type="2d" id="printCanvas" class="print-canvas"></canvas>
 </view>

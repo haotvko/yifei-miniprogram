@@ -14,23 +14,18 @@ function pctText(p) { return p == null ? '未测' : Math.round(p * 100) + '%'; }
 
 Page({
   data: {
-    subjects: [],        // [{key, name}]
-    currentSubject: '',  // 当前选中的科目 key
-    mode: 'practice',    // practice=智能提分练习 / roi=高价值任务卡
-    corePoints: [],      // 当前科目的核心扣分项（红/黄优先，默认选中）= 智能提分目标
-    items: [],           // 全部考点（手动下拉用）
-    manualIndex: 0,
-    quantity: 5,
-    questions: [],
-    showing: false,
-    reveal: [],
-    roiTasks: [],        // 当前科目的 ROI 排序高价值任务卡（错题提炼/今日单词）
+    subjects: [],          // [{key, name}]
+    selectedSubjects: [],  // 多选科目，默认全选
+    mode: 'practice',      // practice=智能提分练习 / roi=高价值任务卡
+    quantity: 5,           // 每科题量 2–10
+    printSections: [],     // [{subjectKey, subjectName, kind:'practice'|'roi', items:[...]}]
     saving: false
   },
 
   onLoad(options) {
     this.paramSubject = options.subject || '';
     this.paramPoint = options.point ? decodeURIComponent(options.point) : '';
+    this.lockPoint = null;
     this.inited = false;
     this.load();
   },
@@ -49,46 +44,46 @@ Page({
     }
 
     const subjects = [];
-    const items = [];
     if (snap && snap.subjects) {
       snap.subjects.forEach(s => {
         subjects.push({ key: s.key, name: s.name });
-        (s.points || []).forEach(p => {
-          const hasBank = !!(getBank()[s.key] && getBank()[s.key][p.point]);
-          items.push({
-            subjectKey: s.key,
-            subjectName: s.name,
-            point: p.point,
-            label: s.name + ' · ' + p.point,
-            hasBank,
-            pct: p.mastery_pct,
-            status: p.status
-          });
-        });
       });
     }
 
-    // 默认科目：来自参数 > 第一个有考点的科目 > 第一个科目
-    let cur = this.paramSubject;
-    if (!cur && subjects.length) {
-      const withPoints = subjects.find(s => (snap.subjects.find(x => x.key === s.key).points || []).length);
-      cur = (withPoints || subjects[0]).key;
+    // 默认全选；若从「详细汇报-去练习」带参数进来，则只锁该科目/考点
+    let selected = subjects.map(s => s.key);
+    if (this.paramSubject) {
+      selected = [this.paramSubject];
+    } else if (this.paramPoint) {
+      const s = (snap && snap.subjects || []).find(x => (x.points || []).some(p => p.point === this.paramPoint));
+      if (s) { selected = [s.key]; this.lockPoint = { subjectKey: s.key, point: this.paramPoint }; }
     }
 
-    this.buildCore(cur, snap);
-    this.setData({ subjects, items, currentSubject: cur, manualIndex: 0 });
-    this.buildRoi(cur, snap);
+    this.setData({ subjects, selectedSubjects: selected });
     this.inited = true;
-
-    // 从「详细汇报-去练习」进来：精确锁定该考点（由用户点「生成可打印图片」出图）
-    if (this.paramPoint) {
-      const cps = this.data.corePoints.map(c => ({ ...c, picked: c.point === this.paramPoint }));
-      this.setData({ corePoints: cps, currentSubject: cur });
-    }
   },
 
-  // 依据当前科目构建核心扣分项：红/黄优先；若都没有则取最弱
-  buildCore(subjectKey, snap) {
+  // 科目多选：点一下切换是否被选中
+  toggleSubject(e) {
+    const key = e.currentTarget.dataset.key;
+    const sel = this.data.selectedSubjects.slice();
+    const i = sel.indexOf(key);
+    if (i > -1) sel.splice(i, 1); else sel.push(key);
+    this.setData({ selectedSubjects: sel, printSections: [] });
+  },
+
+  // 模式切换：practice=智能提分练习 / roi=高价值任务卡
+  switchMode(e) {
+    const mode = e.currentTarget.dataset.mode;
+    if (mode === this.data.mode) return;
+    this.setData({ mode, printSections: [] });
+  },
+
+  dec() { this.setData({ quantity: Math.max(2, this.data.quantity - 1), printSections: [] }); },
+  inc() { this.setData({ quantity: Math.min(10, this.data.quantity + 1), printSections: [] }); },
+
+  // 每个科目的核心扣分项（红/黄优先，全部作为练习目标）
+  coreForSubject(subjectKey, snap) {
     let pts = [];
     if (snap && snap.subjects) {
       const subj = snap.subjects.find(s => s.key === subjectKey);
@@ -99,38 +94,20 @@ Page({
         pts = (weak.length ? weak : all.slice().sort((a, b) =>
           (a.mastery_pct == null ? 2 : a.mastery_pct) - (b.mastery_pct == null ? 2 : b.mastery_pct)))
           .map(p => ({
-            subjectKey,
             point: p.point,
             pct_text: pctText(p.mastery_pct),
             color: colorOf(p.status),
-            hasBank: !!(getBank()[subjectKey] && getBank()[subjectKey][p.point]),
-            picked: true
+            hasBank: !!(getBank()[subjectKey] && getBank()[subjectKey][p.point])
           }));
       }
     }
-    this.setData({ corePoints: pts });
+    return pts;
   },
 
-  switchSubject(e) {
-    const key = e.currentTarget.dataset.key;
-    if (key === this.data.currentSubject) return;
-    this.buildCore(key, app.globalData.snapshot);
-    this.buildRoi(key, app.globalData.snapshot);
-    this.setData({ currentSubject: key, showing: false, questions: [], reveal: [] });
-  },
-
-  // 模式切换：practice=智能提分练习 / roi=高价值任务卡
-  switchMode(e) {
-    const mode = e.currentTarget.dataset.mode;
-    if (mode === this.data.mode) return;
-    this.setData({ mode, showing: false, questions: [], reveal: [] });
-  },
-
-  // 构建当前科目的 ROI 排序高价值任务卡（来自 snapshot.task_pool，缺失时回退本地 taskpool.js）
-  buildRoi(subjectKey, snap) {
-    let tasks = [];
+  // ROI 任务卡条目（来自 task_pool，缺失回退本地 taskpool.js）
+  roiItemsOf(subjectKey, snap) {
     const pool = (snap && snap.task_pool && snap.task_pool[subjectKey]) || localPool[subjectKey] || [];
-    tasks = pool.filter(t => t && t.card)
+    return pool.filter(t => t && t.card)
       .sort((a, b) => (b.roi || 0) - (a.roi || 0))
       .map(t => {
         const c = t.card;
@@ -155,101 +132,155 @@ Page({
           lines
         };
       });
-    this.setData({ roiTasks: tasks });
   },
 
-  toggleCore(e) {
-    const point = e.currentTarget.dataset.point;
-    const cps = this.data.corePoints.map(c => c.point === point ? { ...c, picked: !c.picked } : c);
-    this.setData({ corePoints: cps });
-  },
-
-  onPick(e) {
-    const idx = +e.detail.value;
-    this.setData({ manualIndex: idx, showing: false, questions: [], reveal: [] });
-  },
-
-  dec() { this.setData({ quantity: Math.max(2, this.data.quantity - 1) }); },
-  inc() { this.setData({ quantity: Math.min(10, this.data.quantity + 1) }); },
-
-  // 智能提分练习：一键生成可打印图片（同屏含答案预览）
-  savePracticeImage() {
-    if (this.data.saving) return;
-    let targets = this.data.corePoints.filter(c => c.picked && c.hasBank);
-    if (!targets.length) {
-      const m = this.data.items[this.data.manualIndex];
-      if (m && m.hasBank) targets = [m];
-    }
-    if (!targets.length) {
-      wx.showToast({ title: '该考点题库建设中', icon: 'none' });
-      return;
-    }
-
-    // 合并所有目标考点的题库，洗牌后抽 N 题
-    const pool = [];
-    targets.forEach(t => {
-      const arr = (getBank()[t.subjectKey] && getBank()[t.subjectKey][t.point]) || [];
-      arr.forEach(q => pool.push({ q, subjectName: t.subjectName, point: t.point }));
-    });
-    if (!pool.length) { wx.showToast({ title: '题库为空', icon: 'none' }); return; }
-
-    const n = Math.min(this.data.quantity, pool.length);
-    const idx = Array.from({ length: pool.length }, (_, i) => i);
-    for (let i = idx.length - 1; i > 0; i--) {
+  shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [idx[i], idx[j]] = [idx[j], idx[i]];
+      [a[i], a[j]] = [a[j], a[i]];
     }
-    const questions = idx.slice(0, n).map(i => {
-      const q = pool[i].q;
-      return {
-        q: q.q,
-        tag: pool[i].subjectName + ' · ' + pool[i].point,
-        choices: q.options.map((o, k) => ({ l: String.fromCharCode(65 + k), t: o, correct: o === q.answer })),
-        answer: q.answer,
-        explain: q.explain
-      };
-    });
-    this.setData({ questions });
+    return a;
+  },
 
-    const subj = this.data.subjects.find(s => s.key === this.data.currentSubject);
-    const subjName = subj ? subj.name : '';
-    this.setupCanvas('伊菲学习 · 智能提分练习（' + subjName + '）', (ctx, y, M, W) => {
-      questions.forEach((q, qi) => {
-        ctx.fillStyle = '#1f6feb';
-        ctx.font = 'bold 16px sans-serif';
-        y = this.drawWrapped(ctx, '第 ' + (qi + 1) + ' 题 · ' + q.tag, M, y + 16, W - 2 * M, 22);
-        ctx.fillStyle = '#2b2f38';
-        ctx.font = '13px sans-serif';
-        y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
-        y += 2;
-        (q.choices || []).forEach(o => {
-          ctx.fillStyle = o.correct ? '#1a8f4c' : '#2b2f38';
-          ctx.font = (o.correct ? 'bold ' : '') + '12px sans-serif';
-          y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
-        });
-        ctx.fillStyle = '#1a8f4c';
-        ctx.font = 'bold 12px sans-serif';
-        y = this.drawWrapped(ctx, '答案：' + q.answer, M, y + 15, W - 2 * M, 16);
-        if (q.explain) {
-          ctx.fillStyle = '#6b7180';
-          ctx.font = '12px sans-serif';
-          y = this.drawWrapped(ctx, '解析：' + q.explain, M + 8, y + 14, W - 2 * M - 8, 16);
+  // 一键生成：汇总所有选中科目，出一张可打印图（含答案）
+  generate() {
+    if (this.data.saving) return;
+    const sel = this.data.selectedSubjects;
+    if (!sel.length) { wx.showToast({ title: '请至少选一个科目', icon: 'none' }); return; }
+
+    const snap = app.globalData.snapshot || {};
+    const mode = this.data.mode;
+    const subjects = this.data.subjects;
+    const qty = this.data.quantity;
+    const sections = [];
+
+    if (mode === 'practice') {
+      sel.forEach(k => {
+        const subj = subjects.find(s => s.key === k);
+        if (!subj) return;
+        let core = this.coreForSubject(k, snap);
+        if (this.lockPoint && this.lockPoint.subjectKey === k) {
+          core = core.filter(c => c.point === this.lockPoint.point);
         }
-        ctx.strokeStyle = '#eef1f7';
-        ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke();
+        const targets = core.filter(c => c.hasBank);
+        if (!targets.length) return;
+        const pool = [];
+        targets.forEach(t => {
+          const arr = (getBank()[k] && getBank()[k][t.point]) || [];
+          arr.forEach(q => pool.push({ q, point: t.point }));
+        });
+        if (!pool.length) return;
+        const n = Math.min(qty, pool.length);
+        const items = this.shuffle(pool).slice(0, n).map(p => {
+          const q = p.q;
+          return {
+            q: q.q,
+            tag: subj.name + ' · ' + p.point,
+            choices: q.options.map((o, i2) => ({ l: String.fromCharCode(65 + i2), t: o, correct: o === q.answer })),
+            answer: q.answer,
+            explain: q.explain
+          };
+        });
+        sections.push({ subjectKey: k, subjectName: subj.name, kind: 'practice', items });
+      });
+      if (!sections.length) { wx.showToast({ title: '所选科目题库建设中', icon: 'none' }); return; }
+    } else {
+      sel.forEach(k => {
+        const subj = subjects.find(s => s.key === k);
+        if (!subj) return;
+        const tasks = this.roiItemsOf(k, snap);
+        if (tasks.length) sections.push({ subjectKey: k, subjectName: subj.name, kind: 'roi', items: tasks });
+      });
+      if (!sections.length) { wx.showToast({ title: '所选科目暂无高价值任务', icon: 'none' }); return; }
+    }
+
+    this.setData({ printSections: sections });
+
+    const modeLabel = mode === 'practice' ? '智能提分练习' : '高价值任务卡';
+    const title = '伊菲学习 · 今日任务（' + modeLabel + ' · ' + sections.length + '科）';
+    this.renderPrint(title, sections, mode);
+  },
+
+  // 把汇总后的 sections 画进 A4 画布（高度自适应，内容多则拉长，不截断）
+  renderPrint(title, sections, mode) {
+    this.setupCanvas(title, (ctx, y, M, W) => {
+      sections.forEach(sec => {
+        // 科目分隔标题
+        ctx.fillStyle = '#5b6ef0';
+        ctx.font = 'bold 17px sans-serif';
+        y = this.drawWrapped(ctx, '【' + sec.subjectName + '】', M, y + 18, W - 2 * M, 22);
+        ctx.strokeStyle = '#5b6ef0';
+        ctx.lineWidth = 2;
+        if (!this._dry) { ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke(); }
         y += 14;
+
+        if (sec.kind === 'practice') {
+          sec.items.forEach((q, qi) => {
+            ctx.fillStyle = '#1f6feb';
+            ctx.font = 'bold 15px sans-serif';
+            y = this.drawWrapped(ctx, '第 ' + (qi + 1) + ' 题 · ' + q.tag, M, y + 16, W - 2 * M, 20);
+            ctx.fillStyle = '#2b2f38';
+            ctx.font = '13px sans-serif';
+            y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
+            y += 2;
+            (q.choices || []).forEach(o => {
+              ctx.fillStyle = o.correct ? '#1a8f4c' : '#2b2f38';
+              ctx.font = (o.correct ? 'bold ' : '') + '12px sans-serif';
+              y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
+            });
+            ctx.fillStyle = '#1a8f4c';
+            ctx.font = 'bold 12px sans-serif';
+            y = this.drawWrapped(ctx, '答案：' + q.answer, M, y + 15, W - 2 * M, 16);
+            if (q.explain) {
+              ctx.fillStyle = '#6b7180';
+              ctx.font = '12px sans-serif';
+              y = this.drawWrapped(ctx, '解析：' + q.explain, M + 8, y + 14, W - 2 * M - 8, 16);
+            }
+            ctx.strokeStyle = '#eef1f7';
+            ctx.lineWidth = 1;
+            if (!this._dry) { ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke(); }
+            y += 14;
+          });
+        } else {
+          sec.items.forEach(t => {
+            ctx.fillStyle = '#1f6feb';
+            ctx.font = 'bold 16px sans-serif';
+            y = this.drawWrapped(ctx, t.title, M, y + 16, W - 2 * M, 22);
+            ctx.fillStyle = '#888888';
+            ctx.font = '12px sans-serif';
+            const roiTxt = (t.roi != null ? (' · ROI ' + t.roi.toFixed(2)) : '');
+            y = this.drawWrapped(ctx, t.typeLabel + roiTxt, M, y + 14, W - 2 * M, 16);
+            y += 6;
+            (t.lines || []).forEach(l => {
+              ctx.fillStyle = '#5b6ef0';
+              ctx.font = 'bold 13px sans-serif';
+              y = this.drawWrapped(ctx, l.label + '：', M, y + 15, W - 2 * M, 17);
+              ctx.fillStyle = '#2b2f38';
+              ctx.font = '13px sans-serif';
+              y = this.drawWrapped(ctx, l.text, M + 16, y + 15, W - 2 * M - 16, 17);
+              y += 4;
+            });
+            ctx.strokeStyle = '#eef1f7';
+            ctx.lineWidth = 1;
+            if (!this._dry) { ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke(); }
+            y += 16;
+          });
+        }
+        y += 12;
       });
       return y;
     });
   },
 
-  // 通用：初始化 A4 离屏画布（595×842 @72dpi），白底，回调绘制内容并自动存图
+  // 通用：初始化 A4 离屏画布，先 dry-run 量出内容高度（自适应），再白底绘制并自动存图
   setupCanvas(title, drawContent) {
     if (this.data.saving) return;
     this.setData({ saving: true });
     const dpr = ((wx.getWindowInfo && wx.getWindowInfo().pixelRatio)
       || (wx.getSystemInfoSync && wx.getSystemInfoSync().pixelRatio) || 2);
-    const W = 595, H = 842; // A4 @72dpi
+    const W = 595, M = 36; // A4 @72dpi 宽
+
     wx.createSelectorQuery().select('#printCanvas').fields({ node: true, size: true }).exec(res => {
       if (!res || !res[0] || !res[0].node) {
         wx.showToast({ title: '画布初始化失败', icon: 'none' });
@@ -258,23 +289,32 @@ Page({
       }
       const canvas = res[0].node;
       const ctx = canvas.getContext('2d');
+
+      // dry-run：仅量高度，不落笔
+      const paint = (dry) => {
+        this._dry = dry;
+        let y = M;
+        ctx.fillStyle = '#2b2f38';
+        ctx.font = 'bold 22px sans-serif';
+        y = this.drawWrapped(ctx, title, M, y + 18, W - 2 * M, 28);
+        ctx.strokeStyle = '#e2e7f0';
+        ctx.lineWidth = 1;
+        if (!dry) { ctx.beginPath(); ctx.moveTo(M, y + 4); ctx.lineTo(W - M, y + 4); ctx.stroke(); }
+        y += 22;
+        y = drawContent(ctx, y, M, W);
+        this._dry = false;
+        return y;
+      };
+
+      const endY = paint(true);
+      const H = Math.max(842, Math.ceil(endY + 40)); // 至少一页 A4，内容多则拉长，不截断
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx.scale(dpr, dpr);
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, W, H);
 
-      const M = 36;
-      let y = M;
-      ctx.fillStyle = '#2b2f38';
-      ctx.font = 'bold 22px sans-serif';
-      y = this.drawWrapped(ctx, title, M, y + 18, W - 2 * M, 28);
-      ctx.strokeStyle = '#e2e7f0';
-      ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(M, y + 4); ctx.lineTo(W - M, y + 4); ctx.stroke();
-      y += 22;
-
-      drawContent(ctx, y, M, W);
+      paint(false);
 
       wx.canvasToTempFilePath({
         canvas,
@@ -294,39 +334,7 @@ Page({
     });
   },
 
-  // 高价值任务卡：一键生成可打印图片（一页 A4）
-  saveImage() {
-    if (!this.data.roiTasks.length) return;
-    const tasks = this.data.roiTasks;
-    const subj = this.data.subjects.find(s => s.key === this.data.currentSubject);
-    const subjName = subj ? subj.name : '';
-    this.setupCanvas('伊菲学习 · 高价值任务卡（' + subjName + '）', (ctx, y, M, W) => {
-      tasks.forEach(t => {
-        ctx.fillStyle = '#1f6feb';
-        ctx.font = 'bold 16px sans-serif';
-        y = this.drawWrapped(ctx, t.title, M, y + 16, W - 2 * M, 22);
-        ctx.fillStyle = '#888888';
-        ctx.font = '12px sans-serif';
-        const roiTxt = (t.roi != null ? (' · ROI ' + t.roi.toFixed(2)) : '');
-        y = this.drawWrapped(ctx, t.typeLabel + roiTxt, M, y + 14, W - 2 * M, 16);
-        y += 6;
-        (t.lines || []).forEach(l => {
-          ctx.fillStyle = '#5b6ef0';
-          ctx.font = 'bold 13px sans-serif';
-          y = this.drawWrapped(ctx, l.label + '：', M, y + 15, W - 2 * M, 17);
-          ctx.fillStyle = '#2b2f38';
-          ctx.font = '13px sans-serif';
-          y = this.drawWrapped(ctx, l.text, M + 16, y + 15, W - 2 * M - 16, 17);
-          y += 4;
-        });
-        ctx.strokeStyle = '#eef1f7';
-        ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke();
-        y += 16;
-      });
-    });
-  },
-
-  // 按宽度换行绘制文本，返回绘制后的 y
+  // 按宽度换行绘制文本，返回绘制后的 y；dry 模式只量不画
   drawWrapped(ctx, text, x, y, maxWidth, lineHeight) {
     if (text == null || text === '') return y;
     const chars = String(text).split('');
@@ -335,14 +343,14 @@ Page({
     for (let i = 0; i < chars.length; i++) {
       const test = line + chars[i];
       if (ctx.measureText(test).width > maxWidth && line) {
-        ctx.fillText(line, x, yy);
+        if (!this._dry) ctx.fillText(line, x, yy);
         line = chars[i];
         yy += lineHeight;
       } else {
         line = test;
       }
     }
-    if (line) { ctx.fillText(line, x, yy); yy += lineHeight; }
+    if (line) { if (!this._dry) ctx.fillText(line, x, yy); yy += lineHeight; }
     return yy;
   }
 });
