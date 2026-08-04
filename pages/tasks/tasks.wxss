@@ -79,31 +79,17 @@
 .step-unit { font-size: 24rpx; color: #9aa1ad; margin-left: 14rpx; }
 
 .gen-btn { margin-top: 24rpx; }
+.prev-title { font-size: 26rpx; font-weight: 800; color: #6b7280; padding: 26rpx 24rpx 6rpx; }
 .btn-primary {
   background: linear-gradient(135deg, #5b8def, #6f6ef0);
   color: #fff; border-radius: 16rpx; font-size: 30rpx; font-weight: 700; padding: 20rpx 0;
 }
-
-/* 练习区头部 */
-.practice-head {
-  display: flex; align-items: center; justify-content: space-between;
-  background: linear-gradient(135deg, #5b8def, #6f6ef0);
-  border-radius: 20rpx; padding: 22rpx 26rpx; margin: 8rpx 0 18rpx;
-}
-.ph-title { font-size: 30rpx; font-weight: 800; color: #fff; }
-.ph-right { display: flex; align-items: center; }
-.ph-reveal {
-  font-size: 24rpx; color: #fff; background: rgba(255,255,255,0.22);
-  padding: 10rpx 20rpx; border-radius: 24rpx; margin-right: 16rpx;
-}
-.ph-back { font-size: 24rpx; color: #fff; }
 
 /* 题目卡 */
 .qcard { border-left: 8rpx solid #5b6ef0; }
 .q-top { display: flex; justify-content: space-between; align-items: center; gap: 12rpx; }
 .q-num { font-size: 26rpx; font-weight: 800; color: #5b6ef0; flex: none; }
 .q-tag { font-size: 21rpx; color: #9aa1ad; flex: 1; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-.q-tip { font-size: 22rpx; color: #9aa1ad; flex: none; }
 .q-stem { font-size: 30rpx; color: #2b2f38; line-height: 1.5; margin: 14rpx 0 18rpx; white-space: pre-wrap; }
 
 .q-opts { display: flex; flex-direction: column; }

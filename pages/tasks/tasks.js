@@ -80,11 +80,10 @@ Page({
     this.buildRoi(cur, snap);
     this.inited = true;
 
-    // 从「详细汇报-去练习」进来：精确锁定该考点并自动开始
+    // 从「详细汇报-去练习」进来：精确锁定该考点（由用户点「生成可打印图片」出图）
     if (this.paramPoint) {
       const cps = this.data.corePoints.map(c => ({ ...c, picked: c.point === this.paramPoint }));
       this.setData({ corePoints: cps, currentSubject: cur });
-      this.start();
     }
   },
 
@@ -173,8 +172,9 @@ Page({
   dec() { this.setData({ quantity: Math.max(2, this.data.quantity - 1) }); },
   inc() { this.setData({ quantity: Math.min(10, this.data.quantity + 1) }); },
 
-  start() {
-    // 目标考点：优先用选中的核心扣分项（智能提分）；若都没选则用手动下拉
+  // 智能提分练习：一键生成可打印图片（同屏含答案预览）
+  savePracticeImage() {
+    if (this.data.saving) return;
     let targets = this.data.corePoints.filter(c => c.picked && c.hasBank);
     if (!targets.length) {
       const m = this.data.items[this.data.manualIndex];
@@ -209,29 +209,47 @@ Page({
         explain: q.explain
       };
     });
-    this.setData({ questions, showing: true, reveal: questions.map(() => false) });
-  },
+    this.setData({ questions });
 
-  toggleReveal(e) {
-    const i = +e.currentTarget.dataset.idx;
-    const r = this.data.reveal.slice();
-    r[i] = !r[i];
-    this.setData({ reveal: r });
-  },
-  revealAll() { this.setData({ reveal: this.data.questions.map(() => true) }); },
-  back() { this.setData({ showing: false, questions: [], reveal: [] }); },
-
-  // 按 A4 比例把高价值任务卡绘成图片并保存到相册（一页可打印）
-  saveImage() {
-    if (!this.data.roiTasks.length || this.data.saving) return;
-    this.setData({ saving: true });
-    const tasks = this.data.roiTasks;
     const subj = this.data.subjects.find(s => s.key === this.data.currentSubject);
     const subjName = subj ? subj.name : '';
+    this.setupCanvas('伊菲学习 · 智能提分练习（' + subjName + '）', (ctx, y, M, W) => {
+      questions.forEach((q, qi) => {
+        ctx.fillStyle = '#1f6feb';
+        ctx.font = 'bold 16px sans-serif';
+        y = this.drawWrapped(ctx, '第 ' + (qi + 1) + ' 题 · ' + q.tag, M, y + 16, W - 2 * M, 22);
+        ctx.fillStyle = '#2b2f38';
+        ctx.font = '13px sans-serif';
+        y = this.drawWrapped(ctx, q.q, M, y + 15, W - 2 * M, 18);
+        y += 2;
+        (q.choices || []).forEach(o => {
+          ctx.fillStyle = o.correct ? '#1a8f4c' : '#2b2f38';
+          ctx.font = (o.correct ? 'bold ' : '') + '12px sans-serif';
+          y = this.drawWrapped(ctx, o.l + '. ' + o.t, M + 8, y + 15, W - 2 * M - 8, 16);
+        });
+        ctx.fillStyle = '#1a8f4c';
+        ctx.font = 'bold 12px sans-serif';
+        y = this.drawWrapped(ctx, '答案：' + q.answer, M, y + 15, W - 2 * M, 16);
+        if (q.explain) {
+          ctx.fillStyle = '#6b7180';
+          ctx.font = '12px sans-serif';
+          y = this.drawWrapped(ctx, '解析：' + q.explain, M + 8, y + 14, W - 2 * M - 8, 16);
+        }
+        ctx.strokeStyle = '#eef1f7';
+        ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke();
+        y += 14;
+      });
+      return y;
+    });
+  },
+
+  // 通用：初始化 A4 离屏画布（595×842 @72dpi），白底，回调绘制内容并自动存图
+  setupCanvas(title, drawContent) {
+    if (this.data.saving) return;
+    this.setData({ saving: true });
     const dpr = ((wx.getWindowInfo && wx.getWindowInfo().pixelRatio)
       || (wx.getSystemInfoSync && wx.getSystemInfoSync().pixelRatio) || 2);
     const W = 595, H = 842; // A4 @72dpi
-
     wx.createSelectorQuery().select('#printCanvas').fields({ node: true, size: true }).exec(res => {
       if (!res || !res[0] || !res[0].node) {
         wx.showToast({ title: '画布初始化失败', icon: 'none' });
@@ -250,12 +268,39 @@ Page({
       let y = M;
       ctx.fillStyle = '#2b2f38';
       ctx.font = 'bold 22px sans-serif';
-      y = this.drawWrapped(ctx, '伊菲学习 · 高价值任务卡（' + subjName + '）', M, y + 18, W - 2 * M, 28);
+      y = this.drawWrapped(ctx, title, M, y + 18, W - 2 * M, 28);
       ctx.strokeStyle = '#e2e7f0';
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(M, y + 4); ctx.lineTo(W - M, y + 4); ctx.stroke();
       y += 22;
 
+      drawContent(ctx, y, M, W);
+
+      wx.canvasToTempFilePath({
+        canvas,
+        success: r => {
+          wx.saveImageToPhotosAlbum({
+            filePath: r.tempFilePath,
+            success: () => wx.showToast({ title: '已保存到相册' }),
+            fail: e => wx.showToast({ title: '保存失败：' + (e.errMsg || ''), icon: 'none' }),
+            complete: () => this.setData({ saving: false })
+          });
+        },
+        fail: () => {
+          wx.showToast({ title: '生成图片失败', icon: 'none' });
+          this.setData({ saving: false });
+        }
+      });
+    });
+  },
+
+  // 高价值任务卡：一键生成可打印图片（一页 A4）
+  saveImage() {
+    if (!this.data.roiTasks.length) return;
+    const tasks = this.data.roiTasks;
+    const subj = this.data.subjects.find(s => s.key === this.data.currentSubject);
+    const subjName = subj ? subj.name : '';
+    this.setupCanvas('伊菲学习 · 高价值任务卡（' + subjName + '）', (ctx, y, M, W) => {
       tasks.forEach(t => {
         ctx.fillStyle = '#1f6feb';
         ctx.font = 'bold 16px sans-serif';
@@ -277,22 +322,6 @@ Page({
         ctx.strokeStyle = '#eef1f7';
         ctx.beginPath(); ctx.moveTo(M, y + 2); ctx.lineTo(W - M, y + 2); ctx.stroke();
         y += 16;
-      });
-
-      wx.canvasToTempFilePath({
-        canvas,
-        success: r => {
-          wx.saveImageToPhotosAlbum({
-            filePath: r.tempFilePath,
-            success: () => wx.showToast({ title: '已保存到相册' }),
-            fail: e => wx.showToast({ title: '保存失败：' + (e.errMsg || ''), icon: 'none' }),
-            complete: () => this.setData({ saving: false })
-          });
-        },
-        fail: () => {
-          wx.showToast({ title: '生成图片失败', icon: 'none' });
-          this.setData({ saving: false });
-        }
       });
     });
   },
