@@ -142,8 +142,12 @@ Page({
     const n = Math.min(qty, pool.length);
     const fillPool = pool.filter(x => !x.q.options || x.q.type === 'fill');
     const choicePool = pool.filter(x => x.q.options && x.q.type !== 'fill');
-    let picked = this.shuffle(fillPool).slice(0, Math.min(n, fillPool.length));
-    if (picked.length < n) picked = picked.concat(this.shuffle(choicePool).slice(0, n - picked.length));
+    // 抽题加权（用户 08-04 需求 + 铁律 3.12）：practice 模式 fill 90% / choice 10%（写比认提分价值高，choice 仅作认知热身）；fill 不足用 choice 补满，choice 不足用 fill 补满
+    let fillN = Math.min(fillPool.length, Math.max(1, Math.floor(n * 0.9)));
+    let picked = this.shuffle(fillPool).slice(0, fillN);
+    const choiceNeed = n - picked.length;
+    if (choiceNeed > 0) picked = picked.concat(this.shuffle(choicePool).slice(0, Math.min(choiceNeed, choicePool.length)));
+    if (picked.length < n) picked = picked.concat(this.shuffle(fillPool).slice(fillN).slice(0, n - picked.length));
     return picked.map((p, i) => {
       const q = p.q;
       const isFill = !q.options || q.type === 'fill';

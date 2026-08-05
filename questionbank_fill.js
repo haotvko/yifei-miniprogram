@@ -143,6 +143,244 @@ module.exports = {
     "explain": "“thirst” 在该句应变为 “thirsty”。",
     "type": "fill",
     "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：People in this village are very ______.（friend）",
+    "answer": "friendly",
+    "explain": "“friend” 在该句应变为 “friendly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The baby is really ______.（love）",
+    "answer": "lovely",
+    "explain": "“love” 在该句应变为 “lovely”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Reading is part of my ______ life.（day）",
+    "answer": "daily",
+    "explain": "“day” 在该句应变为 “daily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：We have a ______ meeting every Monday.（week）",
+    "answer": "weekly",
+    "explain": "“week” 在该句应变为 “weekly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：This magazine is published ______.（month）",
+    "answer": "monthly",
+    "explain": "“month” 在该句应变为 “monthly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The school holds a ______ sports meeting.（year）",
+    "answer": "yearly",
+    "explain": "“year” 在该句应变为 “yearly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：This is an ______ program for children.（education）",
+    "answer": "educational",
+    "explain": "“education” 在该句应变为 “educational”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：They celebrate the ______ festival together.（tradition）",
+    "answer": "traditional",
+    "explain": "“tradition” 在该句应变为 “traditional”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：I like ______ beauty best.（nature）",
+    "answer": "natural",
+    "explain": "“nature” 在该句应变为 “natural”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The city is rich in ______ heritage.（culture）",
+    "answer": "cultural",
+    "explain": "“culture” 在该句应变为 “cultural”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：She is a ______ girl.（music）",
+    "answer": "musical",
+    "explain": "“music” 在该句应变为 “musical”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：This is a ______ suggestion.（practice）",
+    "answer": "practical",
+    "explain": "“practice” 在该句应变为 “practical”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：We should follow a ______ method.（science）",
+    "answer": "scientific",
+    "explain": "“science” 在该句应变为 “scientific”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The young man is always ______.（energy）",
+    "answer": "energetic",
+    "explain": "“energy” 在该句应变为 “energetic”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The sky is ______ at sunset.（gold）",
+    "answer": "golden",
+    "explain": "“gold” 在该句应变为 “golden”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The chair is made of ______.（wood）",
+    "answer": "wooden",
+    "explain": "“wood” 在该句应变为 “wooden”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He was ______ with me for being late.（anger）",
+    "answer": "angry",
+    "explain": "“anger” 在该句应变为 “angry”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The classroom was ______ during the test.（silence）",
+    "answer": "silent",
+    "explain": "“silence” 在该句应变为 “silent”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Her parents are ______ of her.（pride）",
+    "answer": "proud",
+    "explain": "“pride” 在该句应变为 “proud”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The garden is ______ in spring.（colour）",
+    "answer": "colourful",
+    "explain": "“colour” 在该句应变为 “colourful”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：This tool is very ______ for cooking.（use）",
+    "answer": "useful",
+    "explain": "“use” 在该句应变为 “useful”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The cut on his arm is ______.（pain）",
+    "answer": "painful",
+    "explain": "“pain” 在该句应变为 “painful”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The village is quiet and ______.（peace）",
+    "answer": "peaceful",
+    "explain": "“peace” 在该句应变为 “peaceful”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The car has a ______ engine.（power）",
+    "answer": "powerful",
+    "explain": "“power” 在该句应变为 “powerful”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：We had a ______ time at the beach.（wonder）",
+    "answer": "wonderful",
+    "explain": "“wonder” 在该句应变为 “wonderful”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：That snake is ______.（poison）",
+    "answer": "poisonous",
+    "explain": "“poison” 在该句应变为 “poisonous”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The family is very ______.（wealth）",
+    "answer": "wealthy",
+    "explain": "“wealth” 在该句应变为 “wealthy”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Wash your hands; they are ______.（dirt）",
+    "answer": "dirty",
+    "explain": "“dirt” 在该句应变为 “dirty”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The soup is too ______.（salt）",
+    "answer": "salty",
+    "explain": "“salt” 在该句应变为 “salty”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：It is ______ to waste food.（fool）",
+    "answer": "foolish",
+    "explain": "“fool” 在该句应变为 “foolish”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Don't be so ______.（child）",
+    "answer": "childish",
+    "explain": "“child” 在该句应变为 “childish”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The party was really ______.（live）",
+    "answer": "lively",
+    "explain": "“live” 在该句应变为 “lively”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：May Day is a ______ holiday.（nation）",
+    "answer": "national",
+    "explain": "“nation” 在该句应变为 “national”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：This is my ______ opinion.（person）",
+    "answer": "personal",
+    "explain": "“person” 在该句应变为 “personal”。",
+    "type": "fill",
+    "match": "exact"
    }
   ],
   "词性转换·动→名": [
@@ -285,42 +523,380 @@ module.exports = {
     "explain": "“introduce” 在该句应变为 “introduction”。",
     "type": "fill",
     "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：They finally reached an ______ after the talk.（agree）",
+    "answer": "agreement",
+    "explain": "“agree” 在该句应变为 “agreement”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：I have great ______ in you.（believe）",
+    "answer": "belief",
+    "explain": "“believe” 在该句应变为 “belief”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The new ______ is very tall.（build）",
+    "answer": "building",
+    "explain": "“build” 在该句应变为 “building”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：It is hard to make a ______ between them.（choose）",
+    "answer": "choice",
+    "explain": "“choose” 在该句应变为 “choice”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：She is the ______ of the game.（win）",
+    "answer": "winner",
+    "explain": "“win” 在该句应变为 “winner”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The ______ of the old man saddened us.（die）",
+    "answer": "death",
+    "explain": "“die” 在该句应变为 “death”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：We should take ______ to save water.（act）",
+    "answer": "action",
+    "explain": "“act” 在该句应变为 “action”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Her ______ was clear and loud.（speak）",
+    "answer": "speech",
+    "explain": "“speak” 在该句应变为 “speech”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The ______ of the city is very fast.（grow）",
+    "answer": "growth",
+    "explain": "“grow” 在该句应变为 “growth”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：______ is power.（know）",
+    "answer": "knowledge",
+    "explain": "“know” 在该句应变为 “knowledge”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He loves ______ very much.（teach）",
+    "answer": "teaching",
+    "explain": "“teach” 在该句应变为 “teaching”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：______ is a lifelong task.（learn）",
+    "answer": "learning",
+    "explain": "“learn” 在该句应变为 “learning”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The ______ brought us many gifts.（visit）",
+    "answer": "visitor",
+    "explain": "“visit” 在该句应变为 “visitor”。",
+    "type": "fill",
+    "match": "exact"
+   }
+  ],
+  "词性转换·形→副/其他": [
+   {
+    "q": "用所给词的适当形式填空：Tell me ______ what happened.（exact）",
+    "answer": "exactly",
+    "explain": "“exact” 在该句应变为 “exactly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：She answered the question ______.（confident）",
+    "answer": "confidently",
+    "explain": "“confident” 在该句应变为 “confidently”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The news was ______ announced.（official）",
+    "answer": "officially",
+    "explain": "“official” 在该句应变为 “officially”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：______, we finished the work.（final）",
+    "answer": "finally",
+    "explain": "“final” 在该句应变为 “finally”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：It is ______ a matter of time.（simple）",
+    "answer": "simply",
+    "explain": "“simple” 在该句应变为 “simply”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He finished his homework ______.（quick）",
+    "answer": "quickly",
+    "explain": "“quick” 在该句应变为 “quickly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Read the question ______ before answering.（careful）",
+    "answer": "carefully",
+    "explain": "“careful” 在该句应变为 “carefully”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The children played ______ in the park.（happy）",
+    "answer": "happily",
+    "explain": "“happy” 在该句应变为 “happily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：______, no one was hurt in the accident.（lucky）",
+    "answer": "luckily",
+    "explain": "“lucky” 在该句应变为 “luckily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He looked at me ______.（angry）",
+    "answer": "angrily",
+    "explain": "“angry” 在该句应变为 “angrily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The boys talked ______ in the hall.（noisy）",
+    "answer": "noisily",
+    "explain": "“noisy” 在该句应变为 “noisily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The old man walked ______.（slow）",
+    "answer": "slowly",
+    "explain": "“slow” 在该句应变为 “slowly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：She can speak English very ______.（good）",
+    "answer": "well",
+    "explain": "“good” 在该句应变为 “well”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Work ______ and you will succeed.（hard）",
+    "answer": "hard",
+    "explain": "“hard” 在该句应变为 “hard”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He can solve the problem ______.（easy）",
+    "answer": "easily",
+    "explain": "“easy” 在该句应变为 “easily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He did ______ in the final exam.（bad）",
+    "answer": "badly",
+    "explain": "“bad” 在该句应变为 “badly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He came ______ to school this morning.（late）",
+    "answer": "late",
+    "explain": "“late” 在该句应变为 “late”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：She gets up ______ every day.（early）",
+    "answer": "early",
+    "explain": "“early” 在该句应变为 “early”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He runs ______ and wins the race.（fast）",
+    "answer": "fast",
+    "explain": "“fast” 在该句应变为 “fast”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The news spread ______ across the city.（wide）",
+    "answer": "widely",
+    "explain": "“wide” 在该句应变为 “widely”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He was ______ moved by the story.（deep）",
+    "answer": "deeply",
+    "explain": "“deep” 在该句应变为 “deeply”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：We ______ value your suggestion.（high）",
+    "answer": "highly",
+    "explain": "“high” 在该句应变为 “highly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：I ______ advise you to see a doctor.（strong）",
+    "answer": "strongly",
+    "explain": "“strong” 在该句应变为 “strongly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：It is ______ cold outside today.（real）",
+    "answer": "really",
+    "explain": "“real” 在该句应变为 “really”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The bees work ______ among the flowers.（busy）",
+    "answer": "busily",
+    "explain": "“busy” 在该句应变为 “busily”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：Please speak ______ in the library.（quiet）",
+    "answer": "quietly",
+    "explain": "“quiet” 在该句应变为 “quietly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：The young soldier fought ______.（brave）",
+    "answer": "bravely",
+    "explain": "“brave” 在该句应变为 “bravely”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：She spoke ______ to the baby.（soft）",
+    "answer": "softly",
+    "explain": "“soft” 在该句应变为 “softly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：He looked at the broken toy ______.（sad）",
+    "answer": "sadly",
+    "explain": "“sad” 在该句应变为 “sadly”。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "用所给词的适当形式填空：You should ask for help ______.（polite）",
+    "answer": "politely",
+    "explain": "“polite” 在该句应变为 “politely”。",
+    "type": "fill",
+    "match": "exact"
    }
   ]
  },
  "math": {
   "符号管理（负号奇偶/去括号分配）": [
    {
-    "q": "化简：-( 3 - 8 ) = ?",
-    "answer": "5",
+    "q": "化简：-( 2 - 13 ) = ?",
+    "answer": "11",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 2 - 7 ) = ?",
-    "answer": "5",
+    "q": "化简：-( 2 - 12 ) = ?",
+    "answer": "10",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 5 - 11 ) = ?",
-    "answer": "6",
+    "q": "化简：-( 3 - 14 ) = ?",
+    "answer": "11",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 4 - 9 ) = ?",
-    "answer": "5",
+    "q": "化简：-( 3 - 14 ) = ?",
+    "answer": "11",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 6 - 13 ) = ?",
-    "answer": "7",
+    "q": "化简：-( 2 - 10 ) = ?",
+    "answer": "8",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 2 - 13 ) = ?",
+    "answer": "11",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 5 - 14 ) = ?",
+    "answer": "9",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 6 - 10 ) = ?",
+    "answer": "4",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 1 - 13 ) = ?",
+    "answer": "12",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 7 - 16 ) = ?",
+    "answer": "9",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
@@ -333,29 +909,134 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "化简：-( 8 - 15 ) = ?",
-    "answer": "7",
+    "q": "化简：-( 2 - 4 ) = ?",
+    "answer": "2",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 3 - 12 ) = ?",
+    "q": "化简：-( 2 - 11 ) = ?",
     "answer": "9",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 5 - 9 ) = ?",
+    "q": "化简：-( 3 - 14 ) = ?",
+    "answer": "11",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 1 - 3 ) = ?",
+    "answer": "2",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 4 - 5 ) = ?",
+    "answer": "1",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 7 - 9 ) = ?",
+    "answer": "2",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 3 - 9 ) = ?",
+    "answer": "6",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 8 - 12 ) = ?",
     "answer": "4",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：-( 7 - 14 ) = ?",
+    "q": "化简：-( 3 - 7 ) = ?",
+    "answer": "4",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 8 - 13 ) = ?",
+    "answer": "5",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 8 - 10 ) = ?",
+    "answer": "2",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 5 - 16 ) = ?",
+    "answer": "11",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 9 - 18 ) = ?",
+    "answer": "9",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 5 - 8 ) = ?",
+    "answer": "3",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 4 - 8 ) = ?",
+    "answer": "4",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 9 - 10 ) = ?",
+    "answer": "1",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 1 - 10 ) = ?",
+    "answer": "9",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 4 - 11 ) = ?",
     "answer": "7",
+    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：-( 4 - 7 ) = ?",
+    "answer": "3",
     "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
     "type": "fill",
     "match": "exact"
@@ -363,99 +1044,15 @@ module.exports = {
   ],
   "指数法则混淆": [
    {
-    "q": "化简：x^2 · x^3 = ?",
-    "answer": "x^5",
-    "explain": "同底数幂相乘，指数相加。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：(x^2)^3 = ?",
-    "answer": "x^6",
-    "explain": "幂的乘方，指数相乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：x^3 · x^4 = ?",
-    "answer": "x^7",
-    "explain": "同底数幂相乘，指数相加。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：(x^3)^4 = ?",
-    "answer": "x^12",
-    "explain": "幂的乘方，指数相乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：x^2 · x^5 = ?",
-    "answer": "x^7",
-    "explain": "同底数幂相乘，指数相加。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：(x^2)^5 = ?",
-    "answer": "x^10",
-    "explain": "幂的乘方，指数相乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：x^4 · x^2 = ?",
-    "answer": "x^6",
-    "explain": "同底数幂相乘，指数相加。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：(x^4)^2 = ?",
+    "q": "化简：x^6 · x^2 = ?",
     "answer": "x^8",
-    "explain": "幂的乘方，指数相乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：x^3 · x^3 = ?",
-    "answer": "x^6",
     "explain": "同底数幂相乘，指数相加。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：(x^3)^3 = ?",
-    "answer": "x^9",
-    "explain": "幂的乘方，指数相乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：x^5 · x^2 = ?",
-    "answer": "x^7",
-    "explain": "同底数幂相乘，指数相加。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：(x^5)^2 = ?",
-    "answer": "x^10",
-    "explain": "幂的乘方，指数相乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：x^2 · x^2 = ?",
-    "answer": "x^4",
-    "explain": "同底数幂相乘，指数相加。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：(x^2)^2 = ?",
-    "answer": "x^4",
+    "q": "化简：(x^6)^2 = ?",
+    "answer": "x^12",
     "explain": "幂的乘方，指数相乘。",
     "type": "fill",
     "match": "exact"
@@ -475,29 +1072,183 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "化简：x^4 · x^3 = ?",
-    "answer": "x^7",
+    "q": "化简：x^2 · x^3 = ?",
+    "answer": "x^5",
     "explain": "同底数幂相乘，指数相加。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：(x^4)^3 = ?",
-    "answer": "x^12",
+    "q": "化简：(x^2)^3 = ?",
+    "answer": "x^6",
     "explain": "幂的乘方，指数相乘。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：x^6 · x^2 = ?",
+    "q": "化简：x^6 · x^5 = ?",
+    "answer": "x^11",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^6)^5 = ?",
+    "answer": "x^30",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^4 · x^4 = ?",
     "answer": "x^8",
     "explain": "同底数幂相乘，指数相加。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：(x^6)^2 = ?",
+    "q": "化简：(x^4)^4 = ?",
+    "answer": "x^16",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^3 · x^3 = ?",
+    "answer": "x^6",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^3)^3 = ?",
+    "answer": "x^9",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^2 · x^5 = ?",
+    "answer": "x^7",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^2)^5 = ?",
+    "answer": "x^10",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^3 · x^3 = ?",
+    "answer": "x^6",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^3)^3 = ?",
+    "answer": "x^9",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^3 · x^4 = ?",
+    "answer": "x^7",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^3)^4 = ?",
     "answer": "x^12",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^6 · x^3 = ?",
+    "answer": "x^9",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^6)^3 = ?",
+    "answer": "x^18",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^5 · x^4 = ?",
+    "answer": "x^9",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^5)^4 = ?",
+    "answer": "x^20",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^4 · x^4 = ?",
+    "answer": "x^8",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^4)^4 = ?",
+    "answer": "x^16",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^2 · x^3 = ?",
+    "answer": "x^5",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^2)^3 = ?",
+    "answer": "x^6",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^4 · x^4 = ?",
+    "answer": "x^8",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^4)^4 = ?",
+    "answer": "x^16",
+    "explain": "幂的乘方，指数相乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：x^6 · x^4 = ?",
+    "answer": "x^10",
+    "explain": "同底数幂相乘，指数相加。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：(x^6)^4 = ?",
+    "answer": "x^24",
     "explain": "幂的乘方，指数相乘。",
     "type": "fill",
     "match": "exact"
@@ -505,23 +1256,37 @@ module.exports = {
   ],
   "分配律漏项": [
    {
-    "q": "化简：3(x + 4) = ?",
-    "answer": "3x+12|3x + 12",
-    "explain": "分配律：3(x+4)=3x+12，每项都要乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：2(x + 5) = ?",
-    "answer": "2x+10|2x + 10",
-    "explain": "分配律：2(x+5)=2x+10，每项都要乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
     "q": "化简：5(x + 3) = ?",
     "answer": "5x+15|5x + 15",
     "explain": "分配律：5(x+3)=5x+15，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：8(x + 6) = ?",
+    "answer": "8x+48|8x + 48",
+    "explain": "分配律：8(x+6)=8x+48，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：3(x + 2) = ?",
+    "answer": "3x+6|3x + 6",
+    "explain": "分配律：3(x+2)=3x+6，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：7(x + 2) = ?",
+    "answer": "7x+14|7x + 14",
+    "explain": "分配律：7(x+2)=7x+14，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：9(x + 7) = ?",
+    "answer": "9x+63|9x + 63",
+    "explain": "分配律：9(x+7)=9x+63，每项都要乘。",
     "type": "fill",
     "match": "exact"
    },
@@ -533,9 +1298,86 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "化简：6(x + 2) = ?",
-    "answer": "6x+12|6x + 12",
-    "explain": "分配律：6(x+2)=6x+12，每项都要乘。",
+    "q": "化简：7(x + 2) = ?",
+    "answer": "7x+14|7x + 14",
+    "explain": "分配律：7(x+2)=7x+14，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：2(x + 6) = ?",
+    "answer": "2x+12|2x + 12",
+    "explain": "分配律：2(x+6)=2x+12，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：3(x + 8) = ?",
+    "answer": "3x+24|3x + 24",
+    "explain": "分配律：3(x+8)=3x+24，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：5(x + 2) = ?",
+    "answer": "5x+10|5x + 10",
+    "explain": "分配律：5(x+2)=5x+10，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：7(x + 1) = ?",
+    "answer": "7x+7|7x + 7",
+    "explain": "分配律：7(x+1)=7x+7，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：5(x + 7) = ?",
+    "answer": "5x+35|5x + 35",
+    "explain": "分配律：5(x+7)=5x+35，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：6(x + 1) = ?",
+    "answer": "6x+6|6x + 6",
+    "explain": "分配律：6(x+1)=6x+6，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：5(x + 2) = ?",
+    "answer": "5x+10|5x + 10",
+    "explain": "分配律：5(x+2)=5x+10，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：2(x + 9) = ?",
+    "answer": "2x+18|2x + 18",
+    "explain": "分配律：2(x+9)=2x+18，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：4(x + 6) = ?",
+    "answer": "4x+24|4x + 24",
+    "explain": "分配律：4(x+6)=4x+24，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：4(x + 5) = ?",
+    "answer": "4x+20|4x + 20",
+    "explain": "分配律：4(x+5)=4x+20，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：6(x + 8) = ?",
+    "answer": "6x+48|6x + 48",
+    "explain": "分配律：6(x+8)=6x+48，每项都要乘。",
     "type": "fill",
     "match": "exact"
    },
@@ -547,6 +1389,62 @@ module.exports = {
     "match": "exact"
    },
    {
+    "q": "化简：7(x + 9) = ?",
+    "answer": "7x+63|7x + 63",
+    "explain": "分配律：7(x+9)=7x+63，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：4(x + 2) = ?",
+    "answer": "4x+8|4x + 8",
+    "explain": "分配律：4(x+2)=4x+8，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：9(x + 7) = ?",
+    "answer": "9x+63|9x + 63",
+    "explain": "分配律：9(x+7)=9x+63，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：6(x + 8) = ?",
+    "answer": "6x+48|6x + 48",
+    "explain": "分配律：6(x+8)=6x+48，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：4(x + 5) = ?",
+    "answer": "4x+20|4x + 20",
+    "explain": "分配律：4(x+5)=4x+20，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：5(x + 6) = ?",
+    "answer": "5x+30|5x + 30",
+    "explain": "分配律：5(x+6)=5x+30，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：9(x + 4) = ?",
+    "answer": "9x+36|9x + 36",
+    "explain": "分配律：9(x+4)=9x+36，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "化简：3(x + 5) = ?",
+    "answer": "3x+15|3x + 15",
+    "explain": "分配律：3(x+5)=3x+15，每项都要乘。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
     "q": "化简：8(x + 4) = ?",
     "answer": "8x+32|8x + 32",
     "explain": "分配律：8(x+4)=8x+32，每项都要乘。",
@@ -554,42 +1452,21 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "化简：3(x + 7) = ?",
-    "answer": "3x+21|3x + 21",
-    "explain": "分配律：3(x+7)=3x+21，每项都要乘。",
+    "q": "化简：7(x + 6) = ?",
+    "answer": "7x+42|7x + 42",
+    "explain": "分配律：7(x+6)=7x+42，每项都要乘。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "化简：5(x + 5) = ?",
-    "answer": "5x+25|5x + 25",
-    "explain": "分配律：5(x+5)=5x+25，每项都要乘。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "化简：9(x + 2) = ?",
-    "answer": "9x+18|9x + 18",
-    "explain": "分配律：9(x+2)=9x+18，每项都要乘。",
+    "q": "化简：6(x + 6) = ?",
+    "answer": "6x+36|6x + 36",
+    "explain": "分配律：6(x+6)=6x+36，每项都要乘。",
     "type": "fill",
     "match": "exact"
    }
   ],
   "完全平方变形与逆用": [
-   {
-    "q": "计算：(x + 3)^2 = ?",
-    "answer": "x^2+6x+9|x^2 + 6x + 9",
-    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×3x，常数项=9。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "计算：(x + 5)^2 = ?",
-    "answer": "x^2+10x+25|x^2 + 10x + 25",
-    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×5x，常数项=25。",
-    "type": "fill",
-    "match": "exact"
-   },
    {
     "q": "计算：(x + 7)^2 = ?",
     "answer": "x^2+14x+49|x^2 + 14x + 49",
@@ -598,23 +1475,9 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "计算：(x + 2)^2 = ?",
-    "answer": "x^2+4x+4|x^2 + 4x + 4",
-    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×2x，常数项=4。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "计算：(x + 4)^2 = ?",
-    "answer": "x^2+8x+16|x^2 + 8x + 16",
-    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×4x，常数项=16。",
-    "type": "fill",
-    "match": "exact"
-   },
-   {
-    "q": "计算：(x + 6)^2 = ?",
-    "answer": "x^2+12x+36|x^2 + 12x + 36",
-    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×6x，常数项=36。",
+    "q": "计算：(x + 8)^2 = ?",
+    "answer": "x^2+16x+64|x^2 + 16x + 64",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
     "type": "fill",
     "match": "exact"
    },
@@ -633,9 +1496,37 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "计算：(x + 9)^2 = ?",
-    "answer": "x^2+18x+81|x^2 + 18x + 81",
-    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×9x，常数项=81。",
+    "q": "计算：(x + 8)^2 = ?",
+    "answer": "x^2+16x+64|x^2 + 16x + 64",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 4)^2 = ?",
+    "answer": "x^2+8x+16|x^2 + 8x + 16",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×4x，常数项=16。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 2)^2 = ?",
+    "answer": "x^2+4x+4|x^2 + 4x + 4",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×2x，常数项=4。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 1)^2 = ?",
+    "answer": "x^2+2x+1|x^2 + 2x + 1",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×1x，常数项=1。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 3)^2 = ?",
+    "answer": "x^2+6x+9|x^2 + 6x + 9",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×3x，常数项=9。",
     "type": "fill",
     "match": "exact"
    },
@@ -645,9 +1536,156 @@ module.exports = {
     "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×10x，常数项=100。",
     "type": "fill",
     "match": "exact"
+   },
+   {
+    "q": "计算：(x + 8)^2 = ?",
+    "answer": "x^2+16x+64|x^2 + 16x + 64",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 3)^2 = ?",
+    "answer": "x^2+6x+9|x^2 + 6x + 9",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×3x，常数项=9。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 6)^2 = ?",
+    "answer": "x^2+12x+36|x^2 + 12x + 36",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×6x，常数项=36。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 4)^2 = ?",
+    "answer": "x^2+8x+16|x^2 + 8x + 16",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×4x，常数项=16。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 2)^2 = ?",
+    "answer": "x^2+4x+4|x^2 + 4x + 4",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×2x，常数项=4。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 7)^2 = ?",
+    "answer": "x^2+14x+49|x^2 + 14x + 49",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×7x，常数项=49。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 10)^2 = ?",
+    "answer": "x^2+20x+100|x^2 + 20x + 100",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×10x，常数项=100。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 7)^2 = ?",
+    "answer": "x^2+14x+49|x^2 + 14x + 49",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×7x，常数项=49。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 8)^2 = ?",
+    "answer": "x^2+16x+64|x^2 + 16x + 64",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 8)^2 = ?",
+    "answer": "x^2+16x+64|x^2 + 16x + 64",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 8)^2 = ?",
+    "answer": "x^2+16x+64|x^2 + 16x + 64",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 10)^2 = ?",
+    "answer": "x^2+20x+100|x^2 + 20x + 100",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×10x，常数项=100。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 1)^2 = ?",
+    "answer": "x^2+2x+1|x^2 + 2x + 1",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×1x，常数项=1。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 1)^2 = ?",
+    "answer": "x^2+2x+1|x^2 + 2x + 1",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×1x，常数项=1。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 3)^2 = ?",
+    "answer": "x^2+6x+9|x^2 + 6x + 9",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×3x，常数项=9。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 6)^2 = ?",
+    "answer": "x^2+12x+36|x^2 + 12x + 36",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×6x，常数项=36。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 3)^2 = ?",
+    "answer": "x^2+6x+9|x^2 + 6x + 9",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×3x，常数项=9。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 6)^2 = ?",
+    "answer": "x^2+12x+36|x^2 + 12x + 36",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×6x，常数项=36。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 7)^2 = ?",
+    "answer": "x^2+14x+49|x^2 + 14x + 49",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×7x，常数项=49。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 6)^2 = ?",
+    "answer": "x^2+12x+36|x^2 + 12x + 36",
+    "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×6x，常数项=36。",
+    "type": "fill",
+    "match": "exact"
    }
   ],
   "平方差公式": [
+   {
+    "q": "计算：(x + 8)(x - 8) = ?",
+    "answer": "x^2-64|x^2 - 64",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=64。",
+    "type": "fill",
+    "match": "exact"
+   },
    {
     "q": "计算：(x + 3)(x - 3) = ?",
     "answer": "x^2-9|x^2 - 9",
@@ -656,9 +1694,9 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "计算：(x + 5)(x - 5) = ?",
-    "answer": "x^2-25|x^2 - 25",
-    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=25。",
+    "q": "计算：(x + 7)(x - 7) = ?",
+    "answer": "x^2-49|x^2 - 49",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=49。",
     "type": "fill",
     "match": "exact"
    },
@@ -677,16 +1715,37 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "计算：(x + 6)(x - 6) = ?",
-    "answer": "x^2-36|x^2 - 36",
-    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=36。",
+    "q": "计算：(x + 5)(x - 5) = ?",
+    "answer": "x^2-25|x^2 - 25",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=25。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "计算：(x + 8)(x - 8) = ?",
-    "answer": "x^2-64|x^2 - 64",
-    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=64。",
+    "q": "计算：(x + 3)(x - 3) = ?",
+    "answer": "x^2-9|x^2 - 9",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=9。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 2)(x - 2) = ?",
+    "answer": "x^2-4|x^2 - 4",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=4。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 11)(x - 11) = ?",
+    "answer": "x^2-121|x^2 - 121",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=121。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 2)(x - 2) = ?",
+    "answer": "x^2-4|x^2 - 4",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=4。",
     "type": "fill",
     "match": "exact"
    },
@@ -694,6 +1753,27 @@ module.exports = {
     "q": "计算：(x + 5)(x - 5) = ?",
     "answer": "x^2-25|x^2 - 25",
     "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=25。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 10)(x - 10) = ?",
+    "answer": "x^2-100|x^2 - 100",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=100。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 2)(x - 2) = ?",
+    "answer": "x^2-4|x^2 - 4",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=4。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 11)(x - 11) = ?",
+    "answer": "x^2-121|x^2 - 121",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=121。",
     "type": "fill",
     "match": "exact"
    },
@@ -717,9 +1797,107 @@ module.exports = {
     "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=100。",
     "type": "fill",
     "match": "exact"
+   },
+   {
+    "q": "计算：(x + 4)(x - 4) = ?",
+    "answer": "x^2-16|x^2 - 16",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=16。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 2)(x - 2) = ?",
+    "answer": "x^2-4|x^2 - 4",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=4。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 7)(x - 7) = ?",
+    "answer": "x^2-49|x^2 - 49",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=49。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 11)(x - 11) = ?",
+    "answer": "x^2-121|x^2 - 121",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=121。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 8)(x - 8) = ?",
+    "answer": "x^2-64|x^2 - 64",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 5)(x - 5) = ?",
+    "answer": "x^2-25|x^2 - 25",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=25。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 4)(x - 4) = ?",
+    "answer": "x^2-16|x^2 - 16",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=16。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 10)(x - 10) = ?",
+    "answer": "x^2-100|x^2 - 100",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=100。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 9)(x - 9) = ?",
+    "answer": "x^2-81|x^2 - 81",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=81。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 8)(x - 8) = ?",
+    "answer": "x^2-64|x^2 - 64",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=64。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 10)(x - 10) = ?",
+    "answer": "x^2-100|x^2 - 100",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=100。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 11)(x - 11) = ?",
+    "answer": "x^2-121|x^2 - 121",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=121。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "计算：(x + 5)(x - 5) = ?",
+    "answer": "x^2-25|x^2 - 25",
+    "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=25。",
+    "type": "fill",
+    "match": "exact"
    }
   ],
   "因式分解-平方差": [
+   {
+    "q": "因式分解：x^2 - 49 = ?",
+    "answer": "(x-7)(x+7)|(x+7)(x-7)",
+    "explain": "x^2-49=(x-7)(x+7)。",
+    "type": "fill",
+    "match": "exact"
+   },
    {
     "q": "因式分解：x^2 - 4 = ?",
     "answer": "(x-2)(x+2)|(x+2)(x-2)",
@@ -742,9 +1920,44 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "因式分解：x^2 - 25 = ?",
-    "answer": "(x-5)(x+5)|(x+5)(x-5)",
-    "explain": "x^2-25=(x-5)(x+5)。",
+    "q": "因式分解：x^2 - 64 = ?",
+    "answer": "(x-8)(x+8)|(x+8)(x-8)",
+    "explain": "x^2-64=(x-8)(x+8)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 144 = ?",
+    "answer": "(x-12)(x+12)|(x+12)(x-12)",
+    "explain": "x^2-144=(x-12)(x+12)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 16 = ?",
+    "answer": "(x-4)(x+4)|(x+4)(x-4)",
+    "explain": "x^2-16=(x-4)(x+4)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 4 = ?",
+    "answer": "(x-2)(x+2)|(x+2)(x-2)",
+    "explain": "x^2-4=(x-2)(x+2)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 100 = ?",
+    "answer": "(x-10)(x+10)|(x+10)(x-10)",
+    "explain": "x^2-100=(x-10)(x+10)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 49 = ?",
+    "answer": "(x-7)(x+7)|(x+7)(x-7)",
+    "explain": "x^2-49=(x-7)(x+7)。",
     "type": "fill",
     "match": "exact"
    },
@@ -763,6 +1976,55 @@ module.exports = {
     "match": "exact"
    },
    {
+    "q": "因式分解：x^2 - 4 = ?",
+    "answer": "(x-2)(x+2)|(x+2)(x-2)",
+    "explain": "x^2-4=(x-2)(x+2)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 4 = ?",
+    "answer": "(x-2)(x+2)|(x+2)(x-2)",
+    "explain": "x^2-4=(x-2)(x+2)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 4 = ?",
+    "answer": "(x-2)(x+2)|(x+2)(x-2)",
+    "explain": "x^2-4=(x-2)(x+2)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 36 = ?",
+    "answer": "(x-6)(x+6)|(x+6)(x-6)",
+    "explain": "x^2-36=(x-6)(x+6)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 36 = ?",
+    "answer": "(x-6)(x+6)|(x+6)(x-6)",
+    "explain": "x^2-36=(x-6)(x+6)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 16 = ?",
+    "answer": "(x-4)(x+4)|(x+4)(x-4)",
+    "explain": "x^2-16=(x-4)(x+4)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 4 = ?",
+    "answer": "(x-2)(x+2)|(x+2)(x-2)",
+    "explain": "x^2-4=(x-2)(x+2)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
     "q": "因式分解：x^2 - 64 = ?",
     "answer": "(x-8)(x+8)|(x+8)(x-8)",
     "explain": "x^2-64=(x-8)(x+8)。",
@@ -770,16 +2032,65 @@ module.exports = {
     "match": "exact"
    },
    {
-    "q": "因式分解：x^2 - 81 = ?",
-    "answer": "(x-9)(x+9)|(x+9)(x-9)",
-    "explain": "x^2-81=(x-9)(x+9)。",
+    "q": "因式分解：x^2 - 4 = ?",
+    "answer": "(x-2)(x+2)|(x+2)(x-2)",
+    "explain": "x^2-4=(x-2)(x+2)。",
     "type": "fill",
     "match": "exact"
    },
    {
-    "q": "因式分解：x^2 - 100 = ?",
-    "answer": "(x-10)(x+10)|(x+10)(x-10)",
-    "explain": "x^2-100=(x-10)(x+10)。",
+    "q": "因式分解：x^2 - 144 = ?",
+    "answer": "(x-12)(x+12)|(x+12)(x-12)",
+    "explain": "x^2-144=(x-12)(x+12)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 25 = ?",
+    "answer": "(x-5)(x+5)|(x+5)(x-5)",
+    "explain": "x^2-25=(x-5)(x+5)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 121 = ?",
+    "answer": "(x-11)(x+11)|(x+11)(x-11)",
+    "explain": "x^2-121=(x-11)(x+11)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 64 = ?",
+    "answer": "(x-8)(x+8)|(x+8)(x-8)",
+    "explain": "x^2-64=(x-8)(x+8)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 25 = ?",
+    "answer": "(x-5)(x+5)|(x+5)(x-5)",
+    "explain": "x^2-25=(x-5)(x+5)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 144 = ?",
+    "answer": "(x-12)(x+12)|(x+12)(x-12)",
+    "explain": "x^2-144=(x-12)(x+12)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 36 = ?",
+    "answer": "(x-6)(x+6)|(x+6)(x-6)",
+    "explain": "x^2-36=(x-6)(x+6)。",
+    "type": "fill",
+    "match": "exact"
+   },
+   {
+    "q": "因式分解：x^2 - 25 = ?",
+    "answer": "(x-5)(x+5)|(x+5)(x-5)",
+    "explain": "x^2-25=(x-5)(x+5)。",
     "type": "fill",
     "match": "exact"
    },

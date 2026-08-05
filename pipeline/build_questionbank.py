@@ -662,22 +662,72 @@ V2N_FILL = [
     ("express", "expression", "There was a happy ______ on his face."),
     ("explain", "explanation", "Please give me an ______."),
     ("introduce", "introduction", "Let me give a brief ______ of our school."),
+    ("agree", "agreement", "They finally reached an ______ after the talk."),
+    ("believe", "belief", "I have great ______ in you."),
+    ("build", "building", "The new ______ is very tall."),
+    ("choose", "choice", "It is hard to make a ______ between them."),
+    ("win", "winner", "She is the ______ of the game."),
+    ("die", "death", "The ______ of the old man saddened us."),
+    ("act", "action", "We should take ______ to save water."),
+    ("speak", "speech", "Her ______ was clear and loud."),
+    ("grow", "growth", "The ______ of the city is very fast."),
+    ("know", "knowledge", "______ is power."),
+    ("teach", "teaching", "He loves ______ very much."),
+    ("learn", "learning", "______ is a lifelong task."),
+    ("visit", "visitor", "The ______ brought us many gifts."),
+]
+
+# 形→副 / 其他 fill 样例（point=词性转换·形→副/其他；题库暂未建该 point，扩题时同步建）
+A2ADV_FILL = [
+    ("exact", "exactly", "Tell me ______ what happened."),
+    ("confident", "confidently", "She answered the question ______."),
+    ("official", "officially", "The news was ______ announced."),
+    ("final", "finally", "______, we finished the work."),
+    ("simple", "simply", "It is ______ a matter of time."),
+    ("quick", "quickly", "He finished his homework ______."),
+    ("careful", "carefully", "Read the question ______ before answering."),
+    ("happy", "happily", "The children played ______ in the park."),
+    ("lucky", "luckily", "______, no one was hurt in the accident."),
+    ("angry", "angrily", "He looked at me ______."),
+    ("noisy", "noisily", "The boys talked ______ in the hall."),
+    ("slow", "slowly", "The old man walked ______."),
+    ("good", "well", "She can speak English very ______."),
+    ("hard", "hard", "Work ______ and you will succeed."),
+    ("easy", "easily", "He can solve the problem ______."),
+    ("bad", "badly", "He did ______ in the final exam."),
+    ("late", "late", "He came ______ to school this morning."),
+    ("early", "early", "She gets up ______ every day."),
+    ("fast", "fast", "He runs ______ and wins the race."),
+    ("wide", "widely", "The news spread ______ across the city."),
+    ("deep", "deeply", "He was ______ moved by the story."),
+    ("high", "highly", "We ______ value your suggestion."),
+    ("strong", "strongly", "I ______ advise you to see a doctor."),
+    ("real", "really", "It is ______ cold outside today."),
+    ("busy", "busily", "The bees work ______ among the flowers."),
+    ("quiet", "quietly", "Please speak ______ in the library."),
+    ("brave", "bravely", "The young soldier fought ______."),
+    ("soft", "softly", "She spoke ______ to the baby."),
+    ("sad", "sadly", "He looked at the broken toy ______."),
+    ("polite", "politely", "You should ask for help ______."),
 ]
 
 # 动→名选择题仍用上方 v2n（60 题）；V2N_FILL 仅用于 fill 产出型（见 build_fill_bank）。
 
 
 def gen_math_fill():
-    """数学 fill：写出结果。answer 用 | 分隔等价形式（渲染端去空格+小写归一后比对）。"""
+    """数学 fill：写出结果，每考点 30 题。answer 用 | 分隔等价形式。"""
     qs = []
-    # 符号管理
-    for a, b in [(3, 8), (2, 7), (5, 11), (4, 9), (6, 13), (1, 6), (8, 15), (3, 12), (5, 9), (7, 14)]:
+    # 符号管理（30）
+    for _ in range(30):
+        a = random.randint(1, 9)
+        b = random.randint(a + 1, a + 12)
         qs.append({"q": f"化简：-( {a} - {b} ) = ?",
                    "answer": str(b - a),
                    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
                    "type": "fill", "match": "exact"})
-    # 指数法则
-    for m, n in [(2, 3), (3, 4), (2, 5), (4, 2), (3, 3), (5, 2), (2, 2), (3, 5), (4, 3), (6, 2)]:
+    # 指数法则（30 = 15 组 x 2）
+    for _ in range(15):
+        m, n = random.randint(2, 6), random.randint(2, 5)
         qs.append({"q": f"化简：x^{m} · x^{n} = ?",
                    "answer": f"x^{m+n}",
                    "explain": "同底数幂相乘，指数相加。",
@@ -686,26 +736,30 @@ def gen_math_fill():
                    "answer": f"x^{m*n}",
                    "explain": "幂的乘方，指数相乘。",
                    "type": "fill", "match": "exact"})
-    # 分配律
-    for a, c in [(3, 4), (2, 5), (5, 3), (4, 6), (6, 2), (7, 3), (8, 4), (3, 7), (5, 5), (9, 2)]:
+    # 分配律（30）
+    for _ in range(30):
+        a, c = random.randint(2, 9), random.randint(1, 9)
         qs.append({"q": f"化简：{a}(x + {c}) = ?",
                    "answer": f"{a}x+{a*c}|{a}x + {a*c}",
                    "explain": f"分配律：{a}(x+{c})={a}x+{a*c}，每项都要乘。",
                    "type": "fill", "match": "exact"})
-    # 完全平方
-    for n in [3, 5, 7, 2, 4, 6, 8, 1, 9, 10]:
+    # 完全平方（30）
+    for _ in range(30):
+        n = random.randint(1, 10)
         qs.append({"q": f"计算：(x + {n})^2 = ?",
                    "answer": f"x^2+{2*n}x+{n*n}|x^2 + {2*n}x + {n*n}",
                    "explain": f"(x±a)^2=x^2±2ax+a^2：中间项=2×{n}x，常数项={n*n}。",
                    "type": "fill", "match": "exact"})
-    # 平方差
-    for a, b in [(3, 2), (5, 1), (4, 3), (7, 2), (6, 5), (8, 3), (5, 4), (9, 2), (3, 1), (10, 7)]:
+    # 平方差（30）
+    for _ in range(30):
+        a = random.randint(2, 11)
         qs.append({"q": f"计算：(x + {a})(x - {a}) = ?",
                    "answer": f"x^2-{a*a}|x^2 - {a*a}",
                    "explain": f"平方差公式：(x+a)(x-a)=x^2-a^2={a*a}。",
                    "type": "fill", "match": "exact"})
-    # 因式分解（平方差）
-    for a in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]:
+    # 因式分解·平方差（30）
+    for _ in range(30):
+        a = random.randint(2, 12)
         qs.append({"q": f"因式分解：x^2 - {a*a} = ?",
                    "answer": f"(x-{a})(x+{a})|(x+{a})(x-{a})",
                    "explain": f"x^2-{a*a}=(x-{a})(x+{a})。",
@@ -714,17 +768,18 @@ def gen_math_fill():
 
 
 def build_fill_bank():
-    """组装 fill 题库：english 词性转换（名→形/动→名）+ math 数学写出结果。"""
-    mq = gen_math_fill()   # 顺序: 符号10 / 指数20 / 分配10 / 完全平方10 / 平方差10 / 因式分解10
+    """组装 fill 题库：英语词性转换（名→形/动→名/形→副）+ 数学写出结果，每考点 ≥30。"""
+    mq = gen_math_fill()   # 顺序: 符号30 / 指数30 / 分配30 / 完全平方30 / 平方差30 / 因式分解30
     fb = {"english": {}, "math": {}}
-    fb["english"]["词性转换·名→形"] = build_fill_words(N2A_FILL[:20])   # 20 样例
-    fb["english"]["词性转换·动→名"] = build_fill_words(V2N_FILL[:20])   # 20 样例
-    fb["math"]["符号管理（负号奇偶/去括号分配）"] = mq[0:10]
-    fb["math"]["指数法则混淆"] = mq[10:30]
-    fb["math"]["分配律漏项"] = mq[30:40]
-    fb["math"]["完全平方变形与逆用"] = mq[40:50]
-    fb["math"]["平方差公式"] = mq[50:60]
-    fb["math"]["因式分解-平方差"] = mq[60:70]
+    fb["english"]["词性转换·名→形"] = build_fill_words(N2A_FILL)         # 55
+    fb["english"]["词性转换·动→名"] = build_fill_words(V2N_FILL)         # 33
+    fb["english"]["词性转换·形→副/其他"] = build_fill_words(A2ADV_FILL)    # 30
+    fb["math"]["符号管理（负号奇偶/去括号分配）"] = mq[0:30]
+    fb["math"]["指数法则混淆"] = mq[30:60]
+    fb["math"]["分配律漏项"] = mq[60:90]
+    fb["math"]["完全平方变形与逆用"] = mq[90:120]
+    fb["math"]["平方差公式"] = mq[120:150]
+    fb["math"]["因式分解-平方差"] = mq[150:180]
     return fb
 
 
