@@ -590,6 +590,39 @@ def gen_divpoly():
 bank["math"]["多项式除以单项式"] = gen_divpoly()
 
 
+# ---------------- 数学：单项式除以单项式（snapshot point 键一致，p18 实测 0.58 薄弱） ----------------
+def gen_divmono():
+    """单项式除以单项式：系数相除、指数相减、符号法则。键名=snapshot points「单项式除以单项式（p18 新证）」。"""
+    qs = []
+    for _ in range(60):
+        a = random.randint(2, 12)
+        den = random.choice([1, 2, 3, 4])
+        while a % den != 0:
+            den = random.choice([1, 2, 3, 4])
+        c = a // den
+        m = random.randint(3, 7)
+        n = random.randint(1, m - 1)  # 指数差 >=1，避免 x^0，保持七上水平
+        if random.random() < 0.5:
+            coeff = c
+            q = f"计算：({a}x^{m}) ÷ ({den}x^{n}) = ?"
+            wrong = [f"{a * den}x^{m - n}", f"{coeff}x^{m + n}", f"{c}x^{m // n}"]
+        else:
+            coeff = -c
+            q = f"计算：(-{a}x^{m}) ÷ ({den}x^{n}) = ?"
+            wrong = [f"{a * den}x^{m - n}", f"{coeff}x^{m + n}", f"-{c}x^{m * n}"]
+        opts = [f"{coeff}x^{m - n}"] + [w for w in wrong if w != f"{coeff}x^{m - n}"]
+        opts = list(dict.fromkeys(opts))[:4]
+        while len(opts) < 4:
+            opts.append(f"{coeff}x^{m - n + len(opts)}")
+        random.shuffle(opts)
+        qs.append({"q": q, "options": opts, "answer": f"{coeff}x^{m - n}",
+                   "explain": "单项式除以单项式：系数相除、同底数幂指数相减，负号按符号法则处理。"})
+    return qs
+
+
+bank["math"]["单项式除以单项式（p18 新证）"] = gen_divmono()
+
+
 # ---------------- 数学：分数系数合并同类项 ----------------
 def reduce(num, den):
     g = math.gcd(abs(num), abs(den))
@@ -764,12 +797,31 @@ def gen_math_fill():
                    "answer": f"(x-{a})(x+{a})|(x+{a})(x-{a})",
                    "explain": f"x^2-{a*a}=(x-{a})(x+{a})。",
                    "type": "fill", "match": "exact"})
+    # 单项式除以单项式（30，键名与 snapshot points 对齐）
+    for _ in range(30):
+        a = random.randint(2, 12)
+        den = random.choice([1, 2, 3, 4])
+        while a % den != 0:
+            den = random.choice([1, 2, 3, 4])
+        c = a // den
+        m = random.randint(3, 7)
+        n = random.randint(1, m - 1)
+        if random.random() < 0.5:
+            qs.append({"q": f"计算：({a}x^{m}) ÷ ({den}x^{n}) = ?",
+                       "answer": f"{c}x^{m-n}",
+                       "explain": "单项式除以单项式：系数相除、指数相减。",
+                       "type": "fill", "match": "exact"})
+        else:
+            qs.append({"q": f"计算：(-{a}x^{m}) ÷ ({den}x^{n}) = ?",
+                       "answer": f"-{c}x^{m-n}",
+                       "explain": "负号在前：系数相除取负、指数相减。",
+                       "type": "fill", "match": "exact"})
     return qs
 
 
 def build_fill_bank():
     """组装 fill 题库：英语词性转换（名→形/动→名/形→副）+ 数学写出结果，每考点 ≥30。"""
-    mq = gen_math_fill()   # 顺序: 符号30 / 指数30 / 分配30 / 完全平方30 / 平方差30 / 因式分解30
+    mq = gen_math_fill()   # 顺序: 符号30 / 指数30 / 分配30 / 完全平方30 / 平方差30 / 因式分解30 / 单项式除法30
     fb = {"english": {}, "math": {}}
     fb["english"]["词性转换·名→形"] = build_fill_words(N2A_FILL)         # 55
     fb["english"]["词性转换·动→名"] = build_fill_words(V2N_FILL)         # 33
@@ -780,6 +832,7 @@ def build_fill_bank():
     fb["math"]["完全平方变形与逆用"] = mq[90:120]
     fb["math"]["平方差公式"] = mq[120:150]
     fb["math"]["因式分解-平方差"] = mq[150:180]
+    fb["math"]["单项式除以单项式（p18 新证）"] = mq[180:210]
     return fb
 
 
