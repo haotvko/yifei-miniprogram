@@ -2,13 +2,16 @@
 保留 pending（待处理）与 _init 占位文档。分析结果已写回 Obsidian（唯一事实源），云端仅中转。
 用法：python cleanup_uploads.py   （可加 --dry 先看统计不删）
 """
-import subprocess, json, sys, argparse
+import os, subprocess, json, sys, argparse
 
 TCB = r"C:/Users/admin/.workbuddy/binaries/node/workspace/node_modules/@cloudbase/cli/bin/tcb"
+TCB_PY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tcb.py")
+PY = r"C:/Users/admin/.workbuddy/binaries/python/versions/3.13.12/python.exe"
 ENV = "cloud1-d6gvwf6q09e5e6577"
 
 def run(args, timeout=60):
-    r = subprocess.run(["node", TCB, *args], capture_output=True, text=True, timeout=timeout)
+    # 走 tcb.py 包装器：自动用 api_key 续期 + 绕过死代理，跨天无需浏览器授权
+    r = subprocess.run([PY, TCB_PY, *args], capture_output=True, text=True, timeout=timeout)
     return r.returncode, r.stdout, r.stderr
 
 def parse(out):

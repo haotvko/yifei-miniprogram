@@ -614,9 +614,7 @@ module.exports = {
     "explain": "“visit” 在该句应变为 “visitor”。",
     "type": "fill",
     "match": "exact"
-   }
-  ],
-  "词性转换·形→副/其他": [
+   },
    {
     "q": "用所给词的适当形式填空：Tell me ______ what happened.（exact）",
     "answer": "exactly",
@@ -1676,9 +1674,7 @@ module.exports = {
     "explain": "(x±a)^2=x^2±2ax+a^2：中间项=2×8x，常数项=64。",
     "type": "fill",
     "match": "exact"
-   }
-  ],
-  "平方差公式": [
+   },
    {
     "q": "计算：(x + 4)(x - 4) = ?",
     "answer": "x^2-16|x^2 - 16",
@@ -1888,9 +1884,7 @@ module.exports = {
     "explain": "平方差公式：(x+a)(x-a)=x^2-a^2=4。",
     "type": "fill",
     "match": "exact"
-   }
-  ],
-  "因式分解-平方差": [
+   },
    {
     "q": "因式分解：x^2 - 9 = ?",
     "answer": "(x-3)(x+3)|(x+3)(x-3)",
