@@ -748,18 +748,35 @@ A2ADV_FILL = [
 
 
 def gen_math_fill():
-    """数学 fill：写出结果，每考点 30 题。answer 用 | 分隔等价形式。"""
+    """数学 fill：写出结果。顺序: 符号60/指数60/分配60/完全平方30/平方差30/因式分解30/单项式除法60。
+    answer 用 | 分隔等价形式。"""
     qs = []
-    # 符号管理（30）
-    for _ in range(30):
+    # 符号管理（60 = 变体 x 15 轮 x 4 型）
+    for _ in range(15):
         a = random.randint(1, 9)
         b = random.randint(a + 1, a + 12)
+        # 型1: -(a - b) = b - a
         qs.append({"q": f"化简：-( {a} - {b} ) = ?",
                    "answer": str(b - a),
                    "explain": "括号前是负号，去括号后每一项变号：-(a-b)=b-a。",
                    "type": "fill", "match": "exact"})
-    # 指数法则（30 = 15 组 x 2）
-    for _ in range(15):
+        # 型2: -(a + b) = -a - b
+        qs.append({"q": f"化简：-( {a} + {b} ) = ?",
+                   "answer": f"-{a}-{b}|-{a} - {b}",
+                   "explain": "括号前是负号，去括号后每一项变号：-(a+b)=-a-b。",
+                   "type": "fill", "match": "exact"})
+        # 型3: -(-a - b) = a + b
+        qs.append({"q": f"化简：-( -{a} - {b} ) = ?",
+                   "answer": f"{a}+{b}|{a} + {b}",
+                   "explain": "负负得正：-(-a-b)=a+b。",
+                   "type": "fill", "match": "exact"})
+        # 型4: -(b - a) = a - b（数值化简）
+        qs.append({"q": f"化简：-( {b} - {a} ) = ?",
+                   "answer": str(a - b),
+                   "explain": "括号前是负号：-(b-a)=a-b。",
+                   "type": "fill", "match": "exact"})
+    # 指数法则（60 = 20 组 x 3 型：乘/幂/除）
+    for _ in range(20):
         m, n = random.randint(2, 6), random.randint(2, 5)
         qs.append({"q": f"化简：x^{m} · x^{n} = ?",
                    "answer": f"x^{m+n}",
@@ -769,12 +786,32 @@ def gen_math_fill():
                    "answer": f"x^{m*n}",
                    "explain": "幂的乘方，指数相乘。",
                    "type": "fill", "match": "exact"})
-    # 分配律（30）
-    for _ in range(30):
+        qs.append({"q": f"化简：x^{m+n} ÷ x^{n} = ?",
+                   "answer": f"x^{m}",
+                   "explain": "同底数幂相除，指数相减。",
+                   "type": "fill", "match": "exact"})
+    # 分配律（60 = 15 轮 x 4 型：正/负/变号/两项系数）
+    for _ in range(15):
         a, c = random.randint(2, 9), random.randint(1, 9)
+        # 型1: a(x + c)
         qs.append({"q": f"化简：{a}(x + {c}) = ?",
                    "answer": f"{a}x+{a*c}|{a}x + {a*c}",
                    "explain": f"分配律：{a}(x+{c})={a}x+{a*c}，每项都要乘。",
+                   "type": "fill", "match": "exact"})
+        # 型2: a(x - c)
+        qs.append({"q": f"化简：{a}(x - {c}) = ?",
+                   "answer": f"{a}x-{a*c}|{a}x - {a*c}",
+                   "explain": f"分配律：{a}(x-{c})={a}x-{a*c}，注意符号。",
+                   "type": "fill", "match": "exact"})
+        # 型3: -a(x + c)
+        qs.append({"q": f"化简：-{a}(x + {c}) = ?",
+                   "answer": f"-{a}x-{a*c}|-{a}x - {a*c}",
+                   "explain": f"分配律+符号：-{a}(x+{c})=-{a}x-{a*c}。",
+                   "type": "fill", "match": "exact"})
+        # 型4: a(2x + c)
+        qs.append({"q": f"化简：{a}(2x + {c}) = ?",
+                   "answer": f"{2*a}x+{a*c}|{2*a}x + {a*c}",
+                   "explain": f"分配律：{a}(2x+{c})={2*a}x+{a*c}，系数也相乘。",
                    "type": "fill", "match": "exact"})
     # 完全平方（30）
     for _ in range(30):
@@ -797,25 +834,22 @@ def gen_math_fill():
                    "answer": f"(x-{a})(x+{a})|(x+{a})(x-{a})",
                    "explain": f"x^2-{a*a}=(x-{a})(x+{a})。",
                    "type": "fill", "match": "exact"})
-    # 单项式除以单项式（30，键名与 snapshot points 对齐）
-    for _ in range(30):
+    # 单项式除以单项式（60，键名与 snapshot points 对齐）
+    for _ in range(60):
         a = random.randint(2, 12)
         den = random.choice([1, 2, 3, 4])
-        while a % den != 0:
+        while a % den != 0 or a == den:
             den = random.choice([1, 2, 3, 4])
         c = a // den
         m = random.randint(3, 7)
         n = random.randint(1, m - 1)
-        if random.random() < 0.5:
-            qs.append({"q": f"计算：({a}x^{m}) ÷ ({den}x^{n}) = ?",
-                       "answer": f"{c}x^{m-n}",
-                       "explain": "单项式除以单项式：系数相除、指数相减。",
-                       "type": "fill", "match": "exact"})
-        else:
-            qs.append({"q": f"计算：(-{a}x^{m}) ÷ ({den}x^{n}) = ?",
-                       "answer": f"-{c}x^{m-n}",
-                       "explain": "负号在前：系数相除取负、指数相减。",
-                       "type": "fill", "match": "exact"})
+        coeff = "" if c == 1 else str(c)      # 系数 1 不写出
+        neg = "-" if random.random() < 0.5 else ""
+        den_s = "" if den == 1 else str(den)  # 除数系数 1 不写出
+        qs.append({"q": f"计算：({neg}{a}x^{m}) ÷ ({den_s}x^{n}) = ?",
+                   "answer": f"{neg}{coeff}x^{m-n}",
+                   "explain": "单项式除以单项式：系数相除、指数相减。",
+                   "type": "fill", "match": "exact"})
     return qs
 
 
@@ -825,15 +859,15 @@ def build_fill_bank():
       - 英「词性转换·形→副/其他」→ 并入「词性转换·动→名」（同词性转换家族）
       - 数「平方差公式」「因式分解-平方差」→ 并入「完全平方变形与逆用」（同乘法公式/因式分解链）
     并入后键名与 snapshot points 100% 对齐，App 不再抽不到题。"""
-    mq = gen_math_fill()   # 顺序: 符号30 / 指数30 / 分配30 / 完全平方30 / 平方差30 / 因式分解30 / 单项式除法30
+    mq = gen_math_fill()   # 顺序: 符号60 / 指数60 / 分配60 / 完全平方30 / 平方差30 / 因式分解30 / 单项式除法60
     fb = {"english": {}, "math": {}}
     fb["english"]["词性转换·名→形"] = build_fill_words(N2A_FILL)         # 55
     fb["english"]["词性转换·动→名"] = build_fill_words(V2N_FILL) + build_fill_words(A2ADV_FILL)   # 33 + 30（并入形→副/其他）
-    fb["math"]["符号管理（负号奇偶/去括号分配）"] = mq[0:30]
-    fb["math"]["指数法则混淆"] = mq[30:60]
-    fb["math"]["分配律漏项"] = mq[60:90]
-    fb["math"]["完全平方变形与逆用"] = mq[90:120] + mq[120:150] + mq[150:180]   # 30 + 30 + 30（并入平方差/因式分解-平方差）
-    fb["math"]["单项式除以单项式（p18 新证）"] = mq[180:210]
+    fb["math"]["符号管理（负号奇偶/去括号分配）"] = mq[0:60]
+    fb["math"]["指数法则混淆"] = mq[60:120]
+    fb["math"]["分配律漏项"] = mq[120:180]
+    fb["math"]["完全平方变形与逆用"] = mq[180:210] + mq[210:240] + mq[240:270]   # 30 + 30 + 30（并入平方差/因式分解-平方差）
+    fb["math"]["单项式除以单项式（p18 新证）"] = mq[270:330]
     return fb
 
 
